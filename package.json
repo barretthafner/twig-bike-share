@@ -1,0 +1,11 @@
+{
+  "name": "open-bike-project",
+  "version": "1.0.0",
+  "description": "A open source bike sharing platform",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Barrett Hafner <barrett@hafnerindustries.com>",
+  "license": "MIT"
+}
