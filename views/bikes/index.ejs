@@ -1,0 +1,13 @@
+<% include ../partials/header %>
+
+<ul class="container">
+ <% bikes.forEach(function(bike){ %>
+    <li>
+      <p><%= bike.bikeId %></p>
+      <p><%= bike.bikeCode %></p>
+    </li>
+ <% }); %>
+
+</ul>
+
+<% include ../partials/footer %>

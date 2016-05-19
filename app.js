@@ -13,6 +13,14 @@ var User            = require("./models/User");
 // Connect Database
 mongoose.connect(process.env.OPENBIKEDBURL || "mongodb://localhost/open-bike-project");
 
+//
+//var newUser = new User({username: "test"});
+//User.register(newUser, "test", function(err, user){
+//    if(err){
+//      console.log(err);
+//     }
+//});
+
 
 var app = express();
 
@@ -33,6 +41,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+var middleware = require("./middleware");
 
 // Pass global middleware
 app.use(function(req, res, next){
@@ -47,6 +56,31 @@ app.use(express.static(__dirname + "/public"));
 app.get("/", function(req, res){
     res.render("index");
 });
+
+// handles login logic
+app.post("/login", passport.authenticate("local",
+     {  successRedirect: "/admin",
+        failureRedirect: "/"
+     }), function(req, res) {
+});
+
+// logout route
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/");
+});
+
+
+app.get("/admin", middleware.isLoggedIn ,function(req, res){
+  res.render("admin");
+});
+
+// Database seed
+var seedDb  = require("./seeds");
+seedDb();
+
+var bikeRoutes = require("./routes/bikes");
+app.use("/bikes", bikeRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function () {
   console.log("Server is running at: " + process.env.IP + ":" + process.env.PORT);
