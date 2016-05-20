@@ -48,9 +48,9 @@ app.use("/admin", adminRoutes);
 app.use("/bikes", bikeRoutes);
 app.use("/bike-users", bikeUserRoutes);
 
-//Database seed
-var seedDb  = require("./seeds");
-seedDb();
+////Database seed
+//var seedDb  = require("./seeds");
+//seedDb();
 
 // serve '/public' folder
 app.use(express.static(__dirname + "/public"));
