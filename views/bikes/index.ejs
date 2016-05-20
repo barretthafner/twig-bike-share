@@ -1,13 +1,29 @@
 <% include ../partials/header %>
 
-<ul class="container">
- <% bikes.forEach(function(bike){ %>
-    <li>
-      <p><%= bike.bikeId %></p>
-      <p><%= bike.bikeCode %></p>
-    </li>
- <% }); %>
 
-</ul>
+<div class="container">
+  <div class="row">
+    <a class="btn btn-primary btn-large" href="/bikes/new">Add a new Bike</a>
+  </div>
+
+
+  <div class="row">
+    <ul class="bike-list">
+      <% bikes.forEach(function(bike){ %>
+        <li>
+          <p><%= bike.id %></p>
+          <p><%= bike.code %></p>
+          <form
+            action="/bikes/<%= bike._id %>?_method=DELETE"
+            method="POST"
+            class="make-inline"
+          >
+            <button class="btn btn-xs btn-danger">Delete</button>
+          </form>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+</div>
 
 <% include ../partials/footer %>

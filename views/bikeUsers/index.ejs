@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <div class="row">
+    <a class="btn btn-primary btn-large" href="/bike-users/new">Add a new User</a>
+  </div>
+  <div class="row">
+    <ul class="bikeUser-list">
+      <% bikeUsers.forEach(function(user){ %>
+        <li>
+          <p><%= user.firstName + " " + user.lastName %></p>
+          <p><%= user.email %></p>
+          <p><%= user.phoneNumber %></p>
+        </li>
+        <form
+            action="/bike-users/<%= user._id %>?_method=DELETE"
+            method="POST"
+            class="make-inline"
+          >
+            <button class="btn btn-xs btn-danger">Delete</button>
+          </form>
+      <% }); %>
+    </ul>
+  </div>
+</div>
+
+<% include ../partials/footer %>

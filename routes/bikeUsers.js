@@ -1,49 +1,48 @@
 var express     = require("express"),
     router      = express.Router(),
     middleware  = require("../middleware"),
-    Bike        = require("../models/Bike");
+    BikeUser    = require("../models/BikeUser");
 
 
 // Index route
 router.get("/", middleware.isLoggedIn, function(req, res) {
-  Bike.find({}, function(err, bikes){
+  BikeUser.find({}, function(err, bikeUsers){
     if (err) {
       console.log(err);
       res.redirect("/admin");
     } else {
-      res.render("bikes/index", {bikes: bikes});
+      res.render("bikeUsers/index", {bikeUsers: bikeUsers});
     }
   });
 });
 
 // NEW route
 router.get("/new", middleware.isLoggedIn, function(req, res){
-  res.render("bikes/new");
+  res.render("bikeUsers/new");
 });
 
 // CREATE route
 router.post("/", middleware.isLoggedIn, function(req, res){
-  Bike.create(req.body.bike, function(err){
+  BikeUser.create(req.body.bikeUser, function(err){
     if(err) {
       console.log(err);
-      res.redirect("/bikes");
+      res.redirect("/bike-users");
     } else {
-      res.redirect("/bikes");
+      res.redirect("/bike-users");
     }
   });
 });
 
 // DESTROY route
 router.delete("/:id", middleware.isLoggedIn, function(req, res){
-  Bike.findByIdAndRemove(req.params.id, function(err){
+  BikeUser.findByIdAndRemove(req.params.id, function(err){
     if (err){
       console.log(err);
-      res.redirect("/bikes");
+      res.redirect("/bike-users");
     } else {
-      res.redirect("/bikes");
+      res.redirect("/bike-users");
     }
   });
 });
-
 
 module.exports = router;
