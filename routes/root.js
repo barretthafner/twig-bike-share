@@ -1,5 +1,6 @@
 var express     = require("express"),
-    router      = express.Router();
+    router      = express.Router(),
+    passport    = require("passport");
 
 // Root ("/") route
 router.get("/", function(req, res){

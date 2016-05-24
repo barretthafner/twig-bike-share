@@ -7,5 +7,4 @@ router.get("/", middleware.isLoggedIn ,function(req, res){
   res.render("admin");
 });
 
-
 module.exports = router;
