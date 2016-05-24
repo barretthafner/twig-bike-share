@@ -13,12 +13,9 @@
         <li>
           <p><%= bike.id %></p>
           <p><%= bike.code %></p>
-          <form
-            action="/bikes/<%= bike._id %>?_method=DELETE"
-            method="POST"
-            class="make-inline"
-          >
+          <form action="/bikes/<%= bike._id %>" method="POST" class="make-inline">
             <button class="btn btn-xs btn-danger">Delete</button>
+            <input type="hidden" name="_method" value="DELETE">
           </form>
         </li>
       <% }); %>

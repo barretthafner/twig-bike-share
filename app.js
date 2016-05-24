@@ -15,7 +15,14 @@ var User            = require("./models/User");
 var app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(methodOverride("_method"));
+app.use(methodOverride(function(req, res){
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}));
 
 
 //Express Session initilization for passport
@@ -41,12 +48,12 @@ app.use(function(req, res, next){
 var rootRoutes = require("./routes/root"),
     adminRoutes = require("./routes/admin"),
     bikeRoutes = require("./routes/bikes"),
-    bikeUserRoutes = require("./routes/bikeUsers");
+    subscriberRoutes = require("./routes/subscribers");
 
 app.use("/", rootRoutes);
 app.use("/admin", adminRoutes);
 app.use("/bikes", bikeRoutes);
-app.use("/bike-users", bikeUserRoutes);
+app.use("/subscribers", subscriberRoutes);
 
 ////Database seed
 //var seedDb  = require("./seeds");

@@ -2,23 +2,20 @@
 
 <div class="container">
   <div class="row">
-    <a class="btn btn-primary btn-large" href="/bike-users/new">Add a new User</a>
+    <a class="btn btn-primary btn-large" href="/subscribers/new">Add a new subscriber</a>
   </div>
   <div class="row">
-    <ul class="bikeUser-list">
-      <% bikeUsers.forEach(function(user){ %>
+    <ul class="subscriber-list">
+      <% subscribers.forEach(function(user){ %>
         <li>
           <p><%= user.firstName + " " + user.lastName %></p>
           <p><%= user.email %></p>
           <p><%= user.phoneNumber %></p>
         </li>
-        <form
-            action="/bike-users/<%= user._id %>?_method=DELETE"
-            method="POST"
-            class="make-inline"
-          >
+        <form action="/subscribers/<%= user._id %>" method="POST" class="make-inline">
             <button class="btn btn-xs btn-danger">Delete</button>
-          </form>
+            <input type="hidden" name="_method" value="DELETE">
+        </form>
       <% }); %>
     </ul>
   </div>

@@ -4,7 +4,7 @@ var express     = require("express"),
     Bike        = require("../models/Bike");
 
 
-// Index route
+// INDEX route
 router.get("/", middleware.isLoggedIn, function(req, res) {
   Bike.find({}, function(err, bikes){
     if (err) {

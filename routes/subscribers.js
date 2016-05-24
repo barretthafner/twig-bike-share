@@ -1,46 +1,46 @@
 var express     = require("express"),
     router      = express.Router(),
     middleware  = require("../middleware"),
-    BikeUser    = require("../models/BikeUser");
+    Subscriber    = require("../models/Subscriber");
 
 
-// Index route
+// INDEX route
 router.get("/", middleware.isLoggedIn, function(req, res) {
-  BikeUser.find({}, function(err, bikeUsers){
+  Subscriber.find({}, function(err, subscribers){
     if (err) {
       console.log(err);
       res.redirect("/admin");
     } else {
-      res.render("bikeUsers/index", {bikeUsers: bikeUsers});
+      res.render("subscribers/index", {subscribers: subscribers});
     }
   });
 });
 
 // NEW route
 router.get("/new", middleware.isLoggedIn, function(req, res){
-  res.render("bikeUsers/new");
+  res.render("subscribers/new");
 });
 
 // CREATE route
 router.post("/", middleware.isLoggedIn, function(req, res){
-  BikeUser.create(req.body.bikeUser, function(err){
+  Subscriber.create(req.body.subscriber, function(err){
     if(err) {
       console.log(err);
-      res.redirect("/bike-users");
+      res.redirect("/subscribers");
     } else {
-      res.redirect("/bike-users");
+      res.redirect("/subscribers");
     }
   });
 });
 
 // DESTROY route
 router.delete("/:id", middleware.isLoggedIn, function(req, res){
-  BikeUser.findByIdAndRemove(req.params.id, function(err){
+  Subscriber.findByIdAndRemove(req.params.id, function(err){
     if (err){
       console.log(err);
-      res.redirect("/bike-users");
+      res.redirect("/subscribers");
     } else {
-      res.redirect("/bike-users");
+      res.redirect("/subscribers");
     }
   });
 });

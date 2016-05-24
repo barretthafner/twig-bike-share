@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 var User = require("./models/User")
 var Bike = require("./models/Bike");
-var BikeUser = require("./models/BikeUser");
+var Subscriber = require("./models/Subscriber");
+var BikeUser = Subscriber;
 
 function seedDb() {
 
@@ -45,24 +46,30 @@ function seedDb() {
     }
   });
 
-  // clear and load BikeUsers
-  BikeUser.remove({}, function(err){
+  // clear and load Subscribers
+  Subscriber.remove({}, function(err){
     if(err){
       console.log(err);
     } else {
-      console.log("removed bike users!");
-      bikeUserData.forEach(function(bikeUser){
-        BikeUser.create(bikeUser, function(err, bikeUser){
+      console.log("removed subscriber!");
+      subscriberData.forEach(function(subscriber){
+        Subscriber.create(subscriber, function(err, subscriber){
           if (err){
             console.log(err);
           } else {
-            console.log("added bike user:" + bikeUser.email);
+            console.log("added subscriber:" + subscriber.email);
           }
         });
       });
     }
   });
 }
+
+BikeUser.remove({}, function(err) {
+  if (err) {
+    console.log(err);
+  }
+});
 
 var userData =
   [
@@ -85,7 +92,7 @@ var bikeData =
     { "id": 19, "code": "1212" }
   ]
 
-var bikeUserData =
+var subscriberData =
   [
     { "firstName": "Barrett", "lastName": "Hafner", "email": "thehaf@mail.com", "phoneNumber": "4052051180" },
     { "firstName": "Charley", "lastName": "Murphy", "email": "charley@themurphys.com", "phoneNumber": "6024458890" },

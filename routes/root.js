@@ -3,7 +3,11 @@ var express     = require("express"),
 
 // Root ("/") route
 router.get("/", function(req, res){
+  if (!req.isAuthenticated()) {
     res.render("index");
+  } else {
+    res.redirect("/admin");
+  }
 });
 
 // handles login logic
