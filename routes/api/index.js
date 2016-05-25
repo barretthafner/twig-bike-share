@@ -16,7 +16,7 @@ router.post("/voice/incoming", function(req, res){
 });
 
 router.post("/messaging/incoming", function(req, res){
-  console.log("got a message", req.body);
+  console.log("got a message", req.body.From, req.body.Body);
   
   // if (twilio.validateExpressRequest(req, config.authToken)){
   //   console.log("got a message", req);
