@@ -1,4 +1,4 @@
-var config = require('../../config');
+var config = require('../../config');ç
 // config.accountSid, config.authToken
 var client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
