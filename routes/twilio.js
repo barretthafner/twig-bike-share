@@ -26,7 +26,7 @@ router.post("/voice/incoming", function(req, res){
 });
 
 router.get("/test", middleware.isLoggedIn ,function(req, res){
-  twilioClient.sendSms("+15415433572", "hello world");
+  twilioClient.sendSms("+5415433572", "hello world");
   res.render("twilio/test");
 });
 
