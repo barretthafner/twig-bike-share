@@ -4,17 +4,19 @@ var express         = require("express"),
 var app = express();
 config.configure(app);
 
+
+
 var rootRoutes = require("./routes/root"),
     adminRoutes = require("./routes/admin"),
     bikeRoutes = require("./routes/bikes"),
     subscriberRoutes = require("./routes/subscribers"),
-    twilioRoutes = require("./routes/twilio");
+    apiRoutes = require("./routes/api");
 
 app.use("/", rootRoutes);
 app.use("/admin", adminRoutes);
 app.use("/bikes", bikeRoutes);
 app.use("/subscribers", subscriberRoutes);
-app.use("/twilio", twilioRoutes);
+app.use("/api", apiRoutes);
 
 ////Database seed
 //var seedDb  = require("./seeds");

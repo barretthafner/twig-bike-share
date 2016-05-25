@@ -12,8 +12,8 @@ middlewareObj.isLoggedIn = function(req, res, next){
 
 // Twilio middleware -------------------------------------------------------------------
 
-var twilioClient = require('../twilioClient');
-var admins = require('../twilioAdmins.json');
+var twilioClient = require('../modules/twilio/twilioClient');
+var admins = require('../modules/twilio/twilioAdmins.json');
 
 function formatMessage(errorToReport) {
   return '[This is a test] ALERT! It appears the server is' +

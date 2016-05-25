@@ -29,12 +29,6 @@ config.configure = function(expressApp) {
 
   mongoose.connect(config.dbUrl);
 
-  // Pass global middleware
-  app.use(function(req, res, next){
-      res.locals.currentUser = req.user;
-      next();
-  });
-
   // View Engine
   app.set("view engine", "ejs");
   // Body Parser
@@ -62,6 +56,12 @@ config.configure = function(expressApp) {
   passport.use(new LocalStrategy(User.authenticate()));
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
+  
+    // Pass global middleware
+  app.use(function(req, res, next){
+      res.locals.currentUser = req.user;
+      next();
+  });
 
   // Twilio -------------------------------------------------------------------
   var requiredConfig = [config.accountSid, config.authToken, config.sendingNumber];

@@ -1,8 +1,10 @@
-//var config = require('./config');
+var config = require('../../config');
 // config.accountSid, config.authToken
 var client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-module.exports.sendSms = function(to, message) {
+var twilioClient = {};
+
+twilioClient.sendSms = function(to, message) {
   client.messages.create({
     body: message,
     to: to,
@@ -18,3 +20,22 @@ module.exports.sendSms = function(to, message) {
     }
   });
 };
+
+twilioClient.makeCall = function (to) {
+  
+  client.makeCall({
+      to: to,
+      from: process.env.TWILIO_NUMBER
+      // url: url
+  }, function(err, message) {
+      console.log(err);
+      if (err) {
+        console.error('Could not notify administrator');
+        console.error(err);
+      } else {
+        console.log('Administrator notified');
+      }
+  });
+}
+
+module.exports = twilioClient;
