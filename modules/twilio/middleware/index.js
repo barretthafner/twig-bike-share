@@ -2,7 +2,7 @@ var middlewareObj = {};
 
 // Twilio middleware -------------------------------------------------------------------
 
-var twilioClient = require('../twilioClient');
+var twilioClient = require('../client');
 var admins = require('../twilioAdmins.json');
 
 function formatMessage(errorToReport) {

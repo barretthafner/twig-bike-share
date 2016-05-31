@@ -20,9 +20,12 @@ app.use("/bikes", bikeRoutes);
 app.use("/subscribers", subscriberRoutes);
 app.use("/api", apiRoutes);
 
-////Database seed
-//var seedDb  = require("./seeds");
-//seedDb();
+//Database seed
+if (process.argv[2] === "seed") {
+  var seedDb  = require("./seeds");
+  seedDb();
+}
+
 
 // serve '/public' folder
 app.use(express.static(__dirname + "/public"));
