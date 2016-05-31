@@ -4,8 +4,7 @@ var mongoose        = require("mongoose"),
     methodOverride  = require("method-override"),
     session         = require("express-session"),
     passport        = require("passport"),
-    LocalStrategy   = require("passport-local"),
-    middleware      = require("./middleware");
+    LocalStrategy   = require("passport-local");
 
 // Instantiate config object -------------------------------------------------------------------
 
@@ -17,9 +16,6 @@ config.ipAddress     = process.env.IP;
 config.port          = process.env.PORT;
 config.dbUrl         = process.env.OPENBIKEDBURL;
 config.appSecret     = process.env.OPENBIKESECRET;
-config.accountSid    = process.env.TWILIO_ACCOUNT_SID;
-config.authToken     = process.env.TWILIO_AUTH_TOKEN;
-config.sendingNumber = process.env.TWILIO_NUMBER;
 
 // Configure function -------------------------------------------------------------------
 
@@ -27,8 +23,8 @@ config.configure = function(expressApp) {
 
   var app = expressApp;
 
+  // Connect Database
   mongoose.connect(config.dbUrl);
-
   // View Engine
   app.set("view engine", "ejs");
   // Body Parser
@@ -56,29 +52,12 @@ config.configure = function(expressApp) {
   passport.use(new LocalStrategy(User.authenticate()));
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
-  
-    // Pass global middleware
+
+  // Pass global middleware
   app.use(function(req, res, next){
       res.locals.currentUser = req.user;
       next();
   });
-
-  // Twilio -------------------------------------------------------------------
-  var requiredConfig = [config.accountSid, config.authToken, config.sendingNumber];
-  var isConfigured = requiredConfig.every(function(configValue) {
-    return configValue || false;
-  });
-
-  if (!isConfigured) {
-    var errorMessage =
-      'TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TWILIO_NUMBER must be set.';
-
-    throw new Error(errorMessage);
-  }
-
-  // Mount middleware to notify Twilio of errors
-  app.use(middleware.twilioNotifyOnError);
-
 };
 
 // Export module -------------------------------------------------------------------

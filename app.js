@@ -1,8 +1,10 @@
-var express         = require("express"),
-    config          = require("./config");
+var express             = require("express"),
+    config              = require("./config")
+    messageModuleConfig = require("./modules/twilio/config");
 
 var app = express();
 config.configure(app);
+messageModuleConfig.configure(app);
 
 
 

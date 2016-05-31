@@ -1,15 +1,24 @@
-var config = require('../../config');
-// config.accountSid, config.authToken
-var client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+var config = require('./config');
+var accountSid = config.accountSid;
+var authToken  = config.authToken;
+var sendingNumber = config.sendingNumber;
+
+var client = require('twilio')(accountSid, authToken);
 
 var twilioClient = {};
+
+twilioClient.getData = function(req) {
+  var output = {};
+  output.body = req.body.Body;
+  output.from = req.body.From;
+  return output;
+};
 
 twilioClient.sendSms = function(to, message) {
   client.messages.create({
     body: message,
     to: to,
-    from: process.env.TWILIO_NUMBER
-    //from: config.sendingNumber
+    from: process.env.TWILIO_NUMBER //sendingNumber
     // mediaUrl: 'http://www.yourserver.com/someimage.png'
   }, function(err, data) {
     if (err) {
@@ -22,10 +31,10 @@ twilioClient.sendSms = function(to, message) {
 };
 
 twilioClient.makeCall = function (to) {
-  
+
   client.makeCall({
       to: to,
-      from: process.env.TWILIO_NUMBER
+      from: sendingNumber
       // url: url
   }, function(err, message) {
       console.log(err);
