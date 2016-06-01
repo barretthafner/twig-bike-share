@@ -8,15 +8,10 @@ var express       = require("express"),
 var Subscriber = require('../../models/Subscriber');
 var Bike       = require('../../models/Bike');
 
-//router.post("/voice/incoming", function(req, res){
-//  if (twilio.validateExpressRequest(req, config.authToken)){
-//    var resp = new twilio.TwimlResponse();
-//    resp.reject;
-//  }
-//  else {
-//      res.status(403).send('you are not twilio. Buzz off.');
-//  }
-//});
+router.post("/voice/incoming", function(req, res){
+  client.rejectCall(res);
+  console.log('call rejected');
+});
 
 router.post("/messaging/incoming", function(req, res){
 
@@ -40,19 +35,10 @@ router.post("/messaging/incoming", function(req, res){
       console.log(subscriber.firstName + " sent a message! It says: " + message.body);
     }
   });
-
-
-  // if (twilio.validateExpressRequest(req, config.authToken)){
-  //   console.log("got a message", req);
-  // }
-  // else {
-  //     res.status(403).send('you are not twilio. Buzz off.');
-  // }
 });
 
 router.get("/test", middleware.isLoggedIn ,function(req, res){
   client.sendSms("+15415433572", "hello world");
-  client.makeCall("+15415433572");
   res.render("twilio/test");
 });
 
