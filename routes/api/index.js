@@ -42,9 +42,8 @@ router.post("/messaging/incoming", function(req, res){
   }
 });
 
-router.get("/test", middleware.isLoggedIn ,function(req, res){
-  client.sendSms("+15415433572", "hello world");
-  res.render("twilio/test");
+router.get("/settings", middleware.isLoggedIn ,function(req, res){
+  res.render("api/settings");
 });
 
 module.exports = router;
