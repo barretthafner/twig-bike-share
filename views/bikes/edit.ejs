@@ -1,18 +1,18 @@
 <% include ../partials/header %>
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center">Create a New Bike</h1>
+        <h1 style="text-align: center">Edit Bike #: <% bike.bikeId %></h1>
         <div style="width: 30%; margin: 30px auto;">
-            <form action="/bikes/:id/update" method="POST">
+            <form action="/bikes/<%= bike.id%>" method="POST">
                 <div class="form-group">
-                    <input class="form-control" name="bike[id]" type="text" placeholder="2-digit ID">
-
+                    <input class="form-control" name="bike[bikeId]" type="text" value="<%= bike.bikeId %>">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="bike[code]" type="text" placeholder="4-digit code">
+                    <input class="form-control" name="bike[code]" type="text" value="<%= bike.code %>">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                    <input type="hidden" name="_method" value="PUT">
                 </div>
             </form>
             <a href="/bikes">Go Back</a>

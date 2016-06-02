@@ -33,8 +33,30 @@ router.post("/", middleware.isLoggedIn, function(req, res){
   });
 });
 
+// EDIT route
+router.get("/:bike_id/edit", middleware.isLoggedIn, function (req, res) {
+  Bike.findById(req.params.bike_id, function (err, bike) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("bikes/edit", { bike: bike })
+    }
+  });
+});
+
+// UPDATE route
+router.put("/:bike_id", middleware.isLoggedIn, function (req, res) {
+  Bike.findByIdAndUpdate(req.params.bike_id, req.body.bike, function (err, bike) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/bikes");
+    }
+  });
+});
+
 // DESTROY route
-router.delete("/:id", middleware.isLoggedIn, function(req, res){
+router.delete("/:bike_id", middleware.isLoggedIn, function(req, res){
   Bike.findByIdAndRemove(req.params.id, function(err){
     if (err){
       console.log(err);

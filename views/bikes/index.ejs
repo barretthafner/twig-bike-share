@@ -17,10 +17,10 @@
       </tr>
       <% bikes.forEach(function(bike){ %>
         <tr>
-          <td><%= bike.id %></td>
+          <td><%= bike.bikeId %></td>
           <td><%= bike.code %></td>
           <td>
-              <a href="/bikes/:id/edit" class="btn btn-xs btn-warning">Edit</a>
+              <a href="/bikes/<%= bike._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
           </td>
           <td>
             <form action="/bikes/<%= bike._id %>" method="POST" class="make-inline">
