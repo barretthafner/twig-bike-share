@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var User = require("./models/User")
 var Bike = require("./models/Bike");
 var Subscriber = require("./models/Subscriber");
-var shortid = require("shortid");
+var validationCode = require("./modules/validationCode");
 var BikeUser = Subscriber;
 
 function seedDb() {
@@ -58,11 +58,10 @@ function seedDb() {
           if (err){
             console.log(err);
           } else {
-            subscriber.validationCode = "$" + shortid.generate();
+            subscriber.validationCode = validationCode.generate();
             subscriber.save();
             console.log("added subscriber:" + subscriber.email);
             console.log("validation code:" + subscriber.validationCode);
-            console.log(subscriber.active);
           }
         });
       });

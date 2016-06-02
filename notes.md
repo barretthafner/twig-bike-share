@@ -7,6 +7,7 @@
 * Clean up design
 * Add settings in admin panel
 * Create and edit administrators
+* Add flash messages
 
 # Nice to have
 * Regenerate validation code to change phone #

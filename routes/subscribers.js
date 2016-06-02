@@ -1,6 +1,7 @@
 var express     = require("express"),
     router      = express.Router(),
     middleware  = require("../middleware"),
+    validationCode     = require("../modules/validationCode"),
     Subscriber    = require("../models/Subscriber");
 
 
@@ -16,14 +17,19 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
   });
 });
 
-// NEW route
-router.get("/new", middleware.isLoggedIn, function(req, res){
-  res.render("subscribers/new");
+// INVITE route
+router.get("/invite", middleware.isLoggedIn, function(req, res){
+  res.render("subscribers/invite");
 });
 
-// CREATE route
+// SEND INVITATION route
 router.post("/", middleware.isLoggedIn, function(req, res){
-  Subscriber.create(req.body.subscriber, function(err){
+
+  var subscriber = req.body.subscriber;
+  subscriber.validationCode = validationCode.generate();
+  subscriber.active = false;
+
+  Subscriber.create(subscriber, function(err){
     if(err) {
       console.log(err);
       res.redirect("/subscribers");
@@ -68,22 +74,5 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res){
   });
 });
 
-// INVITE route
-router.get("/invite", middleware.isLoggedIn, function(req, res){
-  res.render("subscribers/invite");
-});
-
-// SEND INVITATION
-// CREATE route
-router.post("/", middleware.isLoggedIn, function(req, res){
-  Subscriber.create(req.body.subscriber, function(err){
-    if(err) {
-      console.log(err);
-      res.redirect("/subscribers");
-    } else {
-      res.redirect("/subscribers");
-    }
-  });
-});
 
 module.exports = router;
