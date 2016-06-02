@@ -1,15 +1,14 @@
 var config = require('./config');
-var middleware = require('./middleware')
 var accountSid = config.accountSid;
 var authToken  = config.authToken;
 var sendingNumber = config.sendingNumber;
 
-var twilio = require('twilio')
+var twilio = require('twilio');
 var client = twilio(accountSid, authToken);
 
 var twilioClient = {};
 
-twilioClient.getData = function(req) {
+twilioClient.getMessageData = function(req) {
   var output = {};
   output.body = req.body.Body;
   output.from = req.body.From;
@@ -23,10 +22,9 @@ twilioClient.sendSms = function(to, message) {
     from: sendingNumber
   }, function(err, data) {
     if (err) {
-      console.error('Could not notify administrator');
       console.error(err);
     } else {
-      console.log('Administrator notified');
+      console.log('Message sent:', data.body);
     }
   });
 };
@@ -37,6 +35,10 @@ twilioClient.rejectCall = function(res) {
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
+};
+
+twilioClient.validate = function(req, options) {
+  return twilio.validateExpressRequest(req, authToken, options);
 };
 
 module.exports = twilioClient;

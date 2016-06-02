@@ -1,5 +1,5 @@
 var express             = require("express"),
-    config              = require("./config")
+    config              = require("./config"),
     messageModuleConfig = require("./modules/twilio/config");
 
 var app = express();
@@ -26,10 +26,9 @@ if (process.argv[2] === "seed") {
   seedDb();
 }
 
-
 // serve '/public' folder
 app.use(express.static(__dirname + "/public"));
 
 app.listen(config.port, config.ipAddress, function () {
-  console.log("Server is running at: " + process.env.IP + ":" + process.env.PORT);
+  console.log("Server is running at: " + config.ipAddress + ":" + config.port);
 });

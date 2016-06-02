@@ -1,5 +1,3 @@
-var middleware = require("./middleware");
-
 // Instantiate config object -------------------------------------------------------------------
 
 var config = {};
@@ -25,12 +23,8 @@ config.configure = function(expressApp) {
   if (!isConfigured) {
     var errorMessage =
       'TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TWILIO_NUMBER must be set.';
-
     throw new Error(errorMessage);
   }
-
-  // Mount middleware to notify Twilio of errors
-  app.use(middleware.twilioNotifyOnError);
 
 };
 
