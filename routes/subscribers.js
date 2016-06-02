@@ -45,4 +45,22 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res){
   });
 });
 
+// INVITE route
+router.get("/invite", middleware.isLoggedIn, function(req, res){
+  res.render("subscribers/invite");
+});
+
+// SEND INVITATION
+// CREATE route
+router.post("/", middleware.isLoggedIn, function(req, res){
+  Subscriber.create(req.body.subscriber, function(err){
+    if(err) {
+      console.log(err);
+      res.redirect("/subscribers");
+    } else {
+      res.redirect("/subscribers");
+    }
+  });
+});
+
 module.exports = router;

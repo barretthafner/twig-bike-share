@@ -1,24 +1,38 @@
 <% include ../partials/header %>
 
 <div class="container">
-  <div class="row">
-    <a class="btn btn-primary btn-large" href="/subscribers/new">Add a new subscriber</a>
-  </div>
-  <div class="row">
-    <ul class="subscriber-list">
-      <% subscribers.forEach(function(user){ %>
-        <li>
-          <p><%= user.firstName + " " + user.lastName %></p>
-          <p><%= user.email %></p>
-          <p><%= user.phoneNumber %></p>
-        </li>
-        <form action="/subscribers/<%= user._id %>" method="POST" class="make-inline">
-            <button class="btn btn-xs btn-danger">Delete</button>
-            <input type="hidden" name="_method" value="DELETE">
-        </form>
-      <% }); %>
-    </ul>
-  </div>
+    <div class="row">
+        <a class="btn btn-primary btn-large" href="/subscribers/new">Add a new subscriber</a>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary btn-large" href="/subscribers/invite">Invite a new subscriber</a>
+    </div>
+
+    <div class="row">
+        <table class="table table-hover subscriber-list">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <% subscribers.forEach(function(user){ %>
+                <tr>
+                    <td><%= user.firstName + " " + user.lastName %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.phoneNumber %></td>
+                    <td><a href="/subscribers/:id/edit" class="btn btn-xs btn-warning">Edit</a></td>
+                    <td>
+                        <form action="/subscribers/<%= user._id %>" method="POST" class="make-inline">
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                            <input type="hidden" name="_method" value="DELETE">
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </table>
+    </div>
 </div>
 
 <% include ../partials/footer %>

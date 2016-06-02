@@ -8,18 +8,29 @@
 
 
   <div class="row">
-    <ul class="bike-list">
+    <table class="table table-hover bike-list">
+      <tr>
+        <th>Bike ID #</th>
+        <th>Bike Lock Code</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
       <% bikes.forEach(function(bike){ %>
-        <li>
-          <p><%= bike.id %></p>
-          <p><%= bike.code %></p>
-          <form action="/bikes/<%= bike._id %>" method="POST" class="make-inline">
-            <button class="btn btn-xs btn-danger">Delete</button>
-            <input type="hidden" name="_method" value="DELETE">
-          </form>
-        </li>
+        <tr>
+          <td><%= bike.id %></td>
+          <td><%= bike.code %></td>
+          <td>
+              <a href="/bikes/:id/edit" class="btn btn-xs btn-warning">Edit</a>
+          </td>
+          <td>
+            <form action="/bikes/<%= bike._id %>" method="POST" class="make-inline">
+              <button class="btn btn-xs btn-danger">Delete</button>
+              <input type="hidden" name="_method" value="DELETE">
+            </form>
+          </td>
+        </tr>
       <% }); %>
-    </ul>
+    </table>
   </div>
 </div>
 
