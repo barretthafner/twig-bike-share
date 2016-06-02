@@ -33,6 +33,29 @@ router.post("/", middleware.isLoggedIn, function(req, res){
   });
 });
 
+// EDIT route
+router.get("/:id/edit", middleware.isLoggedIn, function (req, res) {
+  Subscriber.findById(req.params.id, function(err, subscriber) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("subscribers/edit", {subscriber: subscriber});
+    }
+  });
+});
+
+// UPDATE route
+router.put("/:id", middleware.isLoggedIn, function (req, res){
+  Subscriber.findByIdAndUpdate(req.params.id, function(err){
+    if (err) {
+      console.log(err);
+      res.redirect("/subscribers");
+    } else {
+      res.redirect("/subscribers");
+    }
+  })
+});
+
 // DESTROY route
 router.delete("/:id", middleware.isLoggedIn, function(req, res){
   Subscriber.findByIdAndRemove(req.params.id, function(err){

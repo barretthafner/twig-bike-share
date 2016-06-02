@@ -38,7 +38,6 @@ router.post("/messaging/incoming", function(req, res){
       } else if (subscriber && !subscriber.active) {
         client.sendSms(subscriber.phoneNumber, "Sorry, your number has been deactivated.");
       } else if (validationCode) {
-        console.log(validationCode);
         Subscriber.findByValidationCode(validationCode, function (subscriber) {
           if (subscriber) {
             subscriber.phoneNumber = message.from;

@@ -22,7 +22,7 @@
                     <td><%= user.firstName + " " + user.lastName %></td>
                     <td><%= user.email %></td>
                     <td><%= user.phoneNumber %></td>
-                    <td><a href="/subscribers/:id/edit" class="btn btn-xs btn-warning">Edit</a></td>
+                    <td><a href="/subscribers/<%= user.id %>/edit" class="btn btn-xs btn-warning">Edit</a></td>
                     <td>
                         <form action="/subscribers/<%= user._id %>" method="POST" class="make-inline">
                             <button class="btn btn-xs btn-danger">Delete</button>
