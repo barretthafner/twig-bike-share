@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <% if (currentUser) { %>
-                  <li>Signed in as <%= currentUser.username %></li>
+                  <li><a class="inactiveLink"> Signed in as <%= currentUser.username %></a></li>
                   <li><a href="/logout">Logout</a></li>
                 <% } %>
             </ul>

@@ -1,4 +1,9 @@
 body {
-  background-color: beige;
-  text-align: center;
+  /*background-color: beige;*/
+  /*text-align: center;*/
+}
+
+.inactiveLink {
+  pointer-events: none;
+  cursor: default;
 }
