@@ -57,7 +57,7 @@ router.put("/:bike_id", middleware.isLoggedIn, function (req, res) {
 
 // DESTROY route
 router.delete("/:bike_id", middleware.isLoggedIn, function(req, res){
-  Bike.findByIdAndRemove(req.params.id, function(err){
+  Bike.findByIdAndRemove(req.params.bike_id, function(err){
     if (err){
       console.log(err);
       res.redirect("/bikes");
