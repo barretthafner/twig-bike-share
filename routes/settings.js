@@ -3,24 +3,37 @@ var express     = require("express"),
   middleware  = require("../middleware"),
   Setting     = require("../models/Setting");
 
+
+// INDEX route
+router.get("/", middleware.isLoggedIn, function(req, res) {
+  Setting.find({}, function(err, settings){
+    if (err) {
+      console.log(err);
+      res.redirect("/admin");
+    } else {
+      res.render("settings/index", {settings: settings});
+    }
+  });
+});
+
 // EDIT route
-router.get("/", middleware.isLoggedIn, function (req, res) {
-  Setting.find("", function (err, settings) {
+router.get("/:setting_id/edit", middleware.isLoggedIn, function (req, res) {
+  Setting.findById(req.params.setting_id, function (err, setting) {
     if (err) {
       console.log(err);
     } else {
-      res.render("settings", { settings: settings })
+      res.render("settings/edit", { setting: setting })
     }
   });
 });
 
 // UPDATE route
-router.put("/:bike_id", middleware.isLoggedIn, function (req, res) {
-  Bike.findByIdAndUpdate(req.params.bike_id, req.body.bike, function (err, bike) {
+router.put("/:setting_id", middleware.isLoggedIn, function (req, res) {
+  Setting.findByIdAndUpdate(req.params.setting_id, req.body.setting, function (err) {
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/bikes");
+      res.redirect("/settings");
     }
   });
 });

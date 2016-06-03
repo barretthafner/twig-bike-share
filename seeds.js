@@ -1,9 +1,9 @@
 var mongoose = require("mongoose");
-var User = require("./models/User")
+var User = require("./models/User");
 var Bike = require("./models/Bike");
 var Subscriber = require("./models/Subscriber");
+var Setting = require("./models/Setting");
 var validationCode = require("./modules/validationCode");
-var BikeUser = Subscriber;
 
 function seedDb() {
 
@@ -67,13 +67,27 @@ function seedDb() {
       });
     }
   });
+
+  // clear and load settings
+  Setting.remove({}, function(err){
+    if(err){
+      console.log(err);
+    } else {
+      console.log("removed settings!");
+      settingData.forEach(function(setting){
+        Setting.create(setting, function(err, setting){
+          if (err){
+            console.log(err);
+          } else {
+            console.log("added setting:" + setting.key);
+          }
+        });
+      });
+    }
+  });
 }
 
-BikeUser.remove({}, function(err) {
-  if (err) {
-    console.log(err);
-  }
-});
+
 
 var userData =
   [
@@ -109,5 +123,12 @@ var subscriberData =
     // { "firstName": "Jeremy", "lastName": "York", "email": "thenewyork@corgis.net", "phoneNumber": "4157078737" },
     // { "firstName": "Melissa", "lastName": "Barnes", "email": "xxemogirlxx@yahoo.net", "phoneNumber": "7143345222" }
 ];
+
+var settingData =
+  [
+    {"key": "twilioApiKey", "value": ""},
+    {"key": "twilioAccountSid", "value": ""},
+    {"key": "twilioSendingNumber", "value": ""}
+  ]
 
 module.exports = seedDb;
