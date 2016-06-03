@@ -46,7 +46,7 @@ router.get("/:bike_id/edit", middleware.isLoggedIn, function (req, res) {
 
 // UPDATE route
 router.put("/:bike_id", middleware.isLoggedIn, function (req, res) {
-  Bike.findByIdAndUpdate(req.params.bike_id, req.body.bike, function (err, bike) {
+  Bike.findByIdAndUpdate(req.params.bike_id, req.body.bike, function (err) {
     if (err) {
       console.log(err);
     } else {
@@ -66,6 +66,5 @@ router.delete("/:bike_id", middleware.isLoggedIn, function(req, res){
     }
   });
 });
-
 
 module.exports = router;

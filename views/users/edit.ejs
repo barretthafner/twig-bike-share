@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">Edit user #: <% user.userId %></h1>
+        <div style="width: 30%; margin: 30px auto;">
+            <form action="/users/<%= user.id%>" method="POST">
+                <div class="form-group">
+                    <input class="form-control" name="user[username]" type="text" value="<%= user.username %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="user[password]" type="text" placeholder="new password">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                    <input type="hidden" name="_method" value="PUT">
+                </div>
+            </form>
+            <a href="/users">Go Back</a>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

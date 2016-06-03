@@ -1,11 +1,11 @@
 var express       = require("express"),
     router        = express.Router(),
-    middleware    = require("../../middleware"),
-    messageParser = require("../../modules/messageParser"),
-    client        = require("../../modules/twilio/client");
+    middleware    = require("../middleware"),
+    messageParser = require("../modules/messageParser"),
+    client        = require("../modules/twilio/client");
 
-var Subscriber = require('../../models/Subscriber');
-var Bike       = require('../../models/Bike');
+var Subscriber = require('../models/Subscriber');
+var Bike       = require('../models/Bike');
 
 
 router.post("/voice/incoming", function(req, res){
@@ -15,7 +15,7 @@ router.post("/voice/incoming", function(req, res){
 
 router.post("/messaging/incoming", function(req, res){
 
-  if (client.validate(req, { url: 'https://42b1e6a7.ngrok.io/api/messaging/incoming' })) {
+  if (client.validate(req, { url: 'https://42b1e6a7.ngrok.io/settings/messaging/incoming' })) {
 
     var message = client.getMessageData(req);
     var bikeId = messageParser.getBikeId(message.body);
@@ -62,7 +62,7 @@ router.post("/messaging/incoming", function(req, res){
 });
 
 router.get("/settings", middleware.isLoggedIn ,function(req, res){
-  res.render("api/settings");
+  res.render("settings/settings");
 });
 
 module.exports = router;

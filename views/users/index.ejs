@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+
+
+<div class="container">
+    <div class="row">
+        <a class="btn btn-primary btn-large" href="/users/new">Add a new User</a>
+    </div>
+
+
+    <div class="row">
+        <table class="table table-hover bike-list">
+            <tr>
+                <th>Username</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <% users.forEach(function(user){ %>
+            <tr>
+                <td><%= user.username %></td>
+                <td>
+                    <a href="/users/<%= user._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
+                </td>
+                <td>
+                    <form action="/users/<%= user._id %>" method="POST" class="make-inline">
+                        <button class="btn btn-xs btn-danger">Delete</button>
+                        <input type="hidden" name="_method" value="DELETE">
+                    </form>
+                </td>
+            </tr>
+            <% }); %>
+        </table>
+    </div>
+</div>
+
+<% include ../partials/footer %>
