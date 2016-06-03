@@ -2,6 +2,7 @@
 
 * Make twilio auth work - Done
 * Make app functions modular - Done
+* Comment code
 * Add validation for entering bikes and users
 * Add validation email support
 * Clean up design
