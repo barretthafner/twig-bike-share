@@ -23,11 +23,14 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 
 // CREATE route
 router.post("/", middleware.isLoggedIn, function(req, res){
-  User.create(req.body.user, function(err){
-    if(err) {
+  var user = req.body.user;
+  var newUser = new User({username: user.username});
+  User.register(newUser, user.password, function(err, user){
+    if(err){
       console.log(err);
       res.redirect("/users");
     } else {
+      console.log("added user:" + user.username);
       res.redirect("/users");
     }
   });
@@ -38,6 +41,7 @@ router.get("/:user_id/edit", middleware.isLoggedIn, function (req, res) {
   User.findById(req.params.user_id, function (err, user) {
     if (err) {
       console.log(err);
+      res.redirect("/users");
     } else {
       res.render("users/edit", { user: user })
     }
@@ -46,11 +50,21 @@ router.get("/:user_id/edit", middleware.isLoggedIn, function (req, res) {
 
 // UPDATE route
 router.put("/:user_id", middleware.isLoggedIn, function (req, res) {
-  User.findByIdAndUpdate(req.params.user_id, req.body.user, function (err) {
+  User.findByUsername(req.body.user.username, function (err, user) {
     if (err) {
       console.log(err);
-    } else {
       res.redirect("/users");
+    } else {
+      user.setPassword(req.body.user.password, function (err) {
+        if (err) {
+          console.log(err);
+          res.redirect("/users");
+        } else {
+          user.save();
+          console.log("password for " + user.username + " changed!");
+          res.redirect("/users");
+        }
+      });
     }
   });
 });
