@@ -58,8 +58,6 @@ router.put("/:id", middleware.isLoggedIn, function (req, res){
   } else {
     subscriber.active = false;
   }
-  console.log(subscriber);
-
 
   Subscriber.findByIdAndUpdate(req.params.id, req.body.subscriber, function(err){
     if (err) {
