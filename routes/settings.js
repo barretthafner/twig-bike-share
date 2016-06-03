@@ -1,18 +1,13 @@
 var express     = require("express"),
-  router      = express.Router(),
-  middleware  = require("../middleware"),
-  Setting     = require("../models/Setting");
+    router      = express.Router(),
+    middleware  = require("../middleware"),
+    Setting     = require("../models/Setting");
 
 
 // INDEX route
 router.get("/", middleware.isLoggedIn, function(req, res) {
-  Setting.find({}, function(err, settings){
-    if (err) {
-      console.log(err);
-      res.redirect("/admin");
-    } else {
-      res.render("settings/index", {settings: settings});
-    }
+  Setting.getAllSettings(true, function(settings) {
+    res.render("settings/index", {settings: settings});
   });
 });
 

@@ -79,7 +79,7 @@ function seedDb() {
           if (err){
             console.log(err);
           } else {
-            console.log("added setting:" + setting.key, "value:" + setting.value );
+            console.log("added setting: " + setting.key);
           }
         });
       });
@@ -126,8 +126,8 @@ var subscriberData =
 
 var settingData =
   [
-    {"key": "twilioAccountSid", "value": process.env.TWILIO_ACCOUNT_SID},
-    {"key": "twilioAuthKey", "value": process.env.TWILIO_AUTH_TOKEN},
+    {"key": "$twilioAccountSid", "value": process.env.TWILIO_ACCOUNT_SID},
+    {"key": "$twilioAuthKey", "value": process.env.TWILIO_AUTH_TOKEN},
     {"key": "twilioSendingNumber", "value": process.env.TWILIO_NUMBER}
   ]
 

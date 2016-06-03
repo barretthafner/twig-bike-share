@@ -50,7 +50,7 @@ router.get("/:user_id/edit", middleware.isLoggedIn, function (req, res) {
 
 // UPDATE route
 router.put("/:user_id", middleware.isLoggedIn, function (req, res) {
-  User.findByUsername(req.body.user.username, function (err, user) {
+  User.findById(req.params.user_id, function (err, user) {
     if (err) {
       console.log(err);
       res.redirect("/users");

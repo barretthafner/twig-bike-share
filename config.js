@@ -4,6 +4,7 @@ var mongoose        = require("mongoose"),
     methodOverride  = require("method-override"),
     session         = require("express-session"),
     passport        = require("passport"),
+    Setting         = require("./models/Setting");
     LocalStrategy   = require("passport-local");
 
 // Instantiate config object -------------------------------------------------------------------
@@ -38,6 +39,7 @@ config.configure = function(expressApp) {
     }
   }));
 
+  console.log(config.appSecret);
   // Express Session (for passport)
   app.use(session({
       secret: config.appSecret,
