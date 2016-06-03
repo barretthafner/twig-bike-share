@@ -3,7 +3,7 @@
     <div class="row">
         <h1 style="text-align: center">Edit Subscriber: <%= subscriber.firstName + " " + subscriber.lastName %></h1>
         <div style="width: 30%; margin: 30px auto;">
-            <form action="/subscribers" method="POST">
+            <form action="/subscribers/<%= subscriber.id %>" method="POST">
                 <div class="form-group">
                     <input class="form-control" name="subscriber[firstName]" type="text" value="<%= subscriber.firstName %>">
                 </div>
@@ -17,13 +17,14 @@
                     <input class="form-control" name="subscriber[phoneNumber]" type="text" value="<%= subscriber.phoneNumber %>">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="subscriber[active]" type="checkbox" value="Active" <%= subscriber.active? "checked": "" %> >
+                    <input class="form-control" name="subscriber[active]" type="checkbox" value="true" <%= subscriber.active? "checked": "" %> >
                 </div>
                 <div class="form-group">
                     <input class="form-control" name="subscriber[validationCode]" type="text" value="<%= subscriber.validationCode %>" readonly>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                    <input type="hidden" name="_method" value="PUT">
                 </div>
             </form>
             <a href="/subscribers">Go Back</a>

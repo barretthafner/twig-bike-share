@@ -15,7 +15,7 @@ router.post("/voice/incoming", function(req, res){
 
 router.post("/messaging/incoming", function(req, res){
 
-  if (client.validate(req, { url: 'https://42b1e6a7.ngrok.io/settings/messaging/incoming' })) {
+  if (client.validate(req, { url: 'https://42b1e6a7.ngrok.io/api/messaging/incoming' })) {
 
     var message = client.getMessageData(req);
     var bikeId = messageParser.getBikeId(message.body);

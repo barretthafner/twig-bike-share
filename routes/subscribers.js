@@ -52,7 +52,16 @@ router.get("/:id/edit", middleware.isLoggedIn, function (req, res) {
 
 // UPDATE route
 router.put("/:id", middleware.isLoggedIn, function (req, res){
-  Subscriber.findByIdAndUpdate(req.params.id, function(err){
+  var subscriber = req.body.subscriber;
+  if (subscriber.active) {
+    subscriber.active = true;
+  } else {
+    subscriber.active = false;
+  }
+  console.log(subscriber);
+
+
+  Subscriber.findByIdAndUpdate(req.params.id, req.body.subscriber, function(err){
     if (err) {
       console.log(err);
       res.redirect("/subscribers");
