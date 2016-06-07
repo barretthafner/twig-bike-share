@@ -2,7 +2,6 @@ var mongoose = require("mongoose");
 var User = require("./models/User");
 var Bike = require("./models/Bike");
 var Subscriber = require("./models/Subscriber");
-var Setting = require("./models/Setting");
 var validationCode = require("./modules/validationCode");
 
 function seedDb() {
@@ -67,25 +66,7 @@ function seedDb() {
       });
     }
   });
-
-  // clear and load settings
-  Setting.remove({}, function(err){
-    if(err){
-      console.log(err);
-    } else {
-      console.log("removed settings!");
-      settingData.forEach(function(setting){
-        Setting.create(setting, function(err, setting){
-          if (err){
-            console.log(err);
-          } else {
-            console.log("added setting: " + setting.key);
-          }
-        });
-      });
-    }
-  });
-}
+};
 
 
 
@@ -124,11 +105,5 @@ var subscriberData =
     // { "firstName": "Melissa", "lastName": "Barnes", "email": "xxemogirlxx@yahoo.net", "phoneNumber": "7143345222" }
 ];
 
-var settingData =
-  [
-    {"key": "twilioAccountSid", "value": process.env.TWILIO_ACCOUNT_SID, "clean": true},
-    {"key": "twilioAuthKey", "value": process.env.TWILIO_AUTH_TOKEN, "clean": true},
-    {"key": "twilioSendingNumber", "value": process.env.TWILIO_NUMBER, "clean": false}
-  ];
 
 module.exports = seedDb;

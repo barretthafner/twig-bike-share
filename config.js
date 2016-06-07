@@ -4,7 +4,6 @@ var mongoose        = require("mongoose"),
     methodOverride  = require("method-override"),
     session         = require("express-session"),
     passport        = require("passport"),
-    Setting         = require("./models/Setting");
     LocalStrategy   = require("passport-local");
 
 // Instantiate config object -------------------------------------------------------------------
