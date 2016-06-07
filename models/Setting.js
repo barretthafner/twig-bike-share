@@ -2,32 +2,32 @@ var mongoose = require("mongoose");
 
 var SettingSchema = new mongoose.Schema({
   key: String,
-  value: String
+  value: String,
+  clean: Boolean
 });
 
-SettingSchema.statics.getSetting = function (params) {
-  var key = params.key;
-  var clean = params.cleanData;
+SettingSchema.statics.getSettingByKey = function (params, callback) {
 
-   this.findOne({ 'key': key }, function (err, setting) {
+   this.findOne({ 'key': params.key }, function (err, setting) {
     if (err) {
       console.log(err);
     } else {
-      if (clean) {
+      if (params.clean) {
         setting = cleanSetting(setting);
       }
-      return setting.value;
+      callback(setting);
     }
   });
 };
 
 
-SettingSchema.statics.getAllSettings = function (clean, callback) {
+SettingSchema.statics.getAllSettings = function (params, callback) {
+
   this.find({}, function(err, settings){
     if (err) {
       console.log(err);
     } else {
-      if (clean) {
+      if (params.clean) {
         settings.forEach(function (setting) {
           setting = cleanSetting(setting);
         });
@@ -38,14 +38,12 @@ SettingSchema.statics.getAllSettings = function (clean, callback) {
 };
 
 SettingSchema.statics.getSettingById = function (params, callback) {
-  var key = params.key;
-  var clean = params.cleanData;
 
-  this.findOne({ 'key': key }, function (err, setting) {
+  this.findById(params.id, function (err, setting) {
     if (err) {
       console.log(err);
     } else {
-      if (clean) {
+      if (params.clean) {
         setting = cleanSetting(setting);
       }
       callback(setting);
@@ -54,7 +52,7 @@ SettingSchema.statics.getSettingById = function (params, callback) {
 };
 
 var cleanSetting = function (setting) {
-  if (setting.key.match(/^\$/)) {
+  if (setting.clean) {
     setting.value = "..." + setting.value.slice(-5);
   }
   return setting;

@@ -126,9 +126,9 @@ var subscriberData =
 
 var settingData =
   [
-    {"key": "$twilioAccountSid", "value": process.env.TWILIO_ACCOUNT_SID},
-    {"key": "$twilioAuthKey", "value": process.env.TWILIO_AUTH_TOKEN},
-    {"key": "twilioSendingNumber", "value": process.env.TWILIO_NUMBER}
-  ]
+    {"key": "twilioAccountSid", "value": process.env.TWILIO_ACCOUNT_SID, "clean": true},
+    {"key": "twilioAuthKey", "value": process.env.TWILIO_AUTH_TOKEN, "clean": true},
+    {"key": "twilioSendingNumber", "value": process.env.TWILIO_NUMBER, "clean": false}
+  ];
 
 module.exports = seedDb;

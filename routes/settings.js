@@ -6,18 +6,19 @@ var express     = require("express"),
 
 // INDEX route
 router.get("/", middleware.isLoggedIn, function(req, res) {
-  Setting.getAllSettings(true, function(settings) {
+  Setting.getAllSettings({clean: true}, function(settings) {
     res.render("settings/index", {settings: settings});
   });
 });
 
 // EDIT route
 router.get("/:setting_id/edit", middleware.isLoggedIn, function (req, res) {
-  Setting.findById(req.params.setting_id, function (err, setting) {
+  Setting.getSettingById({id: req.params.setting_id}, function (err, setting) {
     if (err) {
       console.log(err);
     } else {
-      res.render("settings/edit", { setting: setting })
+      setting.value = "";
+      res.render("settings/edit", { setting: setting });
     }
   });
 });

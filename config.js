@@ -39,7 +39,6 @@ config.configure = function(expressApp) {
     }
   }));
 
-  console.log(config.appSecret);
   // Express Session (for passport)
   app.use(session({
       secret: config.appSecret,

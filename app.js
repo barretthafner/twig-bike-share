@@ -4,6 +4,13 @@ var express             = require("express"),
 
 var app = express();
 config.configure(app);
+
+//Database seed
+if (process.argv[2] === "seed") {
+  var seedDb  = require("./seeds");
+  seedDb();
+}
+
 messageModuleConfig.configure(app);
 
 
@@ -24,11 +31,6 @@ app.use("/users", userRoutes);
 app.use("/settings", settingsRoutes);
 app.use("/api", apiRoutes);
 
-//Database seed
-if (process.argv[2] === "seed") {
-  var seedDb  = require("./seeds");
-  seedDb();
-}
 
 // serve '/public' folder
 app.use(express.static(__dirname + "/public"));
