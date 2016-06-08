@@ -2,7 +2,7 @@ var express       = require("express"),
     router        = express.Router(),
     middleware    = require("../middleware"),
     messageParser = require("../modules/messageParser"),
-    client        = require("../modules/twilio/client");
+    client        = require("../modules/twilio");
 
 var Subscriber = require('../models/Subscriber');
 var Bike       = require('../models/Bike');

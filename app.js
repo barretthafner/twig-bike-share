@@ -1,6 +1,6 @@
 var express             = require("express"),
     config              = require("./config"),
-    messageModuleConfig = require("./modules/twilio/config");
+    messageModule = require("./modules/twilio");
 
 var app = express();
 config.configure(app);
@@ -10,10 +10,7 @@ if (process.argv[2] === "seed") {
   var seedDb  = require("./seeds");
   seedDb();
 }
-
-messageModuleConfig.configure(app);
-
-
+messageModule.configure();
 
 var rootRoutes = require("./routes/root"),
     adminRoutes = require("./routes/admin"),

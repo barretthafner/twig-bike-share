@@ -1,12 +1,30 @@
-var config = require('./config');
-var accountSid = config.accountSid;
-var authToken  = config.authToken;
-var sendingNumber = config.sendingNumber;
-
 var twilio = require('twilio');
+
+var accountSid    = process.env.TWILIO_ACCOUNT_SID;
+var authToken     = process.env.TWILIO_AUTH_TOKEN;
+var sendingNumber = process.env.TWILIO_NUMBER;
+
 var client = twilio(accountSid, authToken);
 
 var twilioClient = {};
+
+// Configure function -------------------------------------------------------------------
+
+twilioClient.configure = function() {
+
+  // Twilio -------------------------------------------------------------------
+  var requiredConfig = [accountSid, authToken, sendingNumber];
+  var isConfigured = requiredConfig.every(function(configValue) {
+    return configValue || false;
+  });
+
+  if (!isConfigured) {
+    var errorMessage =
+      'TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TWILIO_NUMBER must be set.';
+    throw new Error(errorMessage);
+  }
+
+};
 
 twilioClient.getMessageData = function(req) {
   var output = {};
