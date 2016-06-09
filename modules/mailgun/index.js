@@ -1,53 +1,47 @@
 var api_key = process.env.MAILGUN_APIKEY;
 var domain = process.env.MAILGUN_DOMAIN;
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
-var mailcomposer = require('mailcomposer');
 
 
 var mailer = {};
 
 mailer.sendTest = function() {
-  var data1 = {
-    from: 'Excited User <me@samples.mailgun.org>',
-    to: 'barretth@gmail.com',
-    subject: 'Hello',
-    text: 'Testing some Mailgun awesomness!'
+  var params = {
+    from: "Barrett Hafner <barretth@gmail.com>",
+    to: "Barrett Hafner <barrett@hafnerindustries.com>",
+    subject: "Test Plain Mailgum email w/ HTML",
+    text: "This is the body text",
+    html: "<p> This is the html text </p>"
   };
 
-  mailgun.messages().send(data1, function (err, body) {
+
+
+  mailgun.messages().send(params, function (err, body) {
     if (err) {
       console.log(err);
     } else {
-      console.log("mail sent!");
+      console.log(body);
     }
   });
-
-
-  var mail = mailcomposer({
-    from: 'you@samples.mailgun.org',
-    to: 'mm@samples.mailgun.org',
-    subject: 'Test email subject',
-    body: 'Test email text',
-    html: '<b> Test email text </b>'
-  });
-
-  mail.build(function(mailBuildError, message) {
-
-    var dataToSend = {
-      to: 'mm@samples.mailgun.org',
-      message: message.toString('ascii')
-    };
-
-    mailgun.messages().sendMime(dataToSend, function (sendError, body) {
-      if (sendError) {
-        console.log(sendError);
-        return;
-      }
-    });
-  });
-
-
-
 };
 
+mailer.sendOne = function(params) {
+
+  // var params = {
+  //   from: "Barrett Hafner <barretth@gmail.com>",
+  //   to: "Barrett Hafner <barrett@hafnerindustries.com>",
+  //   subject: "Test Plain Mailgum email w/ HTML",
+  //   text: "This is the body text",
+  //   html: "<p> This is the html text </p>"
+  // };
+
+
+  mailgun.messages().send(params, function (err, body) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(body);
+    }
+  });
+};
 module.exports = mailer;
