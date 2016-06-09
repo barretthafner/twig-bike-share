@@ -5,22 +5,32 @@
         <div style="width: 30%; margin: 30px auto;">
             <form action="/subscribers/<%= subscriber.id %>" method="POST">
                 <div class="form-group">
-                    <input class="form-control" name="subscriber[firstName]" type="text" value="<%= subscriber.firstName %>">
+                    <label for="firstName">First Name</label>
+                    <input class="form-control" id="firstName" name="subscriber[firstName]" type="text" value="<%= subscriber.firstName %>">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="subscriber[lastName]" type="text" value="<%= subscriber.lastName %>">
+                    <label for="lastName">Last Name</label>
+                    <input class="form-control" id="lastName" name="subscriber[lastName]" type="text" value="<%= subscriber.lastName %>">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="subscriber[email]" type="text" value="<%= subscriber.email %>">
+                    <label for="email">Email</label>
+                    <input class="form-control" id="email" name="subscriber[email]" type="text" value="<%= subscriber.email %>">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="subscriber[phoneNumber]" type="text" value="<%= subscriber.phoneNumber %>">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input class="form-control" id="phoneNumber" name="subscriber[phoneNumber]" type="text" value="<%= subscriber.phoneNumber %>">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="subscriber[active]" type="checkbox" value="true" <%= subscriber.active? "checked": "" %> >
+                    <label for="active">Active</label>
+                    <input class="form-control" id="active" name="subscriber[active]" type="checkbox" value="true" <%= subscriber.active? "checked": "" %> >
                 </div>
                 <div class="form-group">
-                    <input class="form-control" name="subscriber[validationCode]" type="text" value="<%= subscriber.validationCode %>" readonly>
+                    <label for="active">Invited</label>
+                    <input class="form-control" id="active" name="subscriber[invited]" type="checkbox" value="true" <%= subscriber.invited? "checked": "" %> >
+                </div>
+                <div class="form-group">
+                    <label for="validationCode">Validation Code</label>
+                    <input class="form-control" id="validationCode" name="subscriber[validationCode]" type="text" value="<%= subscriber.validationCode %>" readonly>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>

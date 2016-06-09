@@ -5,6 +5,7 @@ var SubscriberSchema = new mongoose.Schema({
   email: String,
   phoneNumber: String,
   active: Boolean,
+  invited: Boolean,
   validationCode: String
 });
 

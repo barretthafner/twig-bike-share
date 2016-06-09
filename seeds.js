@@ -93,7 +93,7 @@ var bikeData =
 
 var subscriberData =
   [
-    { "firstName": "Barrett", "lastName": "Hafner", "email": "thehaf@mail.com", "active": "false" }
+    { "firstName": "Barrett", "lastName": "Hafner", "email": "thehaf@mail.com", "active": "false", "invited": "false" }
     // { "firstName": "Steve", "lastName": "Zissou", "email": "thezissou@thesea.com",  }
     // { "firstName": "Charley", "lastName": "Murphy", "email": "charley@themurphys.com", "phoneNumber": "6024458890" },
     // { "firstName": "George", "lastName": "Costanza", "email": "georgelikeshischickenspicy@mail.com", "phoneNumber": "9908804556" },

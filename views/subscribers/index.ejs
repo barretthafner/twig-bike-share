@@ -12,6 +12,7 @@
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Active</th>
+                <th>Invite</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -21,6 +22,13 @@
                     <td><%= user.email %></td>
                     <td><%= user.phoneNumber %></td>
                     <td><%= user.active %></td>
+                    <td>
+                        <% if ( !user.invited) { %>
+                            <a href="/subscribers/invite/<%= user.id %>" class="btn btn-xs btn-primary">Invite</a>
+                        <% } else { %>
+                            <a href="#" class="btn btn-default btn-xs disabled" role="button">Invited</a>
+                        <% }%>
+                    </td>
                     <td><a href="/subscribers/<%= user.id %>/edit" class="btn btn-xs btn-warning">Edit</a></td>
                     <td>
                         <form action="/subscribers/<%= user._id %>" method="POST" class="make-inline">
