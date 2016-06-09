@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">Invite a New Subscriber</h1>
+        <h3>Add one user per line</h3>
+        <div style="width: 30%; margin: 30px auto;">
+            <form action="/subscribers/bulk" method="POST">
+                <div class="form-group">
+                    <textarea class="form-control" name="subscriberList" placeholder="First Name <email@email.com>\nBest Friend <best@friend.org>" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/subscribers">Go Back</a>
+        </div>
+    </div>
+</div>
+
+<!--script tag for multi line text area placeholder-->
+<script>
+    var textAreas = document.getElementsByTagName('textarea');
+
+    Array.prototype.forEach.call(textAreas, function(elem) {
+        elem.placeholder = elem.placeholder.replace(/\\n/g, '\n');
+    });
+</script>
+
+<% include ../partials/footer %>

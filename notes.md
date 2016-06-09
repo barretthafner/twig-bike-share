@@ -1,5 +1,6 @@
 # MVP
 * Add invite email support
+* Add 404 route
 
 # DONE
 

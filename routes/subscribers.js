@@ -19,8 +19,13 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 });
 
 // NEW route
-router.get("/subscribers/new", middleware.isLoggedIn, function(req, res){
+router.get("/new", middleware.isLoggedIn, function(req, res){
   res.render("subscribers/new");
+});
+
+// NEW BULK route
+router.get("/bulk", middleware.isLoggedIn, function(req, res){
+  res.render("subscribers/bulk");
 });
 
 
