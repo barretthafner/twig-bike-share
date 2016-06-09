@@ -1,5 +1,7 @@
-var api_key = process.env.MAILGUN_APIKEY;
-var domain = process.env.MAILGUN_DOMAIN;
+var config = require("../../config");
+var api_key = config.mailgunApiKey;
+var domain = config.mailgunDomain;
+var fromEmail = config.mailgunFromEmail;
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 
@@ -7,16 +9,15 @@ var mailer = {};
 
 mailer.sendOne = function(params, callback) {
 
-  // var params = {
-  //   from: "Barrett Hafner <barretth@gmail.com>",
-  //   to: "Barrett Hafner <barrett@hafnerindustries.com>",
-  //   subject: "Test Plain Mailgum email w/ HTML",
-  //   text: "This is the body text",
-  //   html: "<p> This is the html text </p>"
-  // };
-
-
-  mailgun.messages().send(params, function (err, body) {
+  var data = {
+    from: fromEmail,
+    to: params.to,
+    subject: params.subject,
+    text: params.text,
+    html: params.html
+  };
+  
+  mailgun.messages().send(data, function (err, body) {
     if (callback) {
       console.log(body);
       callback(err);

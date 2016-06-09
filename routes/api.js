@@ -1,11 +1,11 @@
-var express       = require("express"),
-    router        = express.Router(),
-    middleware    = require("../middleware"),
-    messageParser = require("../modules/messageParser"),
-    client        = require("../modules/twilio");
+var express    = require("express"),
+    router     = express.Router(),
+    middleware = require("../middleware"),
+    regEx      = require("../modules/regExParser"),
+    client     = require("../modules/twilio");
 
-var Subscriber = require('../models/Subscriber');
-var Bike       = require('../models/Bike');
+var Subscriber = require('../models/Subscriber'),
+    Bike       = require('../models/Bike');
 
 
 router.post("/voice/incoming", function(req, res){
@@ -15,11 +15,11 @@ router.post("/voice/incoming", function(req, res){
 
 router.post("/messaging/incoming", function(req, res){
 
-  if (client.validate(req, { url: 'https://42b1e6a7.ngrok.io/api/messaging/incoming' })) {
+  if (client.validate(req)) {
 
     var message = client.getMessageData(req);
-    var bikeId = messageParser.getBikeId(message.body);
-    var validationCode = messageParser.getValidationCode(message.body);
+    var bikeId = regEx.getBikeId(message.body);
+    var validationCode = regEx.getValidationCode(message.body);
 
     Subscriber.findByPhoneNumber(message.from, function(subscriber){
       if (subscriber && subscriber.active) {
@@ -59,10 +59,6 @@ router.post("/messaging/incoming", function(req, res){
   } else {
     res.status(403).send('Authorization Required!');
   }
-});
-
-router.get("/settings", middleware.isLoggedIn ,function(req, res){
-  res.render("settings/settings");
 });
 
 module.exports = router;

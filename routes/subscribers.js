@@ -1,9 +1,9 @@
-var express     = require("express"),
-    router      = express.Router(),
-    middleware  = require("../middleware"),
-    validationCode     = require("../modules/validationCode"),
-    mailer = require("../modules/mailgun"),
-    Subscriber    = require("../models/Subscriber");
+var express        = require("express"),
+    router         = express.Router(),
+    middleware     = require("../middleware"),
+    validationCode = require("../modules/validationCode"),
+    mailer         = require("../modules/mailgun"),
+    Subscriber     = require("../models/Subscriber");
 
 
 // INDEX route

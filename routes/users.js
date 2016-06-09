@@ -1,7 +1,7 @@
 var express     = require("express"),
-  router      = express.Router(),
-  middleware  = require("../middleware"),
-  User        = require("../models/User");
+    router      = express.Router(),
+    middleware  = require("../middleware"),
+    User        = require("../models/User");
 
 
 // INDEX route
