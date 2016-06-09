@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row">
-        <a class="btn btn-primary btn-large" href="/subscribers/invite">Invite a new subscriber</a>
+        <a class="btn btn-primary btn-large" href="/subscribers/invite/new">Invite a new subscriber</a>
     </div>
 
     <div class="row">
@@ -12,7 +12,7 @@
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Active</th>
-                <th>Invite</th>
+                <th>Invites</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -24,7 +24,7 @@
                     <td><%= user.active %></td>
                     <td>
                         <% if ( !user.invited) { %>
-                            <a href="/subscribers/invite/<%= user.id %>" class="btn btn-xs btn-primary">Invite</a>
+                            <a href="/subscribers/invite/<%= user.id %>" class="btn btn-xs btn-primary">Send Invite</a>
                         <% } else { %>
                             <a href="#" class="btn btn-default btn-xs disabled" role="button">Invited</a>
                         <% }%>

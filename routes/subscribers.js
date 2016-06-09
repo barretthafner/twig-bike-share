@@ -2,6 +2,7 @@ var express     = require("express"),
     router      = express.Router(),
     middleware  = require("../middleware"),
     validationCode     = require("../modules/validationCode"),
+    mailer = require("../modules/mailgun"),
     Subscriber    = require("../models/Subscriber");
 
 
@@ -17,9 +18,31 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
   });
 });
 
-// INVITE route
-router.get("/invite", middleware.isLoggedIn, function(req, res){
+// INVITE NEW route
+router.get("/invite/new", middleware.isLoggedIn, function(req, res){
   res.render("subscribers/invite");
+});
+
+router.get("/invite/:id", middleware.isLoggedIn, function (req, res) {
+  Subscriber.findById(req.params.id, function(err, subscriber) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (!subscriber.invited) {
+        var params = {
+          from: "NoReply <noreply@openbike.hafnerindustries.com>",
+          to: subscriber.emailString(),
+          subject: "Welcome to the Open Bike Project",
+          text: "Test text",
+          html: "<h1>Test HTML</h1>"
+        };
+        mailer.sendOne(params);
+        subscriber.invited = true;
+        subscriber.save();
+      }
+    }
+  });
+  res.redirect("/subscribers");
 });
 
 // SEND INVITATION route

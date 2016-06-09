@@ -29,5 +29,9 @@ SubscriberSchema.statics.findByValidationCode = function(validationCode, callbac
   });
 };
 
+SubscriberSchema.methods.emailString = function () {
+  return this.firstName + " " + this.lastName + " <" + this.email + ">";
+};
+
 module.exports = mongoose.model("Subscriber", SubscriberSchema);
 
