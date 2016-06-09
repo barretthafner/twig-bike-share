@@ -20,7 +20,6 @@ var rootRoutes = require("./routes/root"),
     bikeRoutes = require("./routes/bikes"),
     subscriberRoutes = require("./routes/subscribers"),
     userRoutes = require("./routes/users"),
-    mailerRoutes = require("./routes/mailer"),
     apiRoutes = require("./routes/api");
 
 app.use("/", rootRoutes);
@@ -28,7 +27,6 @@ app.use("/admin", adminRoutes);
 app.use("/bikes", bikeRoutes);
 app.use("/subscribers", subscriberRoutes);
 app.use("/users", userRoutes);
-app.use("/mailer", mailerRoutes);
 app.use("/api", apiRoutes);
 
 
