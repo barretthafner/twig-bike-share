@@ -13,8 +13,6 @@ if (process.argv[2] === "seed") {
 }
 messageModule.configure();
 
-
-
 var rootRoutes = require("./routes/root"),
     adminRoutes = require("./routes/admin"),
     bikeRoutes = require("./routes/bikes"),

@@ -25,7 +25,7 @@ mailer.sendTest = function() {
   });
 };
 
-mailer.sendOne = function(params) {
+mailer.sendOne = function(params, callback) {
 
   // var params = {
   //   from: "Barrett Hafner <barretth@gmail.com>",
@@ -37,7 +37,10 @@ mailer.sendOne = function(params) {
 
 
   mailgun.messages().send(params, function (err, body) {
-    if (err) {
+    if (callback) {
+      console.log(body);
+      callback(err);
+    } else if (err) {
       console.log(err);
     } else {
       console.log(body);

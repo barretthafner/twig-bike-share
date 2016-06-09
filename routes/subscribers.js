@@ -18,47 +18,25 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
   });
 });
 
-// INVITE NEW route
-router.get("/invite/new", middleware.isLoggedIn, function(req, res){
-  res.render("subscribers/invite");
+// NEW route
+router.get("/subscribers/new", middleware.isLoggedIn, function(req, res){
+  res.render("subscribers/new");
 });
 
-router.get("/invite/:id", middleware.isLoggedIn, function (req, res) {
-  Subscriber.findById(req.params.id, function(err, subscriber) {
-    if (err) {
-      console.log(err);
-    } else {
-      if (!subscriber.invited) {
-        var params = {
-          from: "NoReply <noreply@openbike.hafnerindustries.com>",
-          to: subscriber.emailString(),
-          subject: "Welcome to the Open Bike Project",
-          text: "Test text",
-          html: "<h1>Test HTML</h1>"
-        };
-        mailer.sendOne(params);
-        subscriber.invited = true;
-        subscriber.save();
-      }
-    }
-  });
-  res.redirect("/subscribers");
-});
 
-// SEND INVITATION route
+// CREATE route
 router.post("/", middleware.isLoggedIn, function(req, res){
 
   var subscriber = req.body.subscriber;
   subscriber.validationCode = validationCode.generate();
   subscriber.active = false;
+  subscriber.invited = false;
 
   Subscriber.create(subscriber, function(err){
     if(err) {
       console.log(err);
-      res.redirect("/subscribers");
-    } else {
-      res.redirect("/subscribers");
     }
+    res.redirect("/subscribers");
   });
 });
 
@@ -81,14 +59,17 @@ router.put("/:id", middleware.isLoggedIn, function (req, res){
   } else {
     subscriber.active = false;
   }
+  if (subscriber.invited) {
+    subscriber.invited = true;
+  } else {
+    subscriber.invited = false;
+  }
 
   Subscriber.findByIdAndUpdate(req.params.id, req.body.subscriber, function(err){
     if (err) {
       console.log(err);
-      res.redirect("/subscribers");
-    } else {
-      res.redirect("/subscribers");
     }
+    res.redirect("/subscribers");
   })
 });
 
@@ -97,12 +78,44 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res){
   Subscriber.findByIdAndRemove(req.params.id, function(err){
     if (err){
       console.log(err);
-      res.redirect("/subscribers");
-    } else {
-      res.redirect("/subscribers");
     }
+    res.redirect("/subscribers");
   });
 });
 
+
+// Invite Subscriber route
+router.get("/invite/:id", middleware.isLoggedIn, function (req, res) {
+  Subscriber.findById(req.params.id, function(err, subscriber) {
+    if (err) {
+      console.log(err);
+      //flash : err
+      res.redirect("/subscribers");
+    } else if (!subscriber.invited) {
+      var params = {
+        from: "NoReply <noreply@openbike.hafnerindustries.com>",
+        to: subscriber.emailString(),
+        subject: "Welcome to the Open Bike Project",
+        text: "Test text",
+        html: "<h1>Test @ " + (new Date).toUTCString() + "</h1>"
+      };
+      mailer.sendOne(params, function(err) {
+        if (err) {
+          console.log(err);
+          res.redirect("/subscribers");
+        } else {
+          subscriber.invited = true;
+          subscriber.save(function(){
+            res.redirect("/subscribers");
+          });
+        }
+      });
+    } else {
+      // flash: subscriber has been invited already
+      res.redirect("/subscribers");
+    }
+  });
+
+});
 
 module.exports = router;

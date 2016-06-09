@@ -37,6 +37,10 @@
                     <input type="hidden" name="_method" value="PUT">
                 </div>
             </form>
+            <form action="/subscribers/<%= subscriber._id %>" method="POST" class="make-inline">
+                <button class="btn btn-lg btn-danger">Delete Subscriber</button>
+                <input type="hidden" name="_method" value="DELETE">
+            </form>
             <a href="/subscribers">Go Back</a>
         </div>
     </div>

@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row">
-        <a class="btn btn-primary btn-large" href="/subscribers/invite/new">Invite a new subscriber</a>
+        <a class="btn btn-primary btn-large" href="/subscribers/new">Add new subscribers</a>
     </div>
 
     <div class="row">
@@ -14,7 +14,14 @@
                 <th>Active</th>
                 <th>Invites</th>
                 <th>Edit</th>
-                <th>Delete</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a href="/subscribers/invite/all-uninvited" class="btn btn-xs btn-primary">Invite All Uninvited</a></td>
+                <td></td>
             </tr>
             <% subscribers.forEach(function(user){ %>
                 <tr>
@@ -30,12 +37,6 @@
                         <% }%>
                     </td>
                     <td><a href="/subscribers/<%= user.id %>/edit" class="btn btn-xs btn-warning">Edit</a></td>
-                    <td>
-                        <form action="/subscribers/<%= user._id %>" method="POST" class="make-inline">
-                            <button class="btn btn-xs btn-danger">Delete</button>
-                            <input type="hidden" name="_method" value="DELETE">
-                        </form>
-                    </td>
                 </tr>
             <% }); %>
         </table>
