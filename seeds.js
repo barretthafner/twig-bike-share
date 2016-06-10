@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var User = require("./models/User");
 var Bike = require("./models/Bike");
 var Subscriber = require("./models/Subscriber");
+var Setting = require("./models/Setting");
 var validationCode = require("./modules/validationCode");
 
 function seedDb() {
@@ -59,8 +60,26 @@ function seedDb() {
           } else {
             subscriber.validationCode = validationCode.generate();
             subscriber.save();
-            console.log("added subscriber:" + subscriber.email);
-            console.log("validation code:" + subscriber.validationCode);
+            console.log("added subscriber: " + subscriber.email);
+            console.log("validation code: " + subscriber.validationCode);
+          }
+        });
+      });
+    }
+  });
+
+  // clear and load Settings
+  Setting.remove({}, function(err){
+    if(err){
+      console.log(err);
+    } else {
+      console.log("removed settings!");
+      settingData.forEach(function(setting){
+        Setting.create(setting, function(err, setting){
+          if (err){
+            console.log(err);
+          } else {
+            console.log("added setting: " + setting.key);
           }
         });
       });
@@ -68,14 +87,12 @@ function seedDb() {
   });
 };
 
-
-
 var userData =
   [
     {"username": "test", "password": "testy"}
     // {"username": "barrett", "password": "hafner"},
     // {"username": "pizza", "password": "guy"}
-  ]
+  ];
 
 var bikeData =
   [
@@ -89,7 +106,7 @@ var bikeData =
     { "bikeId": 17, "code": "4899" },
     { "bikeId": 18, "code": "2008" },
     { "bikeId": 19, "code": "1212" }
-  ]
+  ];
 
 var subscriberData =
   [
@@ -105,5 +122,9 @@ var subscriberData =
     // { "firstName": "Melissa", "lastName": "Barnes", "email": "xxemogirlxx@yahoo.net", "phoneNumber": "7143345222" }
 ];
 
+var settingData =
+  [
+    {"key": "inviteHtml", "value": "<p>Invite HTML not set!</p>"}
+  ];
 
 module.exports = seedDb;
