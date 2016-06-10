@@ -4,13 +4,9 @@ var SettingSchema = new mongoose.Schema({
   value: String
 });
 
-SettingSchema.statics.getSettingbyKey = function (key, callback) {
+SettingSchema.statics.getByKey = function (key, callback) {
   return this.findOne({ 'key': key }, function (err, setting) {
-    if (err) {
-      console.log(err);
-    } else {
-      callback(setting);
-    }
+      callback(err, setting);
   });
 };
 
