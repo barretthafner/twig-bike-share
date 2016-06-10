@@ -21,5 +21,9 @@
 * Regenerate validation code to change phone #
 * Message admin on error
 * Improve validation codes - plain english + a number, like heroku
+* Phone email links
+
+
+ask Chad about /invite/all or /inviteall (collision with /invite/:id)
 
 

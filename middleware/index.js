@@ -3,11 +3,12 @@ var middlewareObj = {};
 // Auth middleware -------------------------------------------------------------------
 
 middlewareObj.isLoggedIn = function(req, res, next){
-    if(!req.isAuthenticated()){
-        res.redirect("/");
-    } else {
-        return next();
-    }
+    // if(!req.isAuthenticated()){
+    //     res.redirect("/");
+    // } else {
+    //     return next();
+    // }
+    return next();
 };
 
 // Export -------------------------------------------------------------------

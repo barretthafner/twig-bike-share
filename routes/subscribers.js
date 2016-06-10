@@ -89,6 +89,44 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res){
 });
 
 
+// Invite All Uninvited
+router.get("/invite/all", middleware.isLoggedIn, function (req, res) {
+
+  Subscriber.find({}, function(err, subscribers) {
+    if (err) {
+      console.log("1", err);
+      //flash : err
+      res.redirect("/subscribers");
+    } else {
+      var process = new Promise(function(resolve, reject) {
+        resolve(1);
+      });
+      process.then(function() {
+        subscribers.forEach(function (subscriber) {
+          if (!subscriber.invited) {
+            var params = {
+              to: subscriber.emailString(),
+              subject: "Welcome to the Open Bike Project",
+              text: "Test text",
+              html: "<h1>Test @ " + (new Date).toUTCString() + "</h1><h2>" + subscriber.validationCode + "</h2>"
+            };
+            mailer.sendOne(params, function (err) {
+              if (err) {
+                console.log("2", err);
+              } else {
+                subscriber.invited = true;
+                subscriber.save();
+              }
+            });
+          }
+        });
+      }).then(function() {
+        res.redirect("/subscribers");
+      });
+    }
+  });
+});
+
 // Invite Subscriber route
 router.get("/invite/:id", middleware.isLoggedIn, function (req, res) {
   Subscriber.findById(req.params.id, function(err, subscriber) {
@@ -102,7 +140,7 @@ router.get("/invite/:id", middleware.isLoggedIn, function (req, res) {
         to: subscriber.emailString(),
         subject: "Welcome to the Open Bike Project",
         text: "Test text",
-        html: "<h1>Test @ " + (new Date).toUTCString() + "</h1>"
+        html: "<h1>Test @ " + (new Date).toUTCString() + "</h1><h2>" + subscriber.validationCode + "</h2>"
       };
       mailer.sendOne(params, function(err) {
         if (err) {
@@ -120,7 +158,8 @@ router.get("/invite/:id", middleware.isLoggedIn, function (req, res) {
       res.redirect("/subscribers");
     }
   });
-
 });
+
+
 
 module.exports = router;

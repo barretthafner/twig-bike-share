@@ -2,8 +2,8 @@ var config = require("../../config");
 var api_key = config.mailgunApiKey;
 var domain = config.mailgunDomain;
 var fromEmail = config.mailgunFromEmail;
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 var mailer = {};
 
@@ -16,7 +16,7 @@ mailer.sendOne = function(params, callback) {
     text: params.text,
     html: params.html
   };
-  
+
   mailgun.messages().send(data, function (err, body) {
     if (callback) {
       console.log(body);

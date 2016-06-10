@@ -1,9 +1,7 @@
 // Instantiate config object -------------------------------------------------------------------
-
 var config = {};
 
-// Set environment variables -------------------------------------------------------------------
-
+// Set config variables -------------------------------------------------------------------
 config.ipAddress     = process.env.IP;
 config.port          = process.env.PORT;
 config.dbUrl         = process.env.OPENBIKEDBURL;
@@ -18,8 +16,7 @@ config.twilioValidateUrl = 'https://42b1e6a7.ngrok.io/api/messaging/incoming';
 
 config.mailgunApiKey = process.env.MAILGUN_APIKEY;
 config.mailgunDomain = 'openbike.hafnerindustries.com';
-config.mailgunFromEmail = 'NoReply <noreply@openbike.hafnerindustries.com';
-
+config.mailgunFromEmail = 'NoReply <noreply@openbike.hafnerindustries.com>';
 
 // Export module -------------------------------------------------------------------
 module.exports = config;
