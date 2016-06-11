@@ -53,6 +53,9 @@ app.use(function(req, res, next){
   next();
 });
 
+// Serve '/public' folder
+app.use(express.static(__dirname + "/public"));
+
 // Connect routes
 var rootRoutes = require("./routes/root"),
     adminRoutes = require("./routes/admin"),
@@ -70,9 +73,9 @@ app.use("/users", userRoutes);
 app.use("/api", apiRoutes);
 app.use("/invite", inviteRoutes);
 
-
-// Serve '/public' folder
-app.use(express.static(__dirname + "/public"));
+app.get("*", function(req, res) {
+  res.render("404");
+});
 
 // Start app
 app.listen(config.port, config.ipAddress, function () {
