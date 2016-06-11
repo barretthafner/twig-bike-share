@@ -44,7 +44,6 @@ router.post("/messaging/incoming", function(req, res){
             subscriber.active = true;
             subscriber.validationCode = "";
             subscriber.save();
-            console.log(subscriber);
             client.sendSms(subscriber.phoneNumber, "Welcome to the Open Bike Project. Your number is now active.");
           } else {
             client.sendSms(message.from, "Sorry you are not authorized to use this application.");

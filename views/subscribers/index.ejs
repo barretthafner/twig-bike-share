@@ -23,7 +23,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><a href="/subscribers/invite/all" class="btn btn-xs btn-primary">Invite All Uninvited</a></td>
+                <td><a href="/subscribers/invite" class="btn btn-xs btn-primary">Invite All Uninvited</a></td>
                 <td></td>
             </tr>
             <% subscribers.forEach(function(user){ %>
@@ -34,7 +34,7 @@
                     <td><%= user.active %></td>
                     <td>
                         <% if ( !user.invited) { %>
-                            <a href="/subscribers/invite/<%= user.id %>" class="btn btn-xs btn-primary">Send Invite</a>
+                            <a href="/subscribers/<%= user.id %>/invite" class="btn btn-xs btn-primary">Send Invite</a>
                         <% } else { %>
                             <a href="#" class="btn btn-default btn-xs disabled" role="button">Invited</a>
                         <% }%>

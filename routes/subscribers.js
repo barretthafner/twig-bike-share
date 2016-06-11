@@ -1,8 +1,10 @@
 var express        = require("express"),
     router         = express.Router(),
     middleware     = require("../middleware"),
+    config         = require("../config"),
     validationCode = require("../modules/validationCode"),
     mailer         = require("../modules/mailgun"),
+    Setting        = require("../models/Setting"),
     Subscriber     = require("../models/Subscriber");
 
 
@@ -90,7 +92,7 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res){
 
 
 // Invite All Uninvited
-router.get("/invite/all", middleware.isLoggedIn, function (req, res) {
+router.get("/invite", middleware.isLoggedIn, function (req, res) {
 
   Subscriber.find({}, function(err, subscribers) {
     if (err) {
@@ -128,19 +130,34 @@ router.get("/invite/all", middleware.isLoggedIn, function (req, res) {
 });
 
 // Invite Subscriber route
-router.get("/invite/:id", middleware.isLoggedIn, function (req, res) {
-  Subscriber.findById(req.params.id, function(err, subscriber) {
+router.get("/:id/invite", middleware.isLoggedIn, function (req, res) {
+
+  var inviteHtml;
+  Setting.findByKey("inviteHtml", function(err, setting) {
     if (err) {
+      console.log(err);
+      res.redirect("/subscribers");
+    } else {
+      inviteHtml = setting.value;
+    }
+  });
+
+  Subscriber.findById(req.params.id, function(err, subscriber) {
+    if (err || !inviteHtml) {
       console.log(err);
       //flash : err
       res.redirect("/subscribers");
     } else if (!subscriber.invited) {
+
+
+      var emailHtml = "<h1>Test @ " + (new Date).toUTCString() + "</h1>" + inviteHtml + "<h2>Text your validation code: <a href='sms://" + config.twilioSendingNumber + "&body=" + subscriber.validationCode + "'>" + subscriber.validationCode + "</a> to: " + config.twilioSendingNumber + "</h2>"
+
       var params = {
-        from: "NoReply <noreply@openbike.hafnerindustries.com>",
+        from: config.mailgunFromEmail,
         to: subscriber.emailString(),
-        subject: "Welcome to the Open Bike Project",
-        text: "Test text",
-        html: "<h1>Test @ " + (new Date).toUTCString() + "</h1><h2>" + subscriber.validationCode + "</h2>"
+        subject: config.inviteSubject,
+        text: emailHtml.replace(/<(?:.|\n)*?>/gm, ''),
+        html: emailHtml
       };
       mailer.sendOne(params, function(err) {
         if (err) {

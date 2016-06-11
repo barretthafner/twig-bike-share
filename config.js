@@ -18,5 +18,8 @@ config.mailgunApiKey = process.env.MAILGUN_APIKEY;
 config.mailgunDomain = 'openbike.hafnerindustries.com';
 config.mailgunFromEmail = 'NoReply <noreply@openbike.hafnerindustries.com>';
 
+config.inviteSubject = '"Welcome to the Open Bike Project"';
+
+
 // Export module -------------------------------------------------------------------
 module.exports = config;
