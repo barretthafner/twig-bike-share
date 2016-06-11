@@ -6,22 +6,23 @@ var Setting = require("../models/Setting");
 
 // EDIT Route
 router.get("/edit", middleware.isLoggedIn ,function(req, res){
-  Setting.getByKey("inviteHTML", function(err, setting) {
+  Setting.findByKey("inviteHtml", function(err, invite) {
     if (err) {
       res.redirect("/subscribers");
     } else {
-      res.render("invite/edit", {setting: setting});
+      res.render("invite/edit", {invite: invite});
     }
   });
 });
 
 // UPDATE route
-router.put("/:id", middleware.isLoggedIn, function (req, res) {
-  Setting.findByIdAndUpdate(req.params.bike_id, req.body.bike, function (err) {
+router.put("/edit", middleware.isLoggedIn, function (req, res) {
+  Setting.findByKeyAndUpdate("inviteHtml", req.body.inviteHtml, function (err, invite) {
     if (err) {
       console.log(err);
+      res.redirect("/subscribers");
     } else {
-      res.redirect("/bikes");
+      res.render("invite/edit", { invite: invite });
     }
   });
 });
