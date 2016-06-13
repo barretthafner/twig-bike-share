@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                     <label for="phoneNumber">Phone Number</label>
-                    <input class="form-control" id="phoneNumber" name="subscriber[phoneNumber]" type="text" value="<%= subscriber.phoneNumber %>">
+                    <input class="form-control" id="phoneNumber" name="subscriber[phoneNumber]" type="text" value="<%= subscriber.phoneNumber %>" readonly>
                 </div>
                 <div class="form-group">
                     <label for="active">Active</label>
@@ -28,20 +28,26 @@
                     <label for="active">Invited</label>
                     <input class="form-control" id="active" name="subscriber[invited]" type="checkbox" value="true" <%= subscriber.invited? "checked": "" %> >
                 </div>
-                <div class="form-group">
-                    <label for="validationCode">Validation Code</label>
-                    <input class="form-control" id="validationCode" name="subscriber[validationCode]" type="text" value="<%= subscriber.validationCode %>" readonly>
+                <% if (subscriber.validationCode) { %>
+                    <div class="form-group">
+                        <label for="validationCode">Validation Code</label>
+                        <input class="form-control" id="validationCode" name="subscriber[validationCode]" type="text" value="<%= subscriber.validationCode %>" readonly>
+                    </div>
+                <% } else { %>
+                <div class="row">
+                    <a class="btn btn-primary btn-lg btn-block" href="/subscribers/<%= subscriber._id %>/newValidation">Send New Validation Code</a>
                 </div>
+                <% } %>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                     <input type="hidden" name="_method" value="PUT">
                 </div>
             </form>
             <form action="/subscribers/<%= subscriber._id %>" method="POST" class="make-inline">
-                <button class="btn btn-lg btn-danger">Delete Subscriber</button>
+                <button class="btn btn-lg btn-danger btn-block">Delete Subscriber</button>
                 <input type="hidden" name="_method" value="DELETE">
             </form>
-            <a href="/subscribers">Go Back</a>
+            <a class="btn btn-lg btn-success btn-block" href="/subscribers">Go Back</a>
         </div>
     </div>
 </div>
