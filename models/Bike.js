@@ -1,8 +1,8 @@
 // Bike model
 // Has a two-digit bike ID and a 4 digit unlock code for a tumbler U-lock bike lock
+var mongoose = require("mongoose");
 
 // Need to add user feedback for this validation, also does not seem to be working properly on 6/13
-var mongoose = require("mongoose");
 var BikeSchema = new mongoose.Schema({
   bikeId: {
     type: Number,
@@ -19,7 +19,7 @@ var BikeSchema = new mongoose.Schema({
 });
 
 // findByBikeID
-// creates a query by bikeId, and returns a callback function with the results
+// creates a query by bikeId, and returns a callback function with a potentially-null single document
 // bikeId's are unique, this should return only one result
 BikeSchema.statics.findByBikeId = function (bikeId, callback) {
   return this.findOne({ 'bikeId': bikeId }, function (err, bike) {
@@ -31,4 +31,5 @@ BikeSchema.statics.findByBikeId = function (bikeId, callback) {
   });
 };
 
+//export
 module.exports = mongoose.model("Bike", BikeSchema);
