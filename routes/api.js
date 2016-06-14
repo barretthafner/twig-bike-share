@@ -1,3 +1,7 @@
+// api routes
+// contains routes for sending an receiving text messages from the messaging client
+// contains most of the logic that allows a user to activate their account and use the system
+
 var express    = require("express"),
     router     = express.Router(),
     middleware = require("../middleware"),
@@ -8,20 +12,30 @@ var Subscriber = require('../models/Subscriber'),
     Bike       = require('../models/Bike');
 
 
+// incoming voice route
+// rejects all voice calls
 router.post("/voice/incoming", function(req, res){
   client.rejectCall(res);
   console.log('Call Rejected!');
 });
 
+// incoming sms route
+// this does a number of check to see if the sms is valid
 router.post("/messaging/incoming", function(req, res){
 
+  // validate the http request is from twilio
   if (client.validate(req)) {
 
+    // get message data from request body
     var message = client.getMessageData(req);
+    // compare body to bike id parser and validation code parser
     var bikeId = regEx.getBikeId(message.body);
     var validationCode = regEx.getValidationCode(message.body);
 
+    // look up subscriber by phone number
     Subscriber.findByPhoneNumber(message.from, function(subscriber){
+
+      // if the query returns a valid subscriber and the account is active, look for bike id
       if (subscriber && subscriber.active) {
         if (bikeId) {
           Bike.findByBikeId(bikeId, function(bike){
@@ -56,6 +70,7 @@ router.post("/messaging/incoming", function(req, res){
 
     res.status(200).send();
   } else {
+    // if not from twilio reject request
     res.status(403).send('Authorization Required!');
   }
 });
