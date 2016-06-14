@@ -9,7 +9,6 @@ middlewareObj.isLoggedIn = function(req, res, next){
     } else {
         return next();
     }
-    return next();
 };
 
 // Export -------------------------------------------------------------------
