@@ -24,6 +24,8 @@
     "twilio": "^2.9.1"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-minify-html": "^1.0.6",
