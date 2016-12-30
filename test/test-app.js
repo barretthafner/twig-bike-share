@@ -6,47 +6,47 @@ var expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('Open Bike Project', function () {
+describe('Open Bike Project', function() {
 
-  it('', function (done) {
-    
-  });
+	it('', function(done) {
 
-  //home page should load when not logged in
-  //redirect to home page when other routes are called and not logged in
-  //log in
-  //redirect from home to admin if logged in
-  //logout
+	});
 
-  // Bikes
+	//home page should load when not logged in
+	//redirect to home page when other routes are called and not logged in
+	//log in
+	//redirect from home to admin if logged in
+	//logout
 
-  // view bike index
-  // render /bikes/new
-  // add bike if post on /bikes/new, redirect to /bikes
-  // render /bikes/:id/edit
-  // update on put /bikes/:id, redirect to /bikes
-  // test go back buttons
-  // destroy on delete request to /bikes/:id and redirect to /subscribers
+	// Bikes
 
-  // Subscribers
+	// view bike index
+	// render /bikes/new
+	// add bike if post on /bikes/new, redirect to /bikes
+	// render /bikes/:id/edit
+	// update on put /bikes/:id, redirect to /bikes
+	// test go back buttons
+	// destroy on delete request to /bikes/:id and redirect to /subscribers
 
-  // view subscriber index
-  // render /subscriber/new
-  // add subscriber if post on /subscribers/new, redirect to /subscribers
-  // render /subscribers/:id/edit
-  // update on put /subscriber/:id, redirect to /subscribers
-  // test go back buttons
-  // destroy on delete request to /subscribers/:id and redirect to /subscribers
-  // send new validation code button
-    // clear numnber
-    // set to active to false
-    // generate new validation code
-    // send new validation code to subscriber via email
-    // redirect to /subscribers
+	// Subscribers
+
+	// view subscriber index
+	// render /subscriber/new
+	// add subscriber if post on /subscribers/new, redirect to /subscribers
+	// render /subscribers/:id/edit
+	// update on put /subscriber/:id, redirect to /subscribers
+	// test go back buttons
+	// destroy on delete request to /subscribers/:id and redirect to /subscribers
+	// send new validation code button
+	// clear numnber
+	// set to active to false
+	// generate new validation code
+	// send new validation code to subscriber via email
+	// redirect to /subscribers
 
 
 
-  // 404 page
+	// 404 page
 
 
 });

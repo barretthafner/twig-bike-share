@@ -11,7 +11,10 @@ var domain = config.mailgunDomain;
 var fromEmail = config.mailgunFromEmail;
 
 // initialize mailgun service
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+var mailgun = require('mailgun-js')({
+	apiKey: api_key,
+	domain: domain
+});
 
 // create messaging module export object
 var mailer = {};
@@ -26,24 +29,24 @@ var mailer = {};
 // };
 mailer.sendOne = function(params, callback) {
 
-  var data = {
-    from: fromEmail,
-    to: params.to,
-    subject: params.subject,
-    text: params.text,
-    html: params.html
-  };
+	var data = {
+		from: fromEmail,
+		to: params.to,
+		subject: params.subject,
+		text: params.text,
+		html: params.html
+	};
 
-  // send message; if there is a callback let it handle the err, else handle err
-  mailgun.messages().send(data, function (err) {
-    if (callback) {
-      callback(err);
-    } else if (err) {
-      console.log(err);
-    } else {
-      console.log('email sent!');
-    }
-  });
+	// send message; if there is a callback let it handle the err, else handle err
+	mailgun.messages().send(data, function(err) {
+		if (callback) {
+			callback(err);
+		} else if (err) {
+			console.log(err);
+		} else {
+			console.log('email sent!');
+		}
+	});
 };
 
 // export

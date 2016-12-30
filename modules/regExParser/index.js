@@ -10,15 +10,15 @@ var validationRegEx = /^\$[A-Za-z0-9_-]{8}/;
 // getBikeId
 parser.getBikeId = function(string) {
 
-  var matches = string.match(bikeIdRegEx);
-  return matches? matches[0]: null;
+	var matches = string.match(bikeIdRegEx);
+	return matches ? matches[0] : null;
 };
 
 // getValidationCode
 parser.getValidationCode = function(string) {
 
-  var matches = string.match(validationRegEx);
-  return matches? matches[0]: null;
+	var matches = string.match(validationRegEx);
+	return matches ? matches[0] : null;
 };
 
 // export

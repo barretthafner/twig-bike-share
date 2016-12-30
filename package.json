@@ -1,35 +1,35 @@
 {
-  "name": "open-bike-project",
-  "version": "1.0.0",
-  "description": "A open source bike sharing platform",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
-  },
-  "author": "Barrett Hafner <barrett@hafnerindustries.com>",
-  "license": "MIT",
-  "dependencies": {
-    "body-parser": "^1.15.1",
-    "ejs": "^2.4.1",
-    "express": "^4.13.4",
-    "express-session": "^1.13.0",
-    "mailgun-js": "^0.7.11",
-    "method-override": "^2.3.5",
-    "mongoose": "^4.4.17",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^4.0.0",
-    "shortid": "^2.2.6",
-    "twilio": "^2.9.1"
-  },
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-http": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-minify-html": "^1.0.6",
-    "gulp-sass": "^2.3.1",
-    "gulp-uglify": "^1.5.3"
-  }
+	"name": "open-bike-project",
+	"version": "1.0.0",
+	"description": "A open source bike sharing platform",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node app.js"
+	},
+	"author": "Barrett Hafner <barrett@hafnerindustries.com>",
+	"license": "MIT",
+	"dependencies": {
+		"body-parser": "^1.15.1",
+		"ejs": "^2.4.1",
+		"express": "^4.13.4",
+		"express-session": "^1.13.0",
+		"mailgun-js": "^0.7.11",
+		"method-override": "^2.3.5",
+		"mongoose": "^4.4.17",
+		"passport": "^0.3.2",
+		"passport-local": "^1.0.0",
+		"passport-local-mongoose": "^4.0.0",
+		"shortid": "^2.2.6",
+		"twilio": "^2.9.1"
+	},
+	"devDependencies": {
+		"chai": "^3.5.0",
+		"chai-http": "^3.0.0",
+		"gulp": "^3.9.1",
+		"gulp-concat": "^2.6.0",
+		"gulp-minify-html": "^1.0.6",
+		"gulp-sass": "^2.3.1",
+		"gulp-uglify": "^1.5.3"
+	}
 }

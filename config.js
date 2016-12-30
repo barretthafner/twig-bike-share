@@ -2,10 +2,10 @@
 var config = {};
 
 // Set config variables -------------------------------------------------------------------
-config.ipAddress     = process.env.IP;
-config.port          = process.env.PORT;
-config.dbUrl         = process.env.OPENBIKEDBURL;
-config.appSecret     = process.env.OPENBIKESECRET;
+config.ipAddress = process.env.IP;
+config.port = process.env.PORT;
+config.dbUrl = process.env.OPENBIKEDBURL;
+config.appSecret = process.env.OPENBIKESECRET;
 
 
 config.twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;

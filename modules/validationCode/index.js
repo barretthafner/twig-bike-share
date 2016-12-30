@@ -6,8 +6,8 @@ var validationCode = {};
 
 // generate
 // returns a new validation code
-validationCode.generate = function () {
-  return "$" + shortid.generate();
+validationCode.generate = function() {
+	return "$" + shortid.generate();
 }
 
 // export
