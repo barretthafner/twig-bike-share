@@ -79,7 +79,7 @@ app.get("*", function(req, res) {
 
 // Start app
 app.listen(config.port, config.ipAddress, function () {
-  console.log("Server is running at: " + config.ipAddress + ":" + config.port);
+  console.log("Server is running at: http://" + config.ipAddress + ":" + config.port);
 });
 
 exports.app = app;
