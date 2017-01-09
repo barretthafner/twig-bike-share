@@ -44,7 +44,8 @@ describe('Open Bike Project', function() {
 	// send new validation code to subscriber via email
 	// redirect to /subscribers
 
-
+	// test mongoose promises
+  // assert.equal(query.exec().constructor, global.Promise);
 
 	// 404 page
 

@@ -11,8 +11,7 @@ var UserSchema = new mongoose.Schema({
 		required: [true, 'Username field is required']
 	},
 	password: {
-		type: String,
-		required: [true, 'Password field is required']
+		type: String
 	}
 });
 

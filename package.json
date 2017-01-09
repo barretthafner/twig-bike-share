@@ -5,6 +5,7 @@
 	"main": "app.js",
 	"scripts": {
 		"test": "echo \"No test at this time\"",
+		"start-seed": "node app.js --seed",
 		"start": "node app.js"
 	},
 	"author": "Barrett Hafner <barrett@hafnerindustries.com>",

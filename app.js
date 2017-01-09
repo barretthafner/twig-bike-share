@@ -12,12 +12,8 @@ var app = express();
 
 // Connect Database
 mongoose.connect(config.dbUrl);
-
-//Database seed
-if (process.argv[2] === "seed") {
-	var seedDb = require("./seeds");
-	seedDb();
-}
+// Use native promises
+mongoose.Promise = global.Promise;
 
 // View Engine
 app.set("view engine", "ejs");
@@ -78,6 +74,12 @@ app.use("/invite", inviteRoutes);
 app.get("*", function(req, res) {
 	res.render("404");
 });
+
+//Database seed
+if (process.argv.indexOf("--seed") > -1) {
+	var seedDb = require("./seeds");
+	seedDb();
+}
 
 // Start app
 app.listen(config.port, config.ipAddress, function() {
