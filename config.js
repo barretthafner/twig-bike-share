@@ -2,6 +2,10 @@
 var config = {};
 
 // Set config variables -------------------------------------------------------------------
+config.adminUser = process.env.OPENBIKE_ADMIN;
+config.adminPass = process.env.OPENBIKE_PASS;
+
+
 config.ipAddress = process.env.IP;
 config.port = process.env.PORT;
 config.dbUrl = process.env.OPENBIKEDBURL;

@@ -8,3 +8,10 @@ addons:
     - mongodb-3.2-precise
     packages:
     - mongodb-org-server
+deploy:
+  provider: heroku
+  api_key:
+    secure: HdPDBBuTScm4IxyTFdpaDUYkJBLsgLxij5NWzUS2GYYiCXIl4N8BZT3L9HNygGm/CEtghwL079Fa5c/h75Qi8ZofXo7SmGofwQHoPWP3HUDN0T7JRRYyl0miedlxIBg04ovIMQ/5Wgm4hKUN9nmFPzrYVNn1QTcBLWycZeUid7VWHYigKm1zgWcL30o/a7xQPqaTrGmDXoOlArBddFbuZ08FFV4hmcTO7U2ENEGF9uahDmKFrK0+ngEteUN6MXwgsAD82uddhlWxuXYcwgqIbsv2NX61A8WFu2dNZa26IRgirDYQnbe+VPc9cwbH6cz85+nR1yV+AHuRQGmsfW7ndD7hBD6HQRYNMoRUWmcS1UlPd1rzOUzsZaPmMgT3CxPCamszio6svuP6/0Oeyajzy/ThrBxM4tITle6ZmmCO6yhB8zCyp89NsZPCJ7zXgQ65f+8ZNJsXeTobkeSye+sJll2ZmV12aYzhDtE6Gs+EQL3G7EgeUMgi2jstaxHSw3ukoiIbocTYWAY/9FeaxMPcd7y/H0fLw/W8skc/aaPrtIXDv34Zwi6PoGuksYN16UDlNInRcMEFPR8F21+6L0wSay4OEHcLX3h7FmgANjPngpoUlS5I5W1vTIa36iy5zhk1Ju/vVQUXa67Hqn4p4ZvhbjB1YYs+4vQXqeLjbvUGY6Q=
+  app: open-bike-project
+  on:
+    repo: barretthafner/open-bike-project
