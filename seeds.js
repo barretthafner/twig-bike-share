@@ -90,12 +90,8 @@ function seedDb() {
 };
 
 var userData =
-	[{
-			"username": "test",
-			"password": "testy"
-		}
-		// {"username": "barrett", "password": "hafner"},
-		// {"username": "pizza", "password": "guy"}
+	[
+		{"username": "testaccount", "password": "testypassword"},
 	];
 
 var bikeData =
