@@ -64,7 +64,7 @@ router.post("/messaging/incoming", function(req, res) {
 					}
 				});
 			} else {
-				client.sendSms(message.from, "Sorry you are not authorized to use this application.");
+				client.sendSms(message.from, "Sorry you are not authorized to use this application. Validation Error");
 			}
 		});
 
