@@ -15,7 +15,7 @@ config.appSecret = process.env.OPENBIKESECRET;
 config.twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
 config.twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
 config.twilioSendingNumber = process.env.TWILIO_NUMBER;
-config.twilioValidateUrl = 'https://42b1e6a7.ngrok.io/api/messaging/incoming';
+config.twilioValidateUrl = 'https://open-bike-project.herokuapp.com/api/messaging/incoming';
 
 
 config.mailgunApiKey = process.env.MAILGUN_APIKEY;

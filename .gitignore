@@ -20,6 +20,7 @@ node_modules
 .env
 compass_app_log.txt
 atlassian-ide-plugin.xml
+.sublime-workspace
 
 # newrelic
 newrelic_agent.log
@@ -32,5 +33,5 @@ newrelic_agent.log
 .Trashes
 ehthumbs.db
 Thumbs.db
-.sublime-workspace
+
 
