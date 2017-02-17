@@ -27,3 +27,25 @@
 ask Chad about /invite/all or /inviteall (collision with /invite/:id)
 
 
+# Documentation to add
+
+- Email address
+
+- Mlab
+	- Make a new database
+	- Make a new user
+	- Setup database on heroku
+
+- Mailgun
+	- Change to secret API key?
+	- https://mailgun.com/app/domains/bikeshare.wta-tma.org
+
+- Github
+
+	authorize heroku in github
+
+- Heroku
+	- https://devcenter.heroku.com/articles/custom-domainss
+	- Setup environment variables in heroku
+
+- Twilio

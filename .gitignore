@@ -34,4 +34,5 @@ newrelic_agent.log
 ehthumbs.db
 Thumbs.db
 
-
+# esdoc build
+docs
