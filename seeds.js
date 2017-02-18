@@ -7,8 +7,8 @@ var validationCode = require("./modules/validationCode");
 
 var userData = [
 	{
-		"username": "testaccount",
-	 	"password": "testypassword"
+		"username": "wtaadmin",
+	 	"password": "4Bikes%2017"
 	}
 ];
 
