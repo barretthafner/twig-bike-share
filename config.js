@@ -20,7 +20,7 @@ config.inviteSubject = '"Welcome to the Open Bike Project"';
 config.mailgunDomain = config.appDomain;
 config.mailgunFromEmail = 'NoReply <noreply@' + config.appDomain + '>';
 config.twilioValidateUrl = 'http://' + config.appDomain + '/api/messaging/incoming';
-config.twilioValidateUrl = 'http://fefba595.ngrok.io/api/messaging/incoming'; 
+config.twilioValidateUrl = 'http://fefba595.ngrok.io/api/messaging/incoming';
 
 
 // Export module -------------------------------------------------------------------
