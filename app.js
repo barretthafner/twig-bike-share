@@ -1,26 +1,30 @@
 // Include packages -------------------------------------------------------------------
-var express = require("express"),
-	config = require("./config"),
-	mongoose = require("mongoose"),
-	bodyParser = require("body-parser"),
-	methodOverride = require("method-override"),
-	session = require("express-session"),
-	passport = require("passport"),
-	LocalStrategy = require("passport-local");
+var express = require('express'),
+	config = require('./config'),
+	mongoose = require('mongoose'),
+	bodyParser = require('body-parser'),
+	methodOverride = require('method-override'),
+	session = require('express-session'),
+	MongoStore = require('connect-mongo')(session),
+	passport = require('passport'),
+	LocalStrategy = require('passport-local');
 
 var app = express();
 
 // Connect Database
 mongoose.connect(config.dbUrl);
+
 // Use native promises
 mongoose.Promise = global.Promise;
 
 // View Engine
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
+
 // Body Parser
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
+
 // Method Override
 app.use(methodOverride(function(req, res) {
 	if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -34,11 +38,15 @@ app.use(methodOverride(function(req, res) {
 app.use(session({
 	secret: config.appSecret,
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: false,
+	store: new MongoStore({
+		url: config.dbUrl,
+		ttl: 1 * 24 * 60 * 60 // Removes sessions after 1 day.
+	})
 }));
 
 // Passport
-var User = require("./models/User");
+var User = require('./models/User');
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -52,38 +60,21 @@ app.use(function(req, res, next) {
 });
 
 // Serve '/public' folder
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + '/public'));
 
-// Connect routes
-var rootRoutes = require("./routes/root"),
-	adminRoutes = require("./routes/admin"),
-	bikeRoutes = require("./routes/bikes"),
-	subscriberRoutes = require("./routes/subscribers"),
-	userRoutes = require("./routes/users"),
-	apiRoutes = require("./routes/api"),
-	inviteRoutes = require("./routes/invite");
-
-app.use("/", rootRoutes);
-app.use("/admin", adminRoutes);
-app.use("/bikes", bikeRoutes);
-app.use("/subscribers", subscriberRoutes);
-app.use("/users", userRoutes);
-app.use("/api", apiRoutes);
-app.use("/invite", inviteRoutes);
-
-app.get("*", function(req, res) {
-	res.render("404");
-});
+// Serve app routes
+var router = require('./routes');
+app.use(router);
 
 //Database seed
-if (process.argv.indexOf("--seed") > -1) {
-	var seedDb = require("./seeds");
+if (process.argv.indexOf('--seed') > -1) {
+	var seedDb = require('./seeds');
 	seedDb();
 }
 
 // Start app
 app.listen(config.port, config.ipAddress, function() {
-	console.log("Server is running at: http://" + config.ipAddress + ":" + config.port);
+	console.log('Server is running at: http://' + config.ipAddress + ':' + config.port);
 });
 
 exports.app = app;
