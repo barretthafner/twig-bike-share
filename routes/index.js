@@ -2,21 +2,25 @@ var express = require("express"),
 	router = express.Router();
 
 // Connect routes
-var rootRoutes = require("./root"),
-	adminRoutes = require("./admin"),
-	bikeRoutes = require("./bikes"),
-	subscriberRoutes = require("./subscribers"),
-	userRoutes = require("./users"),
+var adminRoutes = require("./admin"),
+	bikeRoutes = require("./admin/bikes"),
+	subscriberRoutes = require("./admin/subscribers"),
+	userRoutes = require("./admin/users"),
 	apiRoutes = require("./api"),
-	inviteRoutes = require("./invite");
+	inviteRoutes = require("./admin/invite");
 
-router.use("/", rootRoutes);
-router.use("/admin", adminRoutes);
-router.use("/bikes", bikeRoutes);
-router.use("/subscribers", subscriberRoutes);
-router.use("/users", userRoutes);
+// Root ("/") route
+router.get("/", function(req, res) {
+		res.render("index");
+});
+
+router.use("/a", adminRoutes);
+router.use("/a/bikes", bikeRoutes);
+router.use("/a/subscribers", subscriberRoutes);
+router.use("/a/users", userRoutes);
+router.use("/a/invite", inviteRoutes);
+
 router.use("/api", apiRoutes);
-router.use("/invite", inviteRoutes);
 
 router.get("*", function(req, res) {
 	res.render("404");

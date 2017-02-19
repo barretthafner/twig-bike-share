@@ -1,7 +1,7 @@
 var express = require("express"),
 	router = express.Router(),
-	middleware = require("../middleware"),
-	Bike = require("../models/Bike");
+	middleware = require("../../middleware"),
+	Bike = require("../../models/Bike");
 
 
 // INDEX route

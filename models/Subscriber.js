@@ -1,6 +1,6 @@
 // Subscriber model
 // Stores subscriber information
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
 // Need to add user feedback, untested validation on 6/13
 var SubscriberSchema = new mongoose.Schema({
@@ -26,7 +26,7 @@ var SubscriberSchema = new mongoose.Schema({
 // emailString
 // returns a string formatted for sending an email via a mail service (like MailGun)
 SubscriberSchema.methods.emailString = function() {
-	return this.firstName + " " + this.lastName + " <" + this.email + ">";
+	return this.firstName + ' ' + this.lastName + ' <' + this.email + '>';
 };
 
 
@@ -59,4 +59,4 @@ SubscriberSchema.statics.findByValidationCode = function(validationCode, callbac
 };
 
 // export
-module.exports = mongoose.model("Subscriber", SubscriberSchema);
+module.exports = mongoose.model('Subscriber', SubscriberSchema);

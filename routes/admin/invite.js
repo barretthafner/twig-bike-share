@@ -1,8 +1,8 @@
 var express = require("express"),
 	router = express.Router(),
-	middleware = require("../middleware");
+	middleware = require("../../middleware");
 
-var Setting = require("../models/Setting");
+var Setting = require("../../models/Setting");
 
 // EDIT Route
 router.get("/edit", middleware.isLoggedIn, function(req, res) {

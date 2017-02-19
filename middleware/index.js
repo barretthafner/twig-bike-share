@@ -12,6 +12,13 @@ middlewareObj.isLoggedIn = function(req, res, next) {
 	}
 };
 
+middlewareObj.globals = function(req, res, next) {
+	res.locals.currentUser = req.user;
+	res.locals.success = req.flash("success");
+	res.locals.error = req.flash("error");
+	next();
+}
+
 // Export -------------------------------------------------------------------
 
 module.exports = middlewareObj;

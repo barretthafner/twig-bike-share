@@ -1,6 +1,6 @@
 // Setting model
 // Stores key/value pairs for in app settings
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
 // Need to add user feedback, untested validation on 6/13
 var SettingSchema = new mongoose.Schema({
@@ -39,4 +39,4 @@ SettingSchema.statics.findByKeyAndUpdate = function(key, value, callback) {
 };
 
 // export
-module.exports = mongoose.model("Setting", SettingSchema);
+module.exports = mongoose.model('Setting', SettingSchema);

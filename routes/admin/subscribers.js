@@ -1,11 +1,11 @@
 var express = require("express"),
 	router = express.Router(),
-	middleware = require("../middleware"),
-	config = require("../config"),
-	validationCode = require("../modules/validationCode"),
-	mailer = require("../modules/mailgun"),
-	Setting = require("../models/Setting"),
-	Subscriber = require("../models/Subscriber");
+	middleware = require("../../middleware"),
+	config = require("../../config"),
+	validationCode = require("../../modules/validationCode"),
+	mailer = require("../../modules/mailgun"),
+	Setting = require("../../models/Setting"),
+	Subscriber = require("../../models/Subscriber");
 
 
 // INDEX route

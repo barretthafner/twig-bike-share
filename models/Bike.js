@@ -1,6 +1,6 @@
 // Bike model
 // Has a two-digit bike ID and a 4 digit unlock code for a tumbler U-lock bike lock
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
 // Need to add user feedback for this validation, also does not seem to be working properly on 6/13
 var BikeSchema = new mongoose.Schema({
@@ -14,7 +14,7 @@ var BikeSchema = new mongoose.Schema({
 	code: {
 		type: String,
 		required: [true, 'Bike code is required'],
-		match: [/\d{4}/, "Code must be a 4-digit number."]
+		match: [/\d{4}/, 'Code must be a 4-digit number.']
 	}
 });
 
@@ -34,4 +34,4 @@ BikeSchema.statics.findByBikeId = function(bikeId, callback) {
 };
 
 //export
-module.exports = mongoose.model("Bike", BikeSchema);
+module.exports = mongoose.model('Bike', BikeSchema);

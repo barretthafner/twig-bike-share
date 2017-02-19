@@ -1,6 +1,7 @@
 // Include packages -------------------------------------------------------------------
 var express = require('express'),
 	config = require('./config'),
+	middleware = require('./middleware'),
 	mongoose = require('mongoose'),
 	bodyParser = require('body-parser'),
 	methodOverride = require('method-override'),
@@ -56,12 +57,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Pass global middleware
-app.use(function(req, res, next) {
-	res.locals.currentUser = req.user;
-	res.locals.success = req.flash("success");
-	res.locals.error = req.flash("error");
-	next();
-});
+app.use(middleware.globals);
 
 // Serve '/public' folder
 app.use(express.static(__dirname + '/public'));
