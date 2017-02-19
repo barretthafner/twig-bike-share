@@ -7,7 +7,8 @@ var express = require('express'),
 	session = require('express-session'),
 	MongoStore = require('connect-mongo')(session),
 	passport = require('passport'),
-	LocalStrategy = require('passport-local');
+	LocalStrategy = require('passport-local'),
+	flash = require('connect-flash');
 
 var app = express();
 
@@ -21,9 +22,7 @@ mongoose.Promise = global.Promise;
 app.set('view engine', 'ejs');
 
 // Body Parser
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Method Override
 app.use(methodOverride(function(req, res) {
@@ -33,6 +32,9 @@ app.use(methodOverride(function(req, res) {
 		return method
 	}
 }));
+
+// Flash messages
+app.use(flash());
 
 // Express Session (for passport)
 app.use(session({
@@ -56,6 +58,8 @@ passport.deserializeUser(User.deserializeUser());
 // Pass global middleware
 app.use(function(req, res, next) {
 	res.locals.currentUser = req.user;
+	res.locals.success = req.flash("success");
+	res.locals.error = req.flash("error");
 	next();
 });
 
