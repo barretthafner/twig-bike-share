@@ -5,7 +5,7 @@
     <div class="row">
         <h1 style="text-align: center">Edit Bike #: <% bike.bikeId %></h1>
         <div style="width: 30%; margin: 30px auto;">
-            <form action="/bikes/<%= bike.id%>" method="POST">
+            <form action="/a/bikes/<%= bike.id%>" method="POST">
                 <div class="form-group">
                     <input class="form-control" name="bike[bikeId]" type="text" value="<%= bike.bikeId %>">
                 </div>
@@ -17,7 +17,7 @@
                     <input type="hidden" name="_method" value="PUT">
                 </div>
             </form>
-            <a href="/bikes">Go Back</a>
+            <a href="/a/bikes">Go Back</a>
         </div>
     </div>
 </div>

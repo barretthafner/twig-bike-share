@@ -1,16 +1,17 @@
+<div class="nav__wrapper">
   <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="/">
-      <img src="/img/logo-tiny.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+      <img src="/img/OBI_logo_60x60.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
       Open Bike Project
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="navbar-nav ml-auto">
         <% if (currentUser) { %>
-          <a class="nav-item nav-link" href="/a"> Signed in as <strong><%= currentUser.username %></strong></a>
-          <a class="nav-item nav-link" href="/a/logout">Logout</a>
+          <a class="nav-item nav-link" href="<%= routes.admin %>"> Signed in as <strong><%= currentUser.username %></strong></a>
+          <a class="nav-item nav-link" href="<%= routes.logout %>">Logout</a>
         <% } %>
       </div>
     </div>
@@ -33,3 +34,4 @@
       <%= error %>
     </div>
   <% } %>
+</div>

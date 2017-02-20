@@ -10,7 +10,7 @@ var express = require('express'),
 // Admin panel
 router.get('/', function(req, res) {
 	if (!req.isAuthenticated()) {
-		res.render('admin/index');
+		res.render('admin/login');
 	} else {
 		res.render('admin/panel');
 	}

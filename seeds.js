@@ -7,7 +7,8 @@ var validationCode = require("./modules/validationCode");
 
 var userData = [
 	{
-		"username": "wtaadmin",
+		"name": "WTA Admin",
+		"username": "bikeshare@wta-tma.org",
 	 	"password": "4Bikes%2017"
 	}
 ];
@@ -104,13 +105,14 @@ function seedDb() {
 			console.log("removed users!");
 			userData.forEach(function(user) {
 				var newUser = new User({
+					name: user.name,
 					username: user.username
 				});
 				User.register(newUser, user.password, function(err, user) {
 					if (err) {
 						console.log(err);
 					} else {
-						console.log("added user:" + user.username);
+						console.log("added user: " + user.username);
 					}
 				});
 			});

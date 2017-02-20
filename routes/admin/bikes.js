@@ -9,7 +9,7 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 	Bike.find({}, function(err, bikes) {
 		if (err) {
 			console.log(err);
-			res.redirect("/admin");
+			res.redirect("/a");
 		} else {
 			res.render("bikes/index", {
 				bikes: bikes

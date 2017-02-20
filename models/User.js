@@ -6,12 +6,12 @@ var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = new mongoose.Schema({
+	name: {
+		type: String
+	},
 	username: {
 		type: String,
 		required: [true, 'Username field is required']
-	},
-	password: {
-		type: String
 	}
 });
 

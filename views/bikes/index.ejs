@@ -3,7 +3,7 @@
 
 <div class="container">
   <div class="row">
-    <a class="btn btn-primary btn-large" href="/bikes/new">Add a new Bike</a>
+    <a class="btn btn-primary btn-large" href="/a/bikes/new">Add a new Bike</a>
   </div>
 
 
@@ -20,10 +20,10 @@
           <td><%= bike.bikeId %></td>
           <td><%= bike.code %></td>
           <td>
-              <a href="/bikes/<%= bike._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
+              <a href="/a/bikes/<%= bike._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
           </td>
           <td>
-            <form action="/bikes/<%= bike._id %>" method="POST" class="make-inline">
+            <form action="/a/bikes/<%= bike._id %>" method="POST" class="make-inline">
               <button class="btn btn-xs btn-danger">Delete</button>
               <input type="hidden" name="_method" value="DELETE">
             </form>
