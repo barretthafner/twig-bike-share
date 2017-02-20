@@ -9,19 +9,10 @@ var adminRoutes = require('./admin'),
 	apiRoutes = require('./api'),
 	inviteRoutes = require('./admin/invite');
 
-var routes = {
-	admin: '/a',
-	logout: '/a/logout',
-	setup: '/a/setup',
-	bikes: '/a/bikes',
-	subscribers: '/a/subscribers',
-	users: '/a/users',
-	invite: '/a/invite',
-	api: '/api'
-}
-
 // User schema
 var User = require('../models/User');
+
+var routes = require('./tree');
 
 // Root ('/') route
 router.get('/', function(req, res) {
@@ -32,21 +23,18 @@ router.get('/', function(req, res) {
 			res.render('setup');
 		}
 	});
-
 });
 
-router.use('/a', adminRoutes);
-router.use('/a/setup', setupRoutes);
-router.use('/a/bikes', bikeRoutes);
-router.use('/a/subscribers', subscriberRoutes);
-router.use('/a/users', userRoutes);
-router.use('/a/invite', inviteRoutes);
-router.use('/api', apiRoutes);
+router.use(routes.admin, adminRoutes);
+// router.use('/a/setup', setupRoutes);
+router.use(routes.bikes, bikeRoutes);
+router.use(routes.subscribers, subscriberRoutes);
+router.use(routes.users, userRoutes);
+router.use(routes.invite, inviteRoutes);
+router.use(routes.api, apiRoutes);
 
 router.get('*', function(req, res) {
 	res.render('404');
 });
 
-module.exports = {
-	router: router
-};
+module.exports = router;

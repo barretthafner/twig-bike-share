@@ -57,14 +57,15 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Pass global middleware
+// Pass global values
+app.locals.routes = require('./routes/tree');
 app.use(middleware.globals);
 
 // Serve '/public' folder
 app.use(express.static(__dirname + '/public'));
 
 // Serve app routes
-var router = require('./routes').router;
+var router = require('./routes');
 app.use(router);
 
 //Database seed

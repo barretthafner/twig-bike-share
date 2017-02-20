@@ -1,5 +1,4 @@
-var routes = require('../routes').routes;
-
+'use strict';
 var middlewareObj = {};
 
 // Auth middleware -------------------------------------------------------------------
@@ -19,7 +18,6 @@ middlewareObj.globals = function(req, res, next) {
 	res.locals.currentUser = req.user;
 	res.locals.success = req.flash("success");
 	res.locals.error = req.flash("error");
-	// res.locals.routes = routes;
 	next();
 }
 

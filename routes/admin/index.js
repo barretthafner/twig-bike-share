@@ -5,7 +5,8 @@
 var express = require('express'),
 	passport = require('passport'),
 	router = express.Router(),
-	middleware = require('../../middleware');
+	middleware = require('../../middleware'),
+	routes = require('../tree');
 
 // Admin panel
 router.get('/', function(req, res) {
@@ -16,18 +17,18 @@ router.get('/', function(req, res) {
 	}
 });
 
-router.post('/', passport.authenticate('local', {
-	successRedirect: '/a',
+router.post(routes.root, passport.authenticate('local', {
+	successRedirect: routes.admin,
 	successFlash: 'Welcome!',
-	failureRedirect: '/a',
+	failureRedirect: routes.admin,
 	failureFlash: true
 }), function(req, res) {});
 
 // logout route
-router.get('/logout', function(req, res) {
+router.get(routes.logout, function(req, res) {
 	req.logout();
 	req.flash('success', 'You are logged out!')
-	res.redirect('/');
+	res.redirect(routes.admin);
 });
 
 module.exports = router;

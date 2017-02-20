@@ -5,7 +5,7 @@
     <div class="row">
         <h1 style="text-align: center">Create a New Bike</h1>
         <div style="width: 30%; margin: 30px auto;">
-            <form action="/bikes" method="POST">
+            <form action="<%= routes.bikes %>" method="POST">
                 <div class="form-group">
                     <input class="form-control" name="bike[bikeId]" type="text" placeholder="2-digit ID">
 
@@ -17,7 +17,7 @@
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>
             </form>
-            <a href="/bikes">Go Back</a>
+            <a href="<%= routes.bikes %>">Go Back</a>
         </div>
     </div>
 </div>

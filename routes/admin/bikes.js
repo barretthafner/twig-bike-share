@@ -1,17 +1,19 @@
-var express = require("express"),
+'use strict';
+var express = require('express'),
 	router = express.Router(),
-	middleware = require("../../middleware"),
-	Bike = require("../../models/Bike");
+	middleware = require('../../middleware'),
+	Bike = require('../../models/Bike'),
+	routes = require('../tree');
 
 
 // INDEX route
-router.get("/", middleware.isLoggedIn, function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
 	Bike.find({}, function(err, bikes) {
 		if (err) {
 			console.log(err);
-			res.redirect("/a");
+			res.redirect(routes.admin);
 		} else {
-			res.render("bikes/index", {
+			res.render('bikes/index', {
 				bikes: bikes
 			});
 		}
@@ -19,29 +21,29 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 });
 
 // NEW route
-router.get("/new", middleware.isLoggedIn, function(req, res) {
-	res.render("bikes/new");
+router.get('/new', middleware.isLoggedIn, function(req, res) {
+	res.render('bikes/new');
 });
 
 // CREATE route
-router.post("/", middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
 	Bike.create(req.body.bike, function(err) {
 		if (err) {
 			console.log(err);
-			res.redirect("/bikes");
+			res.redirect(routes.bikes);
 		} else {
-			res.redirect("/bikes");
+			res.redirect(routes.bikes);
 		}
 	});
 });
 
 // EDIT route
-router.get("/:bike_id/edit", middleware.isLoggedIn, function(req, res) {
+router.get('/:bike_id/edit', middleware.isLoggedIn, function(req, res) {
 	Bike.findById(req.params.bike_id, function(err, bike) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.render("bikes/edit", {
+			res.render('bikes/edit', {
 				bike: bike
 			})
 		}
@@ -49,24 +51,24 @@ router.get("/:bike_id/edit", middleware.isLoggedIn, function(req, res) {
 });
 
 // UPDATE route
-router.put("/:bike_id", middleware.isLoggedIn, function(req, res) {
+router.put('/:bike_id', middleware.isLoggedIn, function(req, res) {
 	Bike.findByIdAndUpdate(req.params.bike_id, req.body.bike, function(err) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.redirect("/bikes");
+			res.redirect(routes.bikes);
 		}
 	});
 });
 
 // DESTROY route
-router.delete("/:bike_id", middleware.isLoggedIn, function(req, res) {
+router.delete('/:bike_id', middleware.isLoggedIn, function(req, res) {
 	Bike.findByIdAndRemove(req.params.bike_id, function(err) {
 		if (err) {
 			console.log(err);
-			res.redirect("/bikes");
+			res.redirect(routes.bikes);
 		} else {
-			res.redirect("/bikes");
+			res.redirect(routes.bikes);
 		}
 	});
 });
