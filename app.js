@@ -69,9 +69,24 @@ var router = require('./routes');
 app.use(router);
 
 //Database seed
-if (process.argv.indexOf('--seed') > -1) {
-	var seedDb = require('./seeds');
-	seedDb();
+if (process.argv.indexOf('--seedDb') > -1) {
+	var seedDb = require('./seeds').seedDb;
+	seedDb({
+		user: true,
+		bikes: true,
+		subscribers: true,
+		settings: true
+	});
+}
+
+if (process.argv.indexOf('--clearDb') > -1) {
+	var clearDb = require('./seeds').clearDb;
+	clearDb({
+		user: true,
+		bikes: true,
+		subscribers: true,
+		settings: true
+	});
 }
 
 // Start app

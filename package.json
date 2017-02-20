@@ -5,8 +5,9 @@
   "main": "app.js",
   "scripts": {
     "docs": "esdoc && open ./docs/index.html",
-    "start-seed": "node app.js --seed",
-    "start": "node app.js"
+    "start": "node app.js",
+    "start-clear": "node app.js --clearDb",
+    "start-seed": "node app.js --seedDb"
   },
   "author": "Barrett Hafner <barrett@hafnerindustries.com>",
   "license": "MIT",

@@ -1,7 +1,8 @@
 'use strict';
 var express = require('express'),
 	router = express.Router(),
-	routes = require('../tree');
+	routes = require('../tree'),
+	seedDb = require('../../seeds').seedDb;
 
 var User = require('../../models/User');
 
@@ -32,6 +33,12 @@ router.post('/', function(req, res) {
 					res.redirect(routes.admin);
 				} else {
 					console.log("added user:" + user.username);
+					seedDb({
+						user: false,
+						bikes: true,
+						subscribers: true,
+						settings: true
+					});
 					res.redirect(routes.admin);
 				}
 			});

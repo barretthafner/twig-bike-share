@@ -94,89 +94,143 @@ var settingData =
 // <p>Do you agree to follow the Open Bike Share User Agreement? </p>
 // <p>BY SELECTING YES YOU ARE AGREEING THAT: I HAVE READ AND UNDERSTAND THIS AGREEMENT AND SIGN IT FREELY, VOLUNTARILY, AND WITH KNOWLEDGE OF ITS CONTENTS. I AM AWARE THAT BY SIGNING THIS AGREEMENT, I AM WAIVING CERTAIN LEGAL RIGHTS WHICH I OR MY HEIRS, NEXT OF KIN, EXECUTORS, ADMINISTRATORS,AND/OR REPRESENTATIVES MAY HAVE AGAINST THE RELEASEES.<p>
 
-function seedDb() {
+function seedDb(config) {
 
 	// clear and load Users
-
-	User.remove({}, function(err) {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log("removed users!");
-			userData.forEach(function(user) {
-				var newUser = new User({
-					name: user.name,
-					username: user.username
+	if (config.user === true) {
+		User.remove({}, function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("removed users!");
+				userData.forEach(function(user) {
+					var newUser = new User({
+						name: user.name,
+						username: user.username
+					});
+					User.register(newUser, user.password, function(err, user) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log("added user: " + user.username);
+						}
+					});
 				});
-				User.register(newUser, user.password, function(err, user) {
-					if (err) {
-						console.log(err);
-					} else {
-						console.log("added user: " + user.username);
-					}
+			}
+		});
+	}
+
+	if (config.bikes === true) {
+		//clear and load bikes
+		Bike.remove({}, function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("removed bikes!");
+				bikeData.forEach(function(bike) {
+					Bike.create(bike, function(err, bike) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log("added bike: " + bike.bikeId);
+						}
+					});
 				});
-			});
+			}
+		});
+	}
 
-		}
-	});
-
-
-	//clear and load bikes
-	Bike.remove({}, function(err) {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log("removed bikes!");
-			bikeData.forEach(function(bike) {
-				Bike.create(bike, function(err, bike) {
-					if (err) {
-						console.log(err);
-					} else {
-						console.log("added bike: " + bike.bikeId);
-					}
+	if (config.subscribers === true) {
+		// clear and load Subscribers
+		Subscriber.remove({}, function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("removed subscribers!");
+				subscriberData.forEach(function(subscriber) {
+					Subscriber.create(subscriber, function(err, subscriber) {
+						if (err) {
+							console.log(err);
+						} else {
+							subscriber.validationCode = validationCode.generate();
+							subscriber.save();
+							console.log("added subscriber: " + subscriber.email);
+							console.log("validation code: " + subscriber.validationCode);
+						}
+					});
 				});
-			});
-		}
-	});
+			}
+		});
+	}
 
-	// clear and load Subscribers
-	Subscriber.remove({}, function(err) {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log("removed subscribers!");
-			subscriberData.forEach(function(subscriber) {
-				Subscriber.create(subscriber, function(err, subscriber) {
-					if (err) {
-						console.log(err);
-					} else {
-						subscriber.validationCode = validationCode.generate();
-						subscriber.save();
-						console.log("added subscriber: " + subscriber.email);
-						console.log("validation code: " + subscriber.validationCode);
-					}
+	if (config.settings === true) {
+		// clear and load Settings
+		Setting.remove({}, function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("removed settings!");
+				settingData.forEach(function(setting) {
+					Setting.create(setting, function(err, setting) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log("added setting: " + setting.key);
+						}
+					});
 				});
-			});
-		}
-	});
-
-	// clear and load Settings
-	Setting.remove({}, function(err) {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log("removed settings!");
-			settingData.forEach(function(setting) {
-				Setting.create(setting, function(err, setting) {
-					if (err) {
-						console.log(err);
-					} else {
-						console.log("added setting: " + setting.key);
-					}
-				});
-			});
-		}
-	});
+			}
+		});
+	}
 };
 
-module.exports = seedDb;
+function clearDb(config) {
+		// clear and load Users
+	if (config.user === true) {
+		User.remove({}, function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("removed users!");
+			}
+		});
+	}
+
+	if (config.bikes === true) {
+		//clear and load bikes
+		Bike.remove({}, function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("removed bikes!");
+			}
+		});
+	}
+
+	if (config.subscribers === true) {
+		// clear and load Subscribers
+		Subscriber.remove({}, function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("removed subscribers!");
+			}
+		});
+	}
+
+	if (config.settings === true) {
+		// clear and load Settings
+		Setting.remove({}, function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("removed settings!");
+			}
+		});
+	}
+};
+
+module.exports = {
+	seedDb: seedDb,
+	clearDb: clearDb
+};
