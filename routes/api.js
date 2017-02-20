@@ -1,12 +1,13 @@
+'use strict';
 // api routes
 // contains routes for sending an receiving text messages from the messaging client
 // contains most of the logic that allows a user to activate their account and use the system
 
-var express = require("express"),
+var express = require('express'),
 	router = express.Router(),
-	middleware = require("../middleware"),
-	regEx = require("../modules/regExParser"),
-	client = require("../modules/twilio");
+	middleware = require('../middleware'),
+	regEx = require('../modules/regExParser'),
+	client = require('../modules/twilio');
 
 var Subscriber = require('../models/Subscriber'),
 	Bike = require('../models/Bike');
@@ -14,14 +15,14 @@ var Subscriber = require('../models/Subscriber'),
 
 // incoming voice route
 // rejects all voice calls
-router.post("/voice/incoming", function(req, res) {
+router.post('/voice/incoming', function(req, res) {
 	client.rejectCall(res);
 	console.log('Call Rejected!');
 });
 
 // incoming sms route
 // this does a number of check to see if the sms is valid
-router.post("/messaging/incoming", function(req, res) {
+router.post('/messaging/incoming', function(req, res) {
 
 	// validate the http request is from twilio
 	if (client.validate(req)) {
@@ -40,31 +41,31 @@ router.post("/messaging/incoming", function(req, res) {
 				if (bikeId) {
 					Bike.findByBikeId(bikeId, function(bike) {
 						if (bike) {
-							client.sendSms(subscriber.phoneNumber, "The code for bike number " + bike.bikeId + " is: " + bike.code);
+							client.sendSms(subscriber.phoneNumber, 'The code for bike number ' + bike.bikeId + ' is: ' + bike.code);
 						} else {
-							client.sendSms(subscriber.phoneNumber, "Sorry, we couldn't find a bike with ID: " + bikeId);
+							client.sendSms(subscriber.phoneNumber, 'Sorry, we couldn\'t find a bike with ID: ' + bikeId);
 						}
 					});
 				} else {
-					client.sendSms(subscriber.phoneNumber, "Sorry, we could not understand your request. Please send bike ID number only.")
+					client.sendSms(subscriber.phoneNumber, 'Sorry, we could not understand your request. Please send bike ID number only.')
 				}
-				console.log(subscriber.firstName + " sent a message! It says: " + message.body);
+				console.log(subscriber.firstName + ' sent a message! It says: ' + message.body);
 			} else if (subscriber && !subscriber.active) {
-				client.sendSms(subscriber.phoneNumber, "Sorry, your number has been deactivated.");
+				client.sendSms(subscriber.phoneNumber, 'Sorry, your number has been deactivated.');
 			} else if (validationCode) {
 				Subscriber.findByValidationCode(validationCode, function(subscriber) {
 					if (subscriber) {
 						subscriber.phoneNumber = message.from;
 						subscriber.active = true;
-						subscriber.validationCode = "";
+						subscriber.validationCode = '';
 						subscriber.save();
-						client.sendSms(subscriber.phoneNumber, "Welcome to the Open Bike Project. Your number is now active.");
+						client.sendSms(subscriber.phoneNumber, 'Welcome to the Open Bike Project. Your number is now active.');
 					} else {
-						client.sendSms(message.from, "Sorry you are not authorized to use this application.");
+						client.sendSms(message.from, 'Sorry you are not authorized to use this application.');
 					}
 				});
 			} else {
-				client.sendSms(message.from, "Sorry you are not authorized to use this application. Validation Error");
+				client.sendSms(message.from, 'Sorry you are not authorized to use this application. Validation Error');
 			}
 		});
 

@@ -1,17 +1,19 @@
-var express = require("express"),
+'use strict';
+var express = require('express'),
 	router = express.Router(),
-	middleware = require("../../middleware"),
-	User = require("../../models/User");
+	middleware = require('../../middleware'),
+	User = require('../../models/User'),
+	routes = require('../tree');
 
 
 // INDEX route
-router.get("/", middleware.isLoggedIn, function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
 	User.find({}, function(err, users) {
 		if (err) {
-			console.log(err);
-			res.redirect("/admin");
+			res.flah('error', err);
+			res.redirect(routes.admin);
 		} else {
-			res.render("users/index", {
+			res.render('users/index', {
 				users: users
 			});
 		}
@@ -19,35 +21,36 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 });
 
 // NEW route
-router.get("/new", middleware.isLoggedIn, function(req, res) {
-	res.render("users/new");
+router.get('/new', middleware.isLoggedIn, function(req, res) {
+	res.render('users/new');
 });
 
 // CREATE route
-router.post("/", middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
 	var user = req.body.user;
 	var newUser = new User({
+		name: user.name,
 		username: user.username
 	});
 	User.register(newUser, user.password, function(err, user) {
 		if (err) {
 			console.log(err);
-			res.redirect("/users");
+			res.redirect(routes.users);
 		} else {
-			console.log("added user:" + user.username);
-			res.redirect("/users");
+			console.log('added user:' + user.username);
+			res.redirect(routes.users);
 		}
 	});
 });
 
 // EDIT route
-router.get("/:user_id/edit", middleware.isLoggedIn, function(req, res) {
+router.get('/:user_id/edit', middleware.isLoggedIn, function(req, res) {
 	User.findById(req.params.user_id, function(err, user) {
 		if (err) {
 			console.log(err);
-			res.redirect("/users");
+			res.redirect(routes.users);
 		} else {
-			res.render("users/edit", {
+			res.render('users/edit', {
 				user: user
 			})
 		}
@@ -55,20 +58,20 @@ router.get("/:user_id/edit", middleware.isLoggedIn, function(req, res) {
 });
 
 // UPDATE route
-router.put("/:user_id", middleware.isLoggedIn, function(req, res) {
+router.put('/:user_id', middleware.isLoggedIn, function(req, res) {
 	User.findById(req.params.user_id, function(err, user) {
 		if (err) {
 			console.log(err);
-			res.redirect("/users");
+			res.redirect(routes.users);
 		} else {
 			user.setPassword(req.body.user.password, function(err) {
 				if (err) {
 					console.log(err);
-					res.redirect("/users");
+					res.redirect(routes.users);
 				} else {
 					user.save();
-					console.log("password for " + user.username + " changed!");
-					res.redirect("/users");
+					console.log('password for ' + user.username + ' changed!');
+					res.redirect(routes.users);
 				}
 			});
 		}
@@ -76,13 +79,13 @@ router.put("/:user_id", middleware.isLoggedIn, function(req, res) {
 });
 
 // DESTROY route
-router.delete("/:user_id", middleware.isLoggedIn, function(req, res) {
+router.delete('/:user_id', middleware.isLoggedIn, function(req, res) {
 	User.findByIdAndRemove(req.params.user_id, function(err) {
 		if (err) {
 			console.log(err);
-			res.redirect("/users");
+			res.redirect(routes.users);
 		} else {
-			res.redirect("/users");
+			res.redirect(routes.users);
 		}
 	});
 });

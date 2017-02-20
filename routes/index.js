@@ -1,3 +1,4 @@
+'use strict';
 var express = require('express'),
 	router = express.Router();
 
@@ -7,6 +8,7 @@ var adminRoutes = require('./admin'),
 	subscriberRoutes = require('./admin/subscribers'),
 	userRoutes = require('./admin/users'),
 	inviteRoutes = require('./admin/invite'),
+	setupRoutes = require('./admin/setup'),
 	apiRoutes = require('./api');
 
 // User schema
@@ -17,16 +19,16 @@ var routes = require('./tree');
 // Root ('/') route
 router.get('/', function(req, res) {
 	User.count({}, function(err, count) {
-		if (count - 1 > 0) {
+		if (count > 0) {
 			res.render('index');
 		} else {
-			res.render('setup');
+			res.redirect(routes.setup);
 		}
 	});
 });
 
 router.use(routes.admin, adminRoutes);
-// router.use('/a/setup', setupRoutes);
+router.use(routes.setup, setupRoutes);
 router.use(routes.bikes, bikeRoutes);
 router.use(routes.subscribers, subscriberRoutes);
 router.use(routes.users, userRoutes);
