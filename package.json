@@ -40,13 +40,7 @@
   "esdoc": {
     "source": "./",
     "destination": "./docs",
-    "excludes": [
-      "node_modules"
-    ],
-    "plugins": [
-      {
-        "name": "esdoc-node"
-      }
-    ]
+    "excludes": [ "node_modules" ],
+    "plugins": [{"name": "esdoc-node"}]
   }
 }

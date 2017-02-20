@@ -1,7 +1,7 @@
 var middlewareObj = {};
 
 // Auth middleware -------------------------------------------------------------------
-//Checks to see if the client is logged in
+// Checks to see if the client is logged in
 
 middlewareObj.isLoggedIn = function(req, res, next) {
 	if (!req.isAuthenticated()) {
@@ -12,6 +12,7 @@ middlewareObj.isLoggedIn = function(req, res, next) {
 	}
 };
 
+// Global values middleware
 middlewareObj.globals = function(req, res, next) {
 	res.locals.currentUser = req.user;
 	res.locals.success = req.flash("success");

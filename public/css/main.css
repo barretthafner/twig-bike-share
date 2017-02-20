@@ -1,12 +1,13 @@
 /* main.css */
 /* CSS rules for the whole site */
 
-body {
-  /*background-color: beige;*/
-  text-align: center;
-}
-
 .inactiveLink {
   pointer-events: none;
   cursor: default;
+}
+
+.alert {
+	margin-bottom: 0;
+	border-radius: 0;
+	border: none;
 }

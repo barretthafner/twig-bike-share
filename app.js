@@ -1,3 +1,4 @@
+'use strict';
 // Include packages -------------------------------------------------------------------
 var express = require('express'),
 	config = require('./config'),
@@ -63,7 +64,7 @@ app.use(middleware.globals);
 app.use(express.static(__dirname + '/public'));
 
 // Serve app routes
-var router = require('./routes');
+var router = require('./routes').router;
 app.use(router);
 
 //Database seed
