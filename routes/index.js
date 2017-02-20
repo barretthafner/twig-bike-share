@@ -6,8 +6,8 @@ var adminRoutes = require('./admin'),
 	bikeRoutes = require('./admin/bikes'),
 	subscriberRoutes = require('./admin/subscribers'),
 	userRoutes = require('./admin/users'),
-	apiRoutes = require('./api'),
-	inviteRoutes = require('./admin/invite');
+	inviteRoutes = require('./admin/invite'),
+	apiRoutes = require('./api');
 
 // User schema
 var User = require('../models/User');

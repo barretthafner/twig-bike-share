@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
 	}
 });
 
-router.post(routes.root, passport.authenticate('local', {
+router.post('/', passport.authenticate('local', {
 	successRedirect: routes.admin,
 	successFlash: 'Welcome!',
 	failureRedirect: routes.admin,
@@ -25,7 +25,7 @@ router.post(routes.root, passport.authenticate('local', {
 }), function(req, res) {});
 
 // logout route
-router.get(routes.logout, function(req, res) {
+router.get('/logout', function(req, res) {
 	req.logout();
 	req.flash('success', 'You are logged out!')
 	res.redirect(routes.admin);
