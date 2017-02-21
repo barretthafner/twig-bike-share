@@ -1,3 +1,4 @@
+'use strict';
 // admin routes
 // contains routes for the main admin page
 // requires admin to be logged in

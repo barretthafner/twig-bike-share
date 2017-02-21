@@ -1,3 +1,4 @@
+'use strict';
 var mongoose = require("mongoose");
 var Admin = require("./models/Admin");
 var Bike = require("./models/Bike");

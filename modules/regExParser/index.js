@@ -1,3 +1,4 @@
+'use strict';
 // regExp parser
 // helper module for parsing different types of messagess
 var parser = {};

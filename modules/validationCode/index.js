@@ -1,3 +1,4 @@
+'use strict';
 // validationCode module
 // generates "unique" validation codes with shortid library
 var shortid = require("shortid");

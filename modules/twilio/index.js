@@ -1,3 +1,4 @@
+'use strict';
 // twilio messaging module
 // twilio is a great low-cost text-messaging api, see more on www.twilio.com
 var twilio = require('twilio');
