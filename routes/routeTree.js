@@ -9,5 +9,5 @@ module.exports = {
 	subscribers: '/a/subscribers',
 	admins: '/a/admins',
 	invite: '/a/invite',
-	api: '/api'
+	twillioApi: '/twillio'
 };

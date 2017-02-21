@@ -58,7 +58,7 @@ passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
 
 // Pass global values
-app.locals.routes = require('./routes/tree');
+app.locals.routes = require('./routes/routeTree');
 app.use(middleware.globals);
 
 // Serve '/public' folder

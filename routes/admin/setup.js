@@ -1,7 +1,7 @@
 'use strict';
 var express = require('express'),
 	router = express.Router(),
-	routes = require('../tree'),
+	routes = require('../routeTree'),
 	seedDb = require('../../seeds').seedDb;
 
 var Admin = require('../../models/Admin');

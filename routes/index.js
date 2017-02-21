@@ -9,12 +9,12 @@ var adminRoutes = require('./admin'),
 	adminsRoutes = require('./admin/admins'),
 	inviteRoutes = require('./admin/invite'),
 	setupRoutes = require('./admin/setup'),
-	apiRoutes = require('./api');
+	twillioApiRoutes = require('./twillioApi');
 
 // Admin schema
 var Admin = require('../models/Admin');
 
-var routes = require('./tree');
+var routes = require('./routeTree');
 
 // Root ('/') route
 router.get('/', function(req, res) {
@@ -33,7 +33,7 @@ router.use(routes.bikes, bikeRoutes);
 router.use(routes.subscribers, subscriberRoutes);
 router.use(routes.admins, adminsRoutes);
 router.use(routes.invite, inviteRoutes);
-router.use(routes.api, apiRoutes);
+router.use(routes.twillioApi, twillioApiRoutes);
 
 router.get('*', function(req, res) {
 	res.render('404');

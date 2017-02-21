@@ -5,7 +5,8 @@ var express = require("express"),
 	validationCode = require("../../modules/validationCode"),
 	mailer = require("../../modules/mailgun"),
 	Setting = require("../../models/Setting"),
-	Subscriber = require("../../models/Subscriber");
+	Subscriber = require("../../models/Subscriber"),
+	routes = require('../routeTree');
 
 
 // INDEX route
@@ -13,7 +14,7 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 	Subscriber.find({}, function(err, subscribers) {
 		if (err) {
 			console.log(err);
-			res.redirect("/admin");
+			res.redirect(routes.admin);
 		} else {
 			res.render("subscribers/index", {
 				subscribers: subscribers
@@ -45,7 +46,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			console.log(err);
 		}
-		res.redirect("/subscribers");
+		res.redirect(routes.subscribers);
 	});
 });
 
@@ -80,7 +81,7 @@ router.put("/:id", middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			console.log(err);
 		}
-		res.redirect("/subscribers");
+		res.redirect(routes.subscribers);
 	})
 });
 
@@ -90,7 +91,7 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			console.log(err);
 		}
-		res.redirect("/subscribers");
+		res.redirect(routes.subscribers);
 	});
 });
 
@@ -101,8 +102,7 @@ router.get("/invite", middleware.isLoggedIn, function(req, res) {
 	Subscriber.find({}, function(err, subscribers) {
 		if (err) {
 			console.log("1", err);
-			//flash : err
-			res.redirect("/subscribers");
+			res.redirect(routes.subscribers);
 		} else {
 			var process = new Promise(function(resolve, reject) {
 				resolve(1);
@@ -127,7 +127,7 @@ router.get("/invite", middleware.isLoggedIn, function(req, res) {
 					}
 				});
 			}).then(function() {
-				res.redirect("/subscribers");
+				res.redirect(routes.subscribers);
 			});
 		}
 	});
@@ -140,7 +140,7 @@ router.get("/:id/invite", middleware.isLoggedIn, function(req, res) {
 	Setting.findByKey("inviteHtml", function(err, setting) {
 		if (err) {
 			console.log(err);
-			res.redirect("/subscribers");
+			res.redirect(routes.subscribers);
 		} else {
 			inviteHtml = setting.value;
 		}
@@ -150,7 +150,7 @@ router.get("/:id/invite", middleware.isLoggedIn, function(req, res) {
 		if (err || !inviteHtml) {
 			console.log(err);
 			//flash : err
-			res.redirect("/subscribers");
+			res.redirect(routes.subscribers);
 		} else if (!subscriber.invited) {
 
 
@@ -159,28 +159,26 @@ router.get("/:id/invite", middleware.isLoggedIn, function(req, res) {
 			var params = {
 				from: config.mailgunFromEmail,
 				to: subscriber.emailString(),
-				subject: config.inviteSubject,
+				subject: 'Welcome to the Open Bike Project',
 				text: emailHtml.replace(/<(?:.|\n)*?>/gm, ''),
 				html: emailHtml
 			};
 			mailer.sendOne(params, function(err) {
 				if (err) {
 					console.log(err);
-					res.redirect("/subscribers");
+					res.redirect(routes.subscribers);
 				} else {
 					subscriber.invited = true;
 					subscriber.save(function() {
-						res.redirect("/subscribers");
+						res.redirect(routes.subscribers);
 					});
 				}
 			});
 		} else {
 			// flash: subscriber has been invited already
-			res.redirect("/subscribers");
+			res.redirect(routes.subscribers);
 		}
 	});
 });
-
-
 
 module.exports = router;

@@ -1,3 +1,4 @@
+'use strict';
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var app = require('../app.js').app;

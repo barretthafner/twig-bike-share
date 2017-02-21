@@ -1,3 +1,4 @@
+'use strict';
 // mailgun messaging module
 // requires account from www.mailgun.com
 // Free email service for up to 400 messages a day
