@@ -5,7 +5,7 @@
     <div class="row">
         <h1 style="text-align: center">Invite a New Subscriber</h1>
         <div style="width: 30%; margin: 30px auto;">
-            <form action="/subscribers" method="POST">
+            <form action="<%= routes.subscribers %>" method="POST">
                 <div class="form-group">
                     <input class="form-control" name="subscriber[firstName]" type="text" placeholder="First Name">
                 </div>
@@ -20,7 +20,7 @@
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>
             </form>
-            <a href="/subscribers">Go Back</a>
+            <a href="<%= routes.subscribers %>">Go Back</a>
         </div>
     </div>
 </div>

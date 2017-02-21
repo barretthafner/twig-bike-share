@@ -3,9 +3,8 @@
 
 <div class="container">
     <div class="row">
-        <a class="btn btn-primary btn-large" href="<%= routes.users %>/new">Add a new User</a>
+        <a class="btn btn-primary btn-large" href="<%= routes.admins %>/new">Add a new User</a>
     </div>
-
 
     <div class="row">
         <table class="table table-hover bike-list">
@@ -15,15 +14,15 @@
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
-            <% users.forEach(function(user){ %>
+            <% admins.forEach(function(admin){ %>
             <tr>
-                <td><%= user.name %></td>
-                <td><%= user.username %></td>
+                <td><%= admin.name %></td>
+                <td><%= admin.username %></td>
                 <td>
-                    <a href="<%= routes.users %>/<%= user._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
+                    <a href="<%= routes.admins %>/<%= admin._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
                 </td>
                 <td>
-                    <form action="<%= routes.users %>/<%= user._id %>" method="POST" class="make-inline">
+                    <form action="<%= routes.admins %>/<%= admin._id %>" method="POST" class="make-inline">
                         <button class="btn btn-xs btn-danger">Delete</button>
                         <input type="hidden" name="_method" value="DELETE">
                     </form>

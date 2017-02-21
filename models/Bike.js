@@ -1,8 +1,8 @@
+'use strict';
 // Bike model
 // Has a two-digit bike ID and a 4 digit unlock code for a tumbler U-lock bike lock
 var mongoose = require('mongoose');
 
-// Need to add user feedback for this validation, also does not seem to be working properly on 6/13
 var BikeSchema = new mongoose.Schema({
 	bikeId: {
 		type: Number,

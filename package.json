@@ -36,12 +36,19 @@
     "gulp-concat": "^2.6.0",
     "gulp-minify-html": "^1.0.6",
     "gulp-sass": "^2.3.1",
-    "gulp-uglify": "^1.5.3"
+    "gulp-uglify": "^1.5.3",
+    "mocha": "^3.2.0"
   },
   "esdoc": {
     "source": "./",
     "destination": "./docs",
-    "excludes": [ "node_modules" ],
-    "plugins": [{"name": "esdoc-node"}]
+    "excludes": [
+      "node_modules"
+    ],
+    "plugins": [
+      {
+        "name": "esdoc-node"
+      }
+    ]
   }
 }

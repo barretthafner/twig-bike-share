@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
-var User = require("./models/User");
+var Admin = require("./models/Admin");
 var Bike = require("./models/Bike");
 var Subscriber = require("./models/Subscriber");
 var Setting = require("./models/Setting");
 var validationCode = require("./modules/validationCode");
 
-var userData = [
+var adminData = [
 	{
 		"name": "WTA Admin",
 		"username": "bikeshare@wta-tma.org",
@@ -96,23 +96,23 @@ var settingData =
 
 function seedDb(config) {
 
-	// clear and load Users
-	if (config.user === true) {
-		User.remove({}, function(err) {
+	// clear and load Admins
+	if (config.admin === true) {
+		Admin.remove({}, function(err) {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log("removed users!");
-				userData.forEach(function(user) {
-					var newUser = new User({
-						name: user.name,
-						username: user.username
+				console.log("removed admins!");
+				adminData.forEach(function(admin) {
+					var newAdmin = new Admin({
+						name: admin.name,
+						username: admin.username
 					});
-					User.register(newUser, user.password, function(err, user) {
+					Admin.register(newAdmin, admin.password, function(err, admin) {
 						if (err) {
 							console.log(err);
 						} else {
-							console.log("added user: " + user.username);
+							console.log("added admin: " + admin.username);
 						}
 					});
 				});
@@ -185,13 +185,13 @@ function seedDb(config) {
 };
 
 function clearDb(config) {
-		// clear and load Users
-	if (config.user === true) {
-		User.remove({}, function(err) {
+		// clear and load Admins
+	if (config.admin === true) {
+		Admin.remove({}, function(err) {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log("removed users!");
+				console.log("removed admins!");
 			}
 		});
 	}

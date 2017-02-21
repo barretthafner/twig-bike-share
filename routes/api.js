@@ -1,7 +1,7 @@
 'use strict';
 // api routes
 // contains routes for sending an receiving text messages from the messaging client
-// contains most of the logic that allows a user to activate their account and use the system
+// contains most of the logic that allows a subscriber to activate their account and use the system
 
 var express = require('express'),
 	router = express.Router(),

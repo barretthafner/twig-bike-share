@@ -4,10 +4,10 @@ var express = require('express'),
 	routes = require('../tree'),
 	seedDb = require('../../seeds').seedDb;
 
-var User = require('../../models/User');
+var Admin = require('../../models/Admin');
 
 router.get('/', function(req, res) {
-	User.count({}, function(err, count) {
+	Admin.count({}, function(err, count) {
 		if (count > 0) {
 			res.sendStatus(404);
 		} else {
@@ -18,23 +18,23 @@ router.get('/', function(req, res) {
 
 // Admin panel
 router.post('/', function(req, res) {
-	User.count({}, function(err, count) {
+	Admin.count({}, function(err, count) {
 		if (count > 0) {
 			res.sendStatus(404);
 		} else {
-			var user = req.body.user;
-			var newUser = new User({
-				name: user.name,
-				username: user.username
+			var admin = req.body.user;
+			var newAdmin = new Admin({
+				name: admin.name,
+				username: admin.username
 			});
-			User.register(newUser, user.password, function(err, user) {
+			Admin.register(newAdmin, admin.password, function(err, admin) {
 				if (err) {
 					console.log(err);
 					res.redirect(routes.admin);
 				} else {
-					console.log("added user:" + user.username);
+					console.log("added admin:" + admin.username);
 					seedDb({
-						user: false,
+						admins: false,
 						bikes: true,
 						subscribers: true,
 						settings: true

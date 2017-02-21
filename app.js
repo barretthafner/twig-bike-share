@@ -50,12 +50,12 @@ app.use(session({
 }));
 
 // Passport
-var User = require('./models/User');
+var Admin = require('./models/Admin');
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(Admin.authenticate()));
+passport.serializeUser(Admin.serializeUser());
+passport.deserializeUser(Admin.deserializeUser());
 
 // Pass global values
 app.locals.routes = require('./routes/tree');
@@ -72,7 +72,7 @@ app.use(router);
 if (process.argv.indexOf('--seedDb') > -1) {
 	var seedDb = require('./seeds').seedDb;
 	seedDb({
-		user: true,
+		admin: true,
 		bikes: true,
 		subscribers: true,
 		settings: true
@@ -82,7 +82,7 @@ if (process.argv.indexOf('--seedDb') > -1) {
 if (process.argv.indexOf('--clearDb') > -1) {
 	var clearDb = require('./seeds').clearDb;
 	clearDb({
-		user: true,
+		admin: true,
 		bikes: true,
 		subscribers: true,
 		settings: true

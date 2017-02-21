@@ -1,8 +1,8 @@
+'use strict';
 // Setting model
 // Stores key/value pairs for in app settings
 var mongoose = require('mongoose');
 
-// Need to add user feedback, untested validation on 6/13
 var SettingSchema = new mongoose.Schema({
 	key: {
 		type: String,

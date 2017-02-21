@@ -1,8 +1,8 @@
+'use strict';
 // Subscriber model
 // Stores subscriber information
 var mongoose = require('mongoose');
 
-// Need to add user feedback, untested validation on 6/13
 var SubscriberSchema = new mongoose.Schema({
 	firstName: String,
 	lastName: String,

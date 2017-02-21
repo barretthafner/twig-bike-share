@@ -6,19 +6,19 @@ var express = require('express'),
 var adminRoutes = require('./admin'),
 	bikeRoutes = require('./admin/bikes'),
 	subscriberRoutes = require('./admin/subscribers'),
-	userRoutes = require('./admin/users'),
+	adminsRoutes = require('./admin/admins'),
 	inviteRoutes = require('./admin/invite'),
 	setupRoutes = require('./admin/setup'),
 	apiRoutes = require('./api');
 
-// User schema
-var User = require('../models/User');
+// Admin schema
+var Admin = require('../models/Admin');
 
 var routes = require('./tree');
 
 // Root ('/') route
 router.get('/', function(req, res) {
-	User.count({}, function(err, count) {
+	Admin.count({}, function(err, count) {
 		if (count > 0) {
 			res.render('index');
 		} else {
@@ -31,7 +31,7 @@ router.use(routes.admin, adminRoutes);
 router.use(routes.setup, setupRoutes);
 router.use(routes.bikes, bikeRoutes);
 router.use(routes.subscribers, subscriberRoutes);
-router.use(routes.users, userRoutes);
+router.use(routes.admins, adminsRoutes);
 router.use(routes.invite, inviteRoutes);
 router.use(routes.api, apiRoutes);
 

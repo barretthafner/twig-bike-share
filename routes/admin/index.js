@@ -1,6 +1,6 @@
 // admin routes
 // contains routes for the main admin page
-// requires user to be logged in
+// requires admin to be logged in
 
 var express = require('express'),
 	passport = require('passport'),

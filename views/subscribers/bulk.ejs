@@ -4,9 +4,9 @@
 <div class="container">
     <div class="row">
         <h1 style="text-align: center">Invite a New Subscriber</h1>
-        <h3>Add one user per line</h3>
+        <h3>Add one subscriber per line</h3>
         <div style="width: 30%; margin: 30px auto;">
-            <form action="/subscribers/bulk" method="POST">
+            <form action="<%= routes.subscribers %>/bulk" method="POST">
                 <div class="form-group">
                     <textarea class="form-control" name="subscriberList" placeholder="First Name <email@email.com>\nBest Friend <best@friend.org>" rows="10"></textarea>
                 </div>
@@ -14,7 +14,7 @@
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>
             </form>
-            <a href="/subscribers">Go Back</a>
+            <a href="<%= routes.subscribers %>">Go Back</a>
         </div>
     </div>
 </div>

@@ -6,7 +6,7 @@
 var config = require("../../config");
 
 // set config variables
-var api_key = config.mailgunApiKey;
+var api_key = config.mailgunPrivateApiKey;
 var domain = config.mailgunDomain;
 var fromEmail = config.mailgunFromEmail;
 

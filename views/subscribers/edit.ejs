@@ -5,7 +5,7 @@
     <div class="row">
         <h1 style="text-align: center">Edit Subscriber: <%= subscriber.firstName + " " + subscriber.lastName %></h1>
         <div style="width: 30%; margin: 30px auto;">
-            <form action="/subscribers/<%= subscriber.id %>" method="POST">
+            <form action="<%= routes.subscribers %>/<%= subscriber.id %>" method="POST">
                 <div class="form-group">
                     <label for="firstName">First Name</label>
                     <input class="form-control" id="firstName" name="subscriber[firstName]" type="text" value="<%= subscriber.firstName %>">
@@ -45,11 +45,11 @@
                     <input type="hidden" name="_method" value="PUT">
                 </div>
             </form>
-            <form action="/subscribers/<%= subscriber._id %>" method="POST" class="make-inline">
+            <form action="<%= routes.subscribers %>/<%= subscriber._id %>" method="POST" class="make-inline">
                 <button class="btn btn-lg btn-danger btn-block">Delete Subscriber</button>
                 <input type="hidden" name="_method" value="DELETE">
             </form>
-            <a class="btn btn-lg btn-success btn-block" href="/subscribers">Go Back</a>
+            <a class="btn btn-lg btn-success btn-block" href="<%= routes.subscribers %>">Go Back</a>
         </div>
     </div>
 </div>

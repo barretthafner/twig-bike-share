@@ -7,7 +7,7 @@ module.exports = {
 	setup: '/a/setup',
 	bikes: '/a/bikes',
 	subscribers: '/a/subscribers',
-	users: '/a/users',
+	admins: '/a/admins',
 	invite: '/a/invite',
 	api: '/api'
 };
