@@ -20,7 +20,11 @@ var SubscriberSchema = new mongoose.Schema({
 		type: Boolean,
 		required: [true, 'Invited field is required']
 	},
-	validationCode: String
+	validationCode: String,
+	subscriberGroup: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'SubscriberGroup'
+	}
 });
 
 // emailString
@@ -32,12 +36,12 @@ SubscriberSchema.methods.emailString = function() {
 
 // findByPhoneNumber
 // creates a query by phone number and returns a callback function with a potentially-null single document
-SubscriberSchema.statics.findByPhoneNumber = function(phoneNumber, callback) {
+SubscriberSchema.statics.findByPhoneNumber = function(phoneNumber, callback, errback) {
 	return this.findOne({
 		'phoneNumber': phoneNumber
 	}, function(err, subscriber) {
 		if (err) {
-			console.log(err);
+			errback(err);
 		} else {
 			callback(subscriber);
 		}
@@ -46,12 +50,12 @@ SubscriberSchema.statics.findByPhoneNumber = function(phoneNumber, callback) {
 
 // findByValidationCode
 // creates a query by validation code and returns a callback function with a potentially-null single document
-SubscriberSchema.statics.findByValidationCode = function(validationCode, callback) {
+SubscriberSchema.statics.findByValidationCode = function(validationCode, callback, errback) {
 	return this.findOne({
 		'validationCode': validationCode
 	}, function(err, subscriber) {
 		if (err) {
-			console.log(err);
+			errback(err);
 		} else {
 			callback(subscriber);
 		}

@@ -9,7 +9,7 @@ module.exports = {
 	logout: '/a/logout',
 	settings: '/a/settings',
 	setup: '/a/setup',
-	subscriberGroups: '/a/subscriber-group',
+	subscriberGroups: '/a/subscriber-groups',
 	subscribers: '/a/subscribers',
-	twillioApi: '/twillio'
+	twilioApi: '/twilio'
 };

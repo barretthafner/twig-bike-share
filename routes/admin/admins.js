@@ -10,7 +10,7 @@ var express = require('express'),
 router.get('/', middleware.isLoggedIn, function(req, res) {
 	Admin.find({}, function(err, admins) {
 		if (err) {
-			res.flash('error', err);
+			res.flash('error', err.message);
 			res.redirect(routes.admin);
 		} else {
 			res.render('admins/index', {
@@ -34,12 +34,11 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 	});
 	Admin.register(newAdmin, admin.password, function(err, admin) {
 		if (err) {
-			console.log(err);
-			res.redirect(routes.admins);
+			req.flash('error', err.message);
 		} else {
-			console.log('added admin:' + admin.username);
-			res.redirect(routes.admins);
+			req.flash('success', 'Added admin: ' + admin.username);
 		}
+		res.redirect(routes.admins);
 	});
 });
 
@@ -47,7 +46,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 router.get('/:admin_id/edit', middleware.isLoggedIn, function(req, res) {
 	Admin.findById(req.params.admin_id, function(err, admin) {
 		if (err) {
-			console.log(err);
+			req.flash('error', err.message);
 			res.redirect(routes.admins);
 		} else {
 			res.render('admins/edit', {
@@ -61,20 +60,18 @@ router.get('/:admin_id/edit', middleware.isLoggedIn, function(req, res) {
 router.put('/:admin_id', middleware.isLoggedIn, function(req, res) {
 	Admin.findById(req.params.admin_id, function(err, admin) {
 		if (err) {
-			console.log(err);
-			res.redirect(routes.admins);
+			req.flash('error', err.message);
 		} else {
 			admin.setPassword(req.body.user.password, function(err) {
 				if (err) {
-					console.log(err);
-					res.redirect(routes.admins);
+					req.flash('error', err.message);
 				} else {
 					admin.save();
-					console.log('password for ' + admin.username + ' changed!');
-					res.redirect(routes.admins);
+					req.flash('success', 'Password for ' + admin.username + ' changed!');
 				}
 			});
 		}
+		res.redirect(routes.admins);
 	});
 });
 
@@ -82,11 +79,11 @@ router.put('/:admin_id', middleware.isLoggedIn, function(req, res) {
 router.delete('/:admin_id', middleware.isLoggedIn, function(req, res) {
 	Admin.findByIdAndRemove(req.params.admin_id, function(err) {
 		if (err) {
-			console.log(err);
-			res.redirect(routes.admins);
+			req.flash('error', err.message);
 		} else {
-			res.redirect(routes.admins);
+			req.flash('success', 'Administrator removed');
 		}
+		res.redirect(routes.admins);
 	});
 });
 

@@ -4,22 +4,29 @@
 var mongoose = require('mongoose');
 
 var SubscriberGroupSchema = new mongoose.Schema({
-	companyName: {
+	groupName: {
 		type:String,
-		required: [true, 'Company Name required']
+		required: [true, 'Group Name required']
 	},
-	emailRegex: {
+	emailDomain: {
 		type: String,
-		required: [true, 'Email Regex required'],
-		// match: [/.+@.+/, 'Email is not valid']
+		required: [true, 'Email Domain required']
 	},
-	urlString: {
+	inviteUrl: {
 		type: String,
-		required: [true, 'Url string required'],
+		required: [true, 'inviteUrl required'],
 		match: [/^[a-z\-]+$/, 'Only one word composed of lowercase letters and hyphen allowed.']
 	},
+	subscribers: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Subscriber'
+	}],
+	settings: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Setting'
+	}]
 });
 
 // export
-module.exports = mongoose.model('Subscriber', SubscriberSchema);
+module.exports = mongoose.model('SubscriberGroup', SubscriberGroupSchema);
 

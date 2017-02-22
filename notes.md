@@ -49,3 +49,7 @@ ask Chad about /invite/all or /inviteall (collision with /invite/:id)
 	- Setup environment variables in heroku
 
 - Twilio
+
+# Regex Parsing:
+
+/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(domain.com)$/

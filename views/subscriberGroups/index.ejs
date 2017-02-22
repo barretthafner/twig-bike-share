@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+<div class="container">
+    <div class="row">
+        <a class="btn btn-primary btn-large" href="<%= routes.subscriberGroups %>/new">Add new subscriber group</a>
+    </div>
+
+    <div class="row">
+        <table class="table table-hover subscriber-group-list">
+            <tr>
+                <th>Group</th>
+                <th>Invite Page</th>
+                <th>Edit</th>
+            </tr>
+            <% subscriberGroups.forEach(function(subscriberGroup){ %>
+                <tr>
+                    <td><%= subscriberGroup.groupName %></td>
+                    <td><%= subscriberGroup.invitePage %></td>
+                    <td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/edit" class="btn btn-xs btn-warning">Edit</a></td>
+                </tr>
+            <% }); %>
+        </table>
+    </div>
+</div>
+
+<% include ../partials/footer %>

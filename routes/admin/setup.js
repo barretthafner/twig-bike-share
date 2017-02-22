@@ -3,7 +3,7 @@ var express = require('express'),
 	router = express.Router(),
 	routes = require('../routeTree'),
 	seedDb = require('../../seeds').seedDb,
-	twillio = require('../../modules/twillio');
+	twilio = require('../../modules/twilio');
 
 var Admin = require('../../models/Admin');
 
@@ -35,14 +35,13 @@ router.post('/', function(req, res) {
 				} else {
 					console.log("added admin:" + admin.username);
 					seedDb({
-						admins: false,
-						bikes: true,
-						subscribers: true,
-						settings: true
+						admin: false,
+						bikes: true
 					});
 					res.redirect(routes.admin);
 				}
 			twilio.setEndpoints();
+			global.dbEmpty = false;
 			});
 		}
 	});

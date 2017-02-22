@@ -1,4 +1,6 @@
 'use strict';
+var routes = require('../routes/routeTree');
+
 var middlewareObj = {};
 
 // Auth middleware -------------------------------------------------------------------
@@ -19,6 +21,29 @@ middlewareObj.globals = function(req, res, next) {
 	res.locals.success = req.flash("success");
 	res.locals.error = req.flash("error");
 	next();
+}
+
+// Check if we need to render the setup page
+middlewareObj.checkDbEmpty = function(req, res, next) {
+	if (global.dbEmpty) {
+		var re = new RegExp(routes.setup);
+		if (req.url.match(re)) {
+			console.log('bam!');
+			next()
+		} else {
+			var Admin = require('../models/Admin');
+			Admin.count({}, function(err, count) {
+				if (count > 0) {
+					global.dbEmpty = false;
+					next();
+				} else {
+					res.redirect(routes.setup);
+				}
+			});
+		}
+	} else {
+		next();
+	}
 }
 
 // Export -------------------------------------------------------------------

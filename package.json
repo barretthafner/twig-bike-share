@@ -6,7 +6,6 @@
   "scripts": {
     "docs": "esdoc && open ./docs/index.html",
     "start": "node server.js",
-    "start-clear": "node server.js --clearDb",
     "start-seed": "node server.js --seedDb"
   },
   "author": "Barrett Hafner <barrett@hafnerindustries.com>",

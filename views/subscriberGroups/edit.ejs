@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">Edit Subscriber Group: <%= subscriberGroup.groupName %></h1>
+        <div style="width: 30%; margin: 30px auto;">
+            <form action="<%= routes.subscriberGroups %>/<%= subscriberGroup._id %>" method="POST">
+                <div class="form-group">
+                    <label for="groupName">Group Name</label>
+                    <input class="form-control" id="firstName" name="subscriberGroup[groupName]" type="text" value="<%= subscriberGroup.groupName %>">
+                </div>
+                <div class="form-group">
+                    <label for="emailRegex">Email Regex</label>
+                    <input class="form-control" id="emailRegex" name="subscriberGroup[emailRegex]" type="text" value="<%= subscriberGroup.emailRegex %>">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+                    <input type="hidden" name="_method" value="PUT">
+                </div>
+            </form>
+            <form action="<%= routes.subscriberGroups %>/<%= subscriberGroup._id %>" method="POST" class="make-inline">
+                <button class="btn btn-lg btn-danger btn-block">Delete Subscriber Group</button>
+                <input type="hidden" name="_method" value="DELETE">
+            </form>
+            <a class="btn btn-lg btn-success btn-block" href="<%= routes.subscriberGroups %>">Go Back</a>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

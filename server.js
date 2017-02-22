@@ -14,6 +14,9 @@ var express = require('express'),
 
 var app = express();
 
+// Serve '/public' folder
+app.use(express.static(__dirname + '/public'));
+
 // Connect Database
 mongoose.connect(config.dbUrl);
 
@@ -61,32 +64,26 @@ passport.deserializeUser(Admin.deserializeUser());
 app.locals.routes = require('./routes/routeTree');
 app.use(middleware.globals);
 
-// Serve '/public' folder
-app.use(express.static(__dirname + '/public'));
+// set global variable to render setup if db is empty
+global.dbEmpty = true;
+// Check if db needs to be setup
+app.use(middleware.checkDbEmpty);
+
+
 
 // Serve app routes
 var router = require('./routes');
 app.use(router);
+
 
 //Database seed
 if (process.argv.indexOf('--seedDb') > -1) {
 	var seedDb = require('./seeds').seedDb;
 	seedDb({
 		admin: true,
-		bikes: true,
-		subscribers: true,
-		settings: true
+		bikes: true
 	});
-}
-
-if (process.argv.indexOf('--clearDb') > -1) {
-	var clearDb = require('./seeds').clearDb;
-	clearDb({
-		admin: true,
-		bikes: true,
-		subscribers: true,
-		settings: true
-	});
+	global.dbEmpty = false;
 }
 
 // Start app

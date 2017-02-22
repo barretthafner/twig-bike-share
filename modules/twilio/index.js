@@ -82,7 +82,7 @@ messenger.setEndpoints = function() {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('Twillio endpoints set!');
+				console.log('Twilio endpoints set!');
 			}
 		});
 	});

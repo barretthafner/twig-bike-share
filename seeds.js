@@ -1,81 +1,79 @@
 'use strict';
-var mongoose = require("mongoose");
-var Admin = require("./models/Admin");
-var Bike = require("./models/Bike");
-var Subscriber = require("./models/Subscriber");
-var Setting = require("./models/Setting");
-var validationCode = require("./modules/validationCode");
+var mongoose = require('mongoose');
+var Admin = require('./models/Admin');
+var Bike = require('./models/Bike');
+var Subscriber = require('./models/Subscriber');
+var Setting = require('./models/Setting');
+var validationCode = require('./modules/validationCode');
 
-var adminData = [
-	{
-		"name": "WTA Admin",
-		"username": "bikeshare@wta-tma.org",
-	 	"password": "bikes"
-	}
-];
+var adminData = [{
+	name: 'Open Bike Admin',
+	username: 'info@openbike.org',
+	password: 'bikesaregreat'
+}];
 
 var bikeData =
 	[{
-		"bikeId": 10,
-		"code": "1455"
+		'bikeId': 10,
+		'code': '1455'
 	}, {
-		"bikeId": 11,
-		"code": "0356"
+		'bikeId': 11,
+		'code': '0356'
 	}, {
-		"bikeId": 12,
-		"code": "8897"
+		'bikeId': 12,
+		'code': '8897'
 	}, {
-		"bikeId": 13,
-		"code": "3256"
+		'bikeId': 13,
+		'code': '3256'
 	}, {
-		"bikeId": 14,
-		"code": "7235"
+		'bikeId': 14,
+		'code': '7235'
 	}, {
-		"bikeId": 15,
-		"code": "8991"
+		'bikeId': 15,
+		'code': '8991'
 	}, {
-		"bikeId": 16,
-		"code": "7657"
+		'bikeId': 16,
+		'code': '7657'
 	}, {
-		"bikeId": 17,
-		"code": "4899"
+		'bikeId': 17,
+		'code': '4899'
 	}, {
-		"bikeId": 18,
-		"code": "2008"
+		'bikeId': 18,
+		'code': '2008'
 	}, {
-		"bikeId": 19,
-		"code": "1212"
+		'bikeId': 19,
+		'code': '1212'
 	}];
 
 var subscriberGroupData = [{
-	"groupName": "Hafner Industries",
-	"emailDomain": "hafnerindustries.com",
-	"inviteUrl": "hafner-industries"
+	'groupName': 'Hafner Industries',
+	'emailDomain': 'hafnerindustries.com',
+	'inviteUrl': 'hafner-industries'
 }]
 
 var subscriberData =
 	[{
-			"firstName": "Barrett",
-			"lastName": "Hafner",
-			"email": "barrett@hafnerindustries.com",
-			"active": "false",
-			"invited": "false"
+			'firstName': 'Barrett',
+			'lastName': 'Hafner',
+			'email': 'barrett@hafnerindustries.com',
+			'active': 'false',
+			'invited': 'false'
 		}
-		// { "firstName": "Steve", "lastName": "Zissou", "email": "thezissou@thesea.com",  }
-		// { "firstName": "Charley", "lastName": "Murphy", "email": "charley@themurphys.com", "phoneNumber": "6024458890" },
-		// { "firstName": "George", "lastName": "Costanza", "email": "georgelikeshischickenspicy@mail.com", "phoneNumber": "9908804556" },
-		// { "firstName": "Marcell", "lastName": "Wallace", "email": "marcelman@gmail.net", "phoneNumber": "9094402756" },
-		// { "firstName": "Mark", "lastName": "Misky", "email": "bikesalot@oregonbikes.com", "phoneNumber": "3034158233" },
-		// { "firstName": "Alisha", "lastName": "Stone", "email": "alisha.stone@privatemail.com", "phoneNumber": "8479883211" },
-		// { "firstName": "Courtney", "lastName": "Manson", "email": "cmanson@edusite.edu", "phoneNumber": "4041443556" },
-		// { "firstName": "Jeremy", "lastName": "York", "email": "thenewyork@corgis.net", "phoneNumber": "4157078737" },
-		// { "firstName": "Melissa", "lastName": "Barnes", "email": "xxemogirlxx@yahoo.net", "phoneNumber": "7143345222" }
+		// { 'firstName': 'Steve', 'lastName': 'Zissou', 'email': 'thezissou@thesea.com',  }
+		// { 'firstName': 'Charley', 'lastName': 'Murphy', 'email': 'charley@themurphys.com', 'phoneNumber': '6024458890' },
+		// { 'firstName': 'George', 'lastName': 'Costanza', 'email': 'georgelikeshischickenspicy@mail.com', 'phoneNumber': '9908804556' },
+		// { 'firstName': 'Marcell', 'lastName': 'Wallace', 'email': 'marcelman@gmail.net', 'phoneNumber': '9094402756' },
+		// { 'firstName': 'Mark', 'lastName': 'Misky', 'email': 'bikesalot@oregonbikes.com', 'phoneNumber': '3034158233' },
+		// { 'firstName': 'Alisha', 'lastName': 'Stone', 'email': 'alisha.stone@privatemail.com', 'phoneNumber': '8479883211' },
+		// { 'firstName': 'Courtney', 'lastName': 'Manson', 'email': 'cmanson@edusite.edu', 'phoneNumber': '4041443556' },
+		// { 'firstName': 'Jeremy', 'lastName': 'York', 'email': 'thenewyork@corgis.net', 'phoneNumber': '4157078737' },
+		// { 'firstName': 'Melissa', 'lastName': 'Barnes', 'email': 'xxemogirlxx@yahoo.net', 'phoneNumber': '7143345222' }
 	];
 
 var settingData =
 	[{
-		"key": "inviteHtml",
-		"value": "<p>Invite HTML not set!</p>"
+		'key': 'inviteHtml',
+		'value': '<p>Invite HTML not set!</p>'
 	}];
 
 // <h1>Welcome to the Open Bike Project</h1>
@@ -103,23 +101,18 @@ var settingData =
 
 function seedDb(config) {
 
-	// clear and load Admins
 	if (config.admin === true) {
 		Admin.remove({}, function(err) {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log("removed admins!");
+				console.log('removed admins!');
 				adminData.forEach(function(admin) {
-					var newAdmin = new Admin({
-						name: admin.name,
-						username: admin.username
-					});
-					Admin.register(newAdmin, admin.password, function(err, admin) {
+					Admin.create(admin, function(err, admin) {
 						if (err) {
 							console.log(err);
 						} else {
-							console.log("added admin: " + admin.username);
+							console.log('added admin: ' + admin.username)
 						}
 					});
 				});
@@ -127,19 +120,20 @@ function seedDb(config) {
 		});
 	}
 
+
 	if (config.bikes === true) {
 		//clear and load bikes
 		Bike.remove({}, function(err) {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log("removed bikes!");
+				console.log('removed bikes!');
 				bikeData.forEach(function(bike) {
 					Bike.create(bike, function(err, bike) {
 						if (err) {
 							console.log(err);
 						} else {
-							console.log("added bike: " + bike.bikeId);
+							console.log('added bike: ' + bike.bikeId);
 						}
 					});
 				});
@@ -147,97 +141,48 @@ function seedDb(config) {
 		});
 	}
 
-	if (config.subscribers === true) {
-		// clear and load Subscribers
-		Subscriber.remove({}, function(err) {
-			if (err) {
-				console.log(err);
-			} else {
-				console.log("removed subscribers!");
-				subscriberData.forEach(function(subscriber) {
-					Subscriber.create(subscriber, function(err, subscriber) {
-						if (err) {
-							console.log(err);
-						} else {
-							subscriber.validationCode = validationCode.generate();
-							subscriber.save();
-							console.log("added subscriber: " + subscriber.email);
-							console.log("validation code: " + subscriber.validationCode);
-						}
-					});
-				});
-			}
-		});
-	}
+	// if (config.subscribers === true) {
+	// 	// clear and load Subscribers
+	// 	Subscriber.remove({}, function(err) {
+	// 		if (err) {
+	// 			console.log(err);
+	// 		} else {
+	// 			console.log('removed subscribers!');
+	// 			subscriberData.forEach(function(subscriber) {
+	// 				Subscriber.create(subscriber, function(err, subscriber) {
+	// 					if (err) {
+	// 						console.log(err);
+	// 					} else {
+	// 						subscriber.validationCode = validationCode.generate();
+	// 						subscriber.save();
+	// 						console.log('added subscriber: ' + subscriber.email);
+	// 						console.log('validation code: ' + subscriber.validationCode);
+	// 					}
+	// 				});
+	// 			});
+	// 		}
+	// 	});
+	// }
 
-	if (config.settings === true) {
-		// clear and load Settings
-		Setting.remove({}, function(err) {
-			if (err) {
-				console.log(err);
-			} else {
-				console.log("removed settings!");
-				settingData.forEach(function(setting) {
-					Setting.create(setting, function(err, setting) {
-						if (err) {
-							console.log(err);
-						} else {
-							console.log("added setting: " + setting.key);
-						}
-					});
-				});
-			}
-		});
-	}
+	// if (config.settings === true) {
+	// 	// clear and load Settings
+	// 	Setting.remove({}, function(err) {
+	// 		if (err) {
+	// 			console.log(err);
+	// 		} else {
+	// 			console.log('removed settings!');
+	// 			settingData.forEach(function(setting) {
+	// 				Setting.create(setting, function(err, setting) {
+	// 					if (err) {
+	// 						console.log(err);
+	// 					} else {
+	// 						console.log('added setting: ' + setting.key);
+	// 					}
+	// 				});
+	// 			});
+	// 		}
+	// 	});
+	// }
 };
 
-function clearDb(config) {
-		// clear and load Admins
-	if (config.admin === true) {
-		Admin.remove({}, function(err) {
-			if (err) {
-				console.log(err);
-			} else {
-				console.log("removed admins!");
-			}
-		});
-	}
-
-	if (config.bikes === true) {
-		//clear and load bikes
-		Bike.remove({}, function(err) {
-			if (err) {
-				console.log(err);
-			} else {
-				console.log("removed bikes!");
-			}
-		});
-	}
-
-	if (config.subscribers === true) {
-		// clear and load Subscribers
-		Subscriber.remove({}, function(err) {
-			if (err) {
-				console.log(err);
-			} else {
-				console.log("removed subscribers!");
-			}
-		});
-	}
-
-	if (config.settings === true) {
-		// clear and load Settings
-		Setting.remove({}, function(err) {
-			if (err) {
-				console.log(err);
-			} else {
-				console.log("removed settings!");
-			}
-		});
-	}
-};
-
-module.exports = {
-	seedDb: seedDb,
-	clearDb: clearDb
-};
+module.exports = { seedDb: seedDb };
