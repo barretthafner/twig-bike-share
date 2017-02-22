@@ -10,7 +10,7 @@ var express = require('express'),
 router.get('/', middleware.isLoggedIn, function(req, res) {
 	Admin.find({}, function(err, admins) {
 		if (err) {
-			res.flah('error', err);
+			res.flash('error', err);
 			res.redirect(routes.admin);
 		} else {
 			res.render('admins/index', {

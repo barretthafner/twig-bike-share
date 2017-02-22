@@ -3,15 +3,11 @@
 
 <div class="container">
   <div class="row">
-    <a class="btn btn-primary btn-large" href="<%= routes.settings %>/new">Add a new Setting</a>
-  </div>
-
-
-  <div class="row">
+    <h1 style="text-align: center">App Settings</h1>
     <table class="table table-hover setting-list">
       <tr>
-        <th>Key</th>
-        <th>Value/th>
+        <th>Name</th>
+        <th>Value</th>
         <th>Edit</th>
       </tr>
       <% settings.forEach(function(setting){ %>

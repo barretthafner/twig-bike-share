@@ -7,9 +7,9 @@ module.exports = {
 	bikes: '/a/bikes',
 	invite: '/a/invite',
 	logout: '/a/logout',
-	settings: '/a/settings'
+	settings: '/a/settings',
 	setup: '/a/setup',
-	subscriberGroups: '/a/subscriber-group'
+	subscriberGroups: '/a/subscriber-group',
 	subscribers: '/a/subscribers',
 	twillioApi: '/twillio'
 };

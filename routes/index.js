@@ -9,6 +9,7 @@ var adminRoutes = require('./admin'),
 	adminsRoutes = require('./admin/admins'),
 	inviteRoutes = require('./admin/invite'),
 	setupRoutes = require('./admin/setup'),
+	settingRoutes = require('./admin/settings'),
 	twillioApiRoutes = require('./twillioApi');
 
 // Admin schema
@@ -29,6 +30,7 @@ router.get('/', function(req, res) {
 
 router.use(routes.admin, adminRoutes);
 router.use(routes.setup, setupRoutes);
+router.use(routes.settings, settingRoutes)
 router.use(routes.bikes, bikeRoutes);
 router.use(routes.subscribers, subscriberRoutes);
 router.use(routes.admins, adminsRoutes);
