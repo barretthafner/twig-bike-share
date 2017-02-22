@@ -10,7 +10,7 @@ var adminData = [
 	{
 		"name": "WTA Admin",
 		"username": "bikeshare@wta-tma.org",
-	 	"password": "4Bikes%2017"
+	 	"password": "bikes"
 	}
 ];
 
@@ -46,6 +46,12 @@ var bikeData =
 		"bikeId": 19,
 		"code": "1212"
 	}];
+
+var subscriberGroupData = [{
+	"groupName": "Hafner Industries",
+	"emailDomain": "hafnerindustries.com",
+	"inviteUrl": "hafner-industries"
+}]
 
 var subscriberData =
 	[{
