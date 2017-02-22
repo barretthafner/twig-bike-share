@@ -1,0 +1,30 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+<div class="container">
+  <div class="row">
+    <a class="btn btn-primary btn-large" href="<%= routes.settings %>/new">Add a new Setting</a>
+  </div>
+
+
+  <div class="row">
+    <table class="table table-hover setting-list">
+      <tr>
+        <th>Key</th>
+        <th>Value/th>
+        <th>Edit</th>
+      </tr>
+      <% settings.forEach(function(setting){ %>
+        <tr>
+          <td><%= setting.key %></td>
+          <td><%= setting.value %></td>
+          <td>
+              <a href="<%= routes.settings %>/<%= setting._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
+          </td>
+        </tr>
+      <% }); %>
+    </table>
+  </div>
+</div>
+
+<% include ../partials/footer %>
