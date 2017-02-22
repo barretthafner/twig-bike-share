@@ -2,7 +2,8 @@
 var express = require('express'),
 	router = express.Router(),
 	routes = require('../routeTree'),
-	seedDb = require('../../seeds').seedDb;
+	seedDb = require('../../seeds').seedDb,
+	twillio = require('../../modules/twillio');
 
 var Admin = require('../../models/Admin');
 
@@ -41,6 +42,7 @@ router.post('/', function(req, res) {
 					});
 					res.redirect(routes.admin);
 				}
+			twilio.setEndpoints();
 			});
 		}
 	});

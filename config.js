@@ -20,7 +20,6 @@ config.twilioSendingNumber = process.env.TWILIO_NUMBER;
 config.mailgunDomain = config.appDomain;
 config.mailgunFromEmail = 'NoReply <noreply@' + config.appDomain + '>';
 config.twilioValidateUrl = 'http://' + config.appDomain + '/twillio/messaging/incoming';
-config.twilioValidateUrl = 'http://fefba595.ngrok.io/api/messaging/incoming';
 
 // Export module -------------------------------------------------------------------
 module.exports = config;

@@ -64,5 +64,29 @@ messenger.validate = function(req) {
 	});
 };
 
+messenger.setEndpoints = function() {
+	client.incomingPhoneNumbers.list(function(err, data) {
+		var sid;
+		data.incomingPhoneNumbers.forEach(function(number) {
+				if(number.phoneNumber === sendingNumber) {
+					sid = number.sid;
+				}
+		});
+
+		client.incomingPhoneNumbers(sid).update({
+			voiceUrl: "http://demo.twilio.com/docs/voice.xml",
+			voiceMethod: 'POST',
+			smsUrl: "http://demo.twilio.com/docs/sms.xml",
+			smsMethod: 'POST'
+		}, function(err, number) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('Twillio endpoints set!');
+			}
+		});
+	});
+}
+
 // export
 module.exports = messenger;
