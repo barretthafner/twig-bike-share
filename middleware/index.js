@@ -16,7 +16,7 @@ middlewareObj.isLoggedIn = function(req, res, next) {
 };
 
 // Global values middleware
-middlewareObj.globals = function(req, res, next) {
+middlewareObj.addGlobals = function(req, res, next) {
 	res.locals.currentUser = req.user;
 	res.locals.success = req.flash("success");
 	res.locals.error = req.flash("error");

@@ -62,7 +62,7 @@ passport.deserializeUser(Admin.deserializeUser());
 
 // Pass global values
 app.locals.routes = require('./routes/routeTree');
-app.use(middleware.globals);
+app.use(middleware.addGlobals);
 
 // set global variable to render setup if db is empty
 global.dbEmpty = true;
