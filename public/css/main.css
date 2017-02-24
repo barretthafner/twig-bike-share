@@ -1,6 +1,11 @@
 /* main.css */
 /* CSS rules for the whole site */
 
+.index__title {
+	text-align: center;
+}
+
+
 .inactiveLink {
   pointer-events: none;
   cursor: default;
