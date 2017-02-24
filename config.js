@@ -21,5 +21,7 @@ config.mailgunDomain = config.appDomain;
 config.mailgunFromEmail = 'NoReply <noreply@' + config.appDomain + '>';
 config.twilioValidateUrl = 'http://' + config.appDomain + '/twilio/messaging/incoming';
 
+config.siteTitle = 'WTA Bike Share';
+
 // Export module -------------------------------------------------------------------
 module.exports = config;
