@@ -14,7 +14,8 @@ var SubscriberGroupSchema = new mongoose.Schema({
 	},
 	inviteUrl: {
 		type: String,
-		required: [true, 'inviteUrl required'],
+		unique: [true, 'Invite URL must be unique'],
+		required: [true, 'Invite URL required'],
 		match: [/^[a-z\-]+$/, 'Only one word composed of lowercase letters and hyphen allowed.']
 	},
 	subscribers: [{
@@ -29,4 +30,3 @@ var SubscriberGroupSchema = new mongoose.Schema({
 
 // export
 module.exports = mongoose.model('SubscriberGroup', SubscriberGroupSchema);
-

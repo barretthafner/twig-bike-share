@@ -36,7 +36,8 @@ router.post('/', function(req, res) {
 					console.log("added admin:" + admin.username);
 					seedDb({
 						admin: false,
-						bikes: true
+						bikes: true,
+						subscriberGroups: true
 					});
 					res.redirect(routes.admin);
 				}

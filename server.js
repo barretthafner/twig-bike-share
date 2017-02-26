@@ -81,8 +81,9 @@ app.use(router);
 if (process.argv.indexOf('--seedDb') > -1) {
 	var seedDb = require('./seeds').seedDb;
 	seedDb({
-		admin: true,
-		bikes: true
+		admin: false,
+		bikes: false,
+		subscriberGroups: true
 	});
 	global.dbEmpty = false;
 }

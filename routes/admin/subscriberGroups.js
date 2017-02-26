@@ -14,7 +14,7 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 			res.redirect(routes.admin);
 		} else {
 			res.render("subscriberGroups/index", {
-				subscribersGroups: subscriberGroups
+				subscriberGroups: subscriberGroups
 			});
 		}
 	});

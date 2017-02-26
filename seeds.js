@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var Admin = require('./models/Admin');
 var Bike = require('./models/Bike');
 var Subscriber = require('./models/Subscriber');
+var SubscriberGroup = require('./models/SubscriberGroup');
 var Setting = require('./models/Setting');
 var validationCode = require('./modules/validationCode');
 
@@ -45,11 +46,12 @@ var bikeData =
 		'code': '1212'
 	}];
 
-var subscriberGroupData = [{
-	'groupName': 'Hafner Industries',
-	'emailDomain': 'hafnerindustries.com',
-	'inviteUrl': 'hafner-industries'
-}]
+var subscriberGroupData =
+[{
+	'groupName': 'Open Bike',
+	'emailDomain': 'openbikeinitiative.com',
+	'inviteUrl': 'open-bike-initiative'
+}];
 
 var subscriberData =
 	[{
@@ -134,6 +136,26 @@ function seedDb(config) {
 							console.log(err);
 						} else {
 							console.log('added bike: ' + bike.bikeId);
+						}
+					});
+				});
+			}
+		});
+	}
+
+	if (config.subscriberGroups === true) {
+		//clear and load subscriber groups
+		SubscriberGroup.remove({}, function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('removed subscriber groups!');
+				subscriberGroupData.forEach(function(group) {
+					SubscriberGroup.create(group, function(err, group) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log('added subscriber group: ' + group.groupName);
 						}
 					});
 				});
