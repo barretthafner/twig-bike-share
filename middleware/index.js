@@ -31,8 +31,8 @@ middlewareObj.checkDbEmpty = function(req, res, next) {
 			console.log('bam!');
 			next()
 		} else {
-			var Admin = require('../models/Admin');
-			Admin.count({}, function(err, count) {
+			var Administrator = require('../models/Administrator');
+			Administrator.count({}, function(err, count) {
 				if (count > 0) {
 					global.dbEmpty = false;
 					next();

@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
-var Admin = require('./models/Admin');
+var Administrator = require('./models/Administrator');
 var Bike = require('./models/Bike');
 var Subscriber = require('./models/Subscriber');
 var SubscriberGroup = require('./models/SubscriberGroup');
@@ -9,7 +9,7 @@ var validationCode = require('./modules/validationCode');
 var twilio = require('./modules/twilio');
 
 var administratorData = [{
-	name: 'Open Bike Admin',
+	name: 'Open Bike Administrator',
 	username: 'info@openbike.org',
 	password: 'bikesaregreat'
 }];
@@ -105,13 +105,13 @@ var settingData =
 function seed(config) {
 
 	if (config.administrators === true) {
-		Admin.remove({}, function(err) {
+		Administrator.remove({}, function(err) {
 			if (err) {
 				console.log(err);
 			} else {
 				console.log('removed administrators!');
 				administratorData.forEach(function(administrator) {
-					Admin.create(administrator, function(err, administrator) {
+					Administrator.create(administrator, function(err, administrator) {
 						if (err) {
 							console.log(err);
 						} else {

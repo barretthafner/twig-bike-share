@@ -5,10 +5,10 @@ var express = require('express'),
 	seed = require('../seeds'),
 	twilio = require('../modules/twilio');
 
-var Admin = require('../models/Admin');
+var Administrator = require('../models/Administrator');
 
 router.get('/', function(req, res) {
-	Admin.count({}, function(err, count) {
+	Administrator.count({}, function(err, count) {
 		if (count > 0) {
 			res.sendStatus(404);
 		} else {
@@ -17,20 +17,20 @@ router.get('/', function(req, res) {
 	});
 });
 
-// Admin panel
+// Administrator panel
 router.post('/', function(req, res) {
-	Admin.count({}, function(err, count) {
+	Administrator.count({}, function(err, count) {
 		// if there is 1 or more administrators in the data base return 404
 		if (count > 0) {
 			res.sendStatus(404);
 		} else {
 			// else add new user and register
 			var administrator = req.body.user;
-			var newAdmin = new Admin({
+			var newAdministrator = new Administrator({
 				name: administrator.name,
 				username: administrator.username
 			});
-			Admin.register(newAdmin, administrator.password, function(err, administrator) {
+			Administrator.register(newAdministrator, administrator.password, function(err, administrator) {
 				if (err) {
 					console.log(err);
 					req.flash('error', err.message);

@@ -54,12 +54,12 @@ app.use(session({
 }));
 
 // Passport
-var Admin = require('./models/Admin');
+var Administrator = require('./models/Administrator');
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(Admin.authenticate()));
-passport.serializeUser(Admin.serializeUser());
-passport.deserializeUser(Admin.deserializeUser());
+passport.use(new LocalStrategy(Administrator.authenticate()));
+passport.serializeUser(Administrator.serializeUser());
+passport.deserializeUser(Administrator.deserializeUser());
 
 // Pass global values
 app.locals.routes = config.routes;

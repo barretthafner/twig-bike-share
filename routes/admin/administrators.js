@@ -2,13 +2,13 @@
 var express = require('express'),
 	router = express.Router(),
 	middleware = require('../../middleware'),
-	Admin = require('../../models/Admin'),
+	Administrator = require('../../models/Administrator'),
 	routes = require('../../config').routes;
 
 
 // INDEX route
 router.get('/', middleware.isLoggedIn, function(req, res) {
-	Admin.find({}, function(err, administrators) {
+	Administrator.find({}, function(err, administrators) {
 		if (err) {
 			res.flash('error', err.message);
 			res.redirect(routes.admin);
@@ -28,11 +28,11 @@ router.get('/new', middleware.isLoggedIn, function(req, res) {
 // CREATE route
 router.post('/', middleware.isLoggedIn, function(req, res) {
 	var administrator = req.body.user;
-	var newAdministrator = new Admin({
+	var newAdministrator = new Administrator({
 		name: administrator.name,
 		username: administrator.username
 	});
-	Admin.register(newAdministrator, administrator.password, function(err, administrator) {
+	Administrator.register(newAdministrator, administrator.password, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
 		} else {
@@ -44,7 +44,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 
 // EDIT route
 router.get('/:admin_id/edit', middleware.isLoggedIn, function(req, res) {
-	Admin.findById(req.params.admin_id, function(err, administrator) {
+	Administrator.findById(req.params.admin_id, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
 			res.redirect(routes.administrators);
@@ -58,7 +58,7 @@ router.get('/:admin_id/edit', middleware.isLoggedIn, function(req, res) {
 
 // UPDATE route
 router.put('/:admin_id', middleware.isLoggedIn, function(req, res) {
-	Admin.findById(req.params.admin_id, function(err, administrator) {
+	Administrator.findById(req.params.admin_id, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
 		} else {
@@ -77,7 +77,7 @@ router.put('/:admin_id', middleware.isLoggedIn, function(req, res) {
 
 // DESTROY route
 router.delete('/:admin_id', middleware.isLoggedIn, function(req, res) {
-	Admin.findByIdAndRemove(req.params.admin_id, function(err) {
+	Administrator.findByIdAndRemove(req.params.admin_id, function(err) {
 		if (err) {
 			req.flash('error', err.message);
 		} else {

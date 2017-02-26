@@ -1,10 +1,10 @@
 'use strict';
-// Admin model
-// Stores Admins that may log into the app
+// Administrator model
+// Stores Administrators that may log into the app
 var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
 
-var AdminSchema = new mongoose.Schema({
+var AdministratorSchema = new mongoose.Schema({
 	name: {
 		type: String
 	},
@@ -15,7 +15,7 @@ var AdminSchema = new mongoose.Schema({
 });
 
 // plugin passport local for auth
-AdminSchema.plugin(passportLocalMongoose);
+AdministratorSchema.plugin(passportLocalMongoose);
 
 // export
-module.exports = mongoose.model('Admin', AdminSchema)
+module.exports = mongoose.model('Administrator', AdministratorSchema)

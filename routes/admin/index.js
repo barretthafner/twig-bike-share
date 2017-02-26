@@ -9,7 +9,7 @@ var express = require('express'),
 	middleware = require('../../middleware'),
 	routes = require('../../config').routes;
 
-// Admin panel
+// Administrator panel
 router.get('/', function(req, res) {
 	if (!req.isAuthenticated()) {
 		res.render('admin/login');
