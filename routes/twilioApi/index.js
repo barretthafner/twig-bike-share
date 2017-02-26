@@ -3,14 +3,14 @@
 // contains routes for sending an receiving text messages from the messaging client
 // contains most of the logic that allows a subscriber to activate their account and use the system
 
-var express = require('express'),
-	router = express.Router(),
-	middleware = require('../../middleware'),
-	regEx = require('../../modules/regExParser'),
-	client = require('../../modules/twilio'),
+var express = require('express');
+var router = express.Router();
+var middleware = require('../../middleware');
+var regEx = require('../../modules/regExParser');
+var client = require('../../modules/twilio');
 
-var Subscriber = require('../models/Subscriber'),
-	Bike = require('../models/Bike');
+var Subscriber = require('../../models/Subscriber');
+var Bike = require('../../models/Bike');
 
 
 // incoming voice route

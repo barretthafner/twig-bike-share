@@ -1,9 +1,9 @@
 'use strict';
 var express = require("express"),
 	router = express.Router(),
-	middleware = require("../../middleware"),
-	SubscriberGroup = require("../../models/SubscriberGroup"),
-	routes = require('../routeTree');
+	middleware = require("../../../middleware"),
+	SubscriberGroup = require("../../../models/SubscriberGroup"),
+	routes = require('../../routeTree');
 
 
 // INDEX route

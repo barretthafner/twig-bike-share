@@ -1,17 +1,17 @@
 'use strict';
-var express = require('express'),
-	router = express.Router();
+var express = require('express');
+var router = express.Router();
 
 // Connect routes
-var adminRoutes = require('./admin'),
-	bikeRoutes = require('./admin/bikes'),
-	subscriberGroupRoutes = require('./admin/subscriberGroups'),
-	subscriberRoutes = require('./admin/subscribers'),
-	adminsRoutes = require('./admin/admins'),
-	inviteRoutes = require('./admin/invite'),
-	setupRoutes = require('./admin/setup'),
-	settingRoutes = require('./admin/settings'),
-	twilioApiRoutes = require('./twilioApi');
+var adminRoutes = require('./admin');
+var bikeRoutes = require('./admin/bikes');
+var adminsRoutes = require('./admin/admins');
+var setupRoutes = require('./admin/setup');
+var twilioApiRoutes = require('./twilioApi');
+var subscriberGroupRoutes = require('./admin/subscriberGroups');
+	// var subscriberRoutes = require('./admin/subscribers');
+	// var inviteRoutes = require('./admin/invite');
+	// var settingRoutes = require('./admin/settings');
 
 var routes = require('./routeTree');
 
@@ -21,14 +21,14 @@ router.get('/', function(req, res) {
 });
 
 router.use(routes.admin, adminRoutes);
-router.use(routes.setup, setupRoutes);
-router.use(routes.settings, settingRoutes)
-router.use(routes.bikes, bikeRoutes);
-router.use(routes.subscribers, subscriberRoutes);
-router.use(routes.subscriberGroups, subscriberGroupRoutes);
-router.use(routes.admins, adminsRoutes);
-router.use(routes.invite, inviteRoutes);
 router.use(routes.twilioApi, twilioApiRoutes);
+router.use(routes.setup, setupRoutes);
+router.use(routes.bikes, bikeRoutes);
+router.use(routes.admins, adminsRoutes);
+router.use(routes.subscriberGroups, subscriberGroupRoutes);
+// router.use(routes.subscribers, subscriberRoutes);
+// router.use(routes.settings, settingRoutes);
+// router.use(routes.invite, inviteRoutes);
 
 router.get('*', function(req, res) {
 	res.render('404');
