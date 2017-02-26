@@ -1,13 +1,13 @@
 'use strict';
 var express = require("express"),
 	router = express.Router(),
-	middleware = require("../../middleware"),
-	config = require("../../config"),
 	validationCode = require("../../modules/validationCode"),
 	mailer = require("../../modules/mailgun"),
 	Setting = require("../../models/Setting"),
 	Subscriber = require("../../models/Subscriber"),
-	routes = require('../routeTree');
+	config = require("../../config"),
+	routes = config.routes,
+	middleware = require("../../middleware");
 
 
 // INDEX route

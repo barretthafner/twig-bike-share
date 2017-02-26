@@ -1,5 +1,5 @@
 'use strict';
-var routes = require('../routes/routeTree');
+var routes = require('../config').routes;
 
 var middlewareObj = {};
 

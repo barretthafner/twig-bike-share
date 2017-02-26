@@ -5,9 +5,7 @@ var twilio = require('twilio');
 
 // require config for environment variables
 var config = require('../../config');
-
-// require routeTree for setting webhooks
-var routeTree = require('../../routes/routeTree');
+var routes = config.routes;
 
 // set config variables
 var accountSid = config.twilioAccountSid;
@@ -63,7 +61,7 @@ messenger.rejectCall = function(res) {
 // returns true if valid
 messenger.validate = function(req) {
 	return twilio.validateExpressRequest(req, authToken, {
-		url: config.protocol + config.appDomain + routeTree.twilioApi + routeTree.twilioApiIncomingMessage
+		url: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingMessage
 	});
 };
 
@@ -77,9 +75,9 @@ messenger.setEndpoints = function() {
 		});
 
 		client.incomingPhoneNumbers(sid).update({
-			voiceUrl: config.protocol + config.appDomain + routeTree.twilioApi + routeTree.twilioApiIncomingVoice,
+			voiceUrl: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingVoice,
 			voiceMethod: 'POST',
-			smsUrl: config.protocol + config.appDomain + routeTree.twilioApi + routeTree.twilioApiIncomingMessage,
+			smsUrl: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingMessage,
 			smsMethod: 'POST'
 		}, function(err, number) {
 			if (err) {

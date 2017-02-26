@@ -3,7 +3,7 @@ var express = require("express"),
 	router = express.Router(),
 	middleware = require("../../../middleware"),
 	SubscriberGroup = require("../../../models/SubscriberGroup"),
-	routes = require('../../routeTree');
+	routes = require('../../../config').routes;
 
 
 // INDEX route

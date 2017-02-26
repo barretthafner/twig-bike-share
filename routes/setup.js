@@ -1,7 +1,7 @@
 'use strict';
 var express = require('express'),
 	router = express.Router(),
-	routes = require('./routeTree'),
+	routes = require('../config').routes,
 	seed = require('../seeds'),
 	twilio = require('../modules/twilio');
 

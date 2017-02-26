@@ -7,7 +7,7 @@ var express = require('express'),
 	passport = require('passport'),
 	router = express.Router(),
 	middleware = require('../../middleware'),
-	routes = require('../routeTree');
+	routes = require('../../config').routes;
 
 // Admin panel
 router.get('/', function(req, res) {

@@ -1,16 +1,17 @@
 'use strict';
 // Include packages -------------------------------------------------------------------
-var express = require('express'),
-	config = require('./config'),
-	middleware = require('./middleware'),
-	mongoose = require('mongoose'),
-	bodyParser = require('body-parser'),
-	methodOverride = require('method-override'),
-	session = require('express-session'),
-	MongoStore = require('connect-mongo')(session),
-	passport = require('passport'),
-	LocalStrategy = require('passport-local'),
-	flash = require('connect-flash');
+var express = require('express');
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var passport = require('passport');
+var LocalStrategy = require('passport-local');
+var flash = require('connect-flash');
+
+var config = require('./config');
+var middleware = require('./middleware');
 
 var app = express();
 
@@ -61,7 +62,7 @@ passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
 
 // Pass global values
-app.locals.routes = require('./routes/routeTree');
+app.locals.routes = config.routes;
 app.locals.siteTitle = config.siteTitle;
 app.use(middleware.addGlobals);
 

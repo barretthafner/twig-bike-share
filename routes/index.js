@@ -2,6 +2,8 @@
 var express = require('express');
 var router = express.Router();
 
+var routes = require('../config').routes;
+
 // Connect routes
 var setupRoutes = require('./setup');
 var adminRoutes = require('./admin');
@@ -13,10 +15,9 @@ var subscriberGroupRoutes = require('./admin/subscriberGroups');
 	// var inviteRoutes = require('./admin/invite');
 	// var settingRoutes = require('./admin/settings');
 
-var routes = require('./routeTree');
 
 // Root ('/') route
-router.get('/', function(req, res) {
+router.get(routes.root, function(req, res) {
 	res.render('index');
 });
 
