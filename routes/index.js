@@ -21,15 +21,15 @@ router.get(routes.root, function(req, res) {
 	res.render('index');
 });
 
-router.use(routes.setup, setupRoutes);
-router.use(routes.admin, adminRoutes);
-router.use(routes.twilioApi, twilioApiRoutes);
-router.use(routes.bikes, bikeRoutes);
-router.use(routes.admins, adminsRoutes);
-router.use(routes.subscriberGroups, subscriberGroupRoutes);
-// router.use(routes.subscribers, subscriberRoutes);
-// router.use(routes.settings, settingRoutes);
-// router.use(routes.invite, inviteRoutes);
+router.use(setupRoutes);
+router.use(adminRoutes);
+router.use(twilioApiRoutes);
+router.use(bikeRoutes);
+router.use(adminsRoutes);
+router.use(subscriberGroupRoutes);
+// router.use(subscriberRoutes);
+// router.use(settingRoutes);
+// router.use(inviteRoutes);
 
 router.get('*', function(req, res) {
 	res.render('404');

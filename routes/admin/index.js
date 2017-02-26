@@ -19,9 +19,9 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', passport.authenticate('local', {
-	successRedirect: routes.admin,
+	successRedirect: routes.admin.path,
 	successFlash: 'Welcome!',
-	failureRedirect: routes.admin,
+	failureRedirect: routes.admin.path,
 	failureFlash: true
 }), function(req, res) {});
 
@@ -29,7 +29,7 @@ router.post('/', passport.authenticate('local', {
 router.get('/logout', function(req, res) {
 	req.logout();
 	req.flash('success', 'You are logged out!')
-	res.redirect(routes.admin);
+	res.redirect(routes.admin.path);
 });
 
 module.exports = router;

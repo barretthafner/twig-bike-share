@@ -61,7 +61,7 @@ messenger.rejectCall = function(res) {
 // returns true if valid
 messenger.validate = function(req) {
 	return twilio.validateExpressRequest(req, authToken, {
-		url: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingMessage
+		url: config.protocol + config.appDomain + routes.twilioApi.path + routes.twilioApi.incomingMessage.path
 	});
 };
 
@@ -75,9 +75,9 @@ messenger.setEndpoints = function() {
 		});
 
 		client.incomingPhoneNumbers(sid).update({
-			voiceUrl: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingVoice,
+			voiceUrl: config.protocol + config.appDomain + routes.twilioApi.path + routes.twilioApi.incomingVoice.path,
 			voiceMethod: 'POST',
-			smsUrl: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingMessage,
+			smsUrl: config.protocol + config.appDomain + routes.twilioApi.path + routes.twilioApi.incomingMessage.path,
 			smsMethod: 'POST'
 		}, function(err, number) {
 			if (err) {

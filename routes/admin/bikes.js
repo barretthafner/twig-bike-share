@@ -11,7 +11,7 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 	Bike.find({}, function(err, bikes) {
 		if (err) {
 			req.flash('error', err.message);
-			res.redirect(routes.admin);
+			res.redirect(routes.admin.path);
 		} else {
 			res.render('bikes/index', {
 				bikes: bikes
@@ -31,10 +31,10 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			req.flash('error', err.message);
 			console.log(err);
-			res.redirect(routes.bikes);
+			res.redirect(routes.bikes.path);
 		} else {
 			req.flash('success', 'Bike #' + bike.bikeId + ' created!');
-			res.redirect(routes.bikes);
+			res.redirect(routes.bikes.path);
 		}
 	});
 });
@@ -58,7 +58,7 @@ router.put('/:bike_id', middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.redirect(routes.bikes);
+			res.redirect(routes.bikes.path);
 		}
 	});
 });
@@ -68,9 +68,9 @@ router.delete('/:bike_id', middleware.isLoggedIn, function(req, res) {
 	Bike.findByIdAndRemove(req.params.bike_id, function(err) {
 		if (err) {
 			console.log(err);
-			res.redirect(routes.bikes);
+			res.redirect(routes.bikes.path);
 		} else {
-			res.redirect(routes.bikes);
+			res.redirect(routes.bikes.path);
 		}
 	});
 });
