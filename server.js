@@ -79,11 +79,12 @@ app.use(router);
 
 //Database seed
 if (process.argv.indexOf('--seedDb') > -1) {
-	var seedDb = require('./seeds').seedDb;
-	seedDb({
+	var seed = require('./seeds');
+	seed({
 		admin: false,
 		bikes: false,
-		subscriberGroups: true
+		subscriberGroups: false,
+		twilio: true
 	});
 	global.dbEmpty = false;
 }

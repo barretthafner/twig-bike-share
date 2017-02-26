@@ -6,6 +6,7 @@ var Subscriber = require('./models/Subscriber');
 var SubscriberGroup = require('./models/SubscriberGroup');
 var Setting = require('./models/Setting');
 var validationCode = require('./modules/validationCode');
+var twilio = require('./modules/twilio');
 
 var adminData = [{
 	name: 'Open Bike Admin',
@@ -101,7 +102,7 @@ var settingData =
 // <p>Do you agree to follow the Open Bike Share User Agreement? </p>
 // <p>BY SELECTING YES YOU ARE AGREEING THAT: I HAVE READ AND UNDERSTAND THIS AGREEMENT AND SIGN IT FREELY, VOLUNTARILY, AND WITH KNOWLEDGE OF ITS CONTENTS. I AM AWARE THAT BY SIGNING THIS AGREEMENT, I AM WAIVING CERTAIN LEGAL RIGHTS WHICH I OR MY HEIRS, NEXT OF KIN, EXECUTORS, ADMINISTRATORS,AND/OR REPRESENTATIVES MAY HAVE AGAINST THE RELEASEES.<p>
 
-function seedDb(config) {
+function seed(config) {
 
 	if (config.admin === true) {
 		Admin.remove({}, function(err) {
@@ -163,6 +164,11 @@ function seedDb(config) {
 		});
 	}
 
+	if (config.twilio === true) {
+		// set twilio endpoints
+		twilio.setEndpoints();
+	}
+
 	// if (config.subscribers === true) {
 	// 	// clear and load Subscribers
 	// 	Subscriber.remove({}, function(err) {
@@ -207,4 +213,4 @@ function seedDb(config) {
 	// }
 };
 
-module.exports = { seedDb: seedDb };
+module.exports = seed;

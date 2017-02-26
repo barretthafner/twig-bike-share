@@ -19,9 +19,9 @@ config.twilioSendingNumber = process.env.TWILIO_NUMBER;
 // Set composed configurations
 config.mailgunDomain = config.appDomain;
 config.mailgunFromEmail = 'NoReply <noreply@' + config.appDomain + '>';
-config.twilioValidateUrl = 'http://' + config.appDomain + '/twilio/messaging/incoming';
 
 config.siteTitle = 'WTA Bike Share';
+config.protocol = 'http://';
 
 // Export module -------------------------------------------------------------------
 module.exports = config;

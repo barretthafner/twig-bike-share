@@ -12,17 +12,19 @@ var client = require('../../modules/twilio');
 var Subscriber = require('../../models/Subscriber');
 var Bike = require('../../models/Bike');
 
+var routeTree = require('../routeTree');
+
 
 // incoming voice route
 // rejects all voice calls
-router.post('/voice/incoming', function(req, res) {
+router.post(routeTree.twilioApiIncomingVoice, function(req, res) {
 	client.rejectCall(res);
 	console.log('Call Rejected!');
 });
 
 // incoming sms route
 // this does a number of check to see if the sms is valid
-router.post('/messaging/incoming', function(req, res) {
+router.post(routeTree.twilioApiIncomingMessage, function(req, res) {
 
 	// validate the http request is from twilio
 	if (client.validate(req)) {

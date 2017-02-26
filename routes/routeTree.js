@@ -8,8 +8,10 @@ module.exports = {
 	invite: '/a/invite',
 	logout: '/a/logout',
 	settings: '/a/settings',
-	setup: '/a/setup',
+	setup: '/setup',
 	subscriberGroups: '/a/subscriber-groups',
 	subscribers: '/a/subscribers',
-	twilioApi: '/twilio'
+	twilioApi: '/twilio',
+	twilioApiIncomingMessage: '/msg',
+	twilioApiIncomingVoice: '/voice'
 };
