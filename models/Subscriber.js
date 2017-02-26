@@ -3,6 +3,8 @@
 // Stores subscriber information
 var mongoose = require('mongoose');
 
+var validationCode = require('../modules/validationCode');
+
 var SubscriberSchema = new mongoose.Schema({
 	firstName: String,
 	lastName: String,
@@ -16,15 +18,7 @@ var SubscriberSchema = new mongoose.Schema({
 		type: Boolean,
 		required: [true, 'Active field is required']
 	},
-	invited: {
-		type: Boolean,
-		required: [true, 'Invited field is required']
-	},
-	validationCode: String,
-	subscriberGroup: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'SubscriberGroup'
-	}
+	validationCode: String
 });
 
 // emailString
@@ -36,31 +30,25 @@ SubscriberSchema.methods.emailString = function() {
 
 // findByPhoneNumber
 // creates a query by phone number and returns a callback function with a potentially-null single document
-SubscriberSchema.statics.findByPhoneNumber = function(phoneNumber, callback, errback) {
+SubscriberSchema.statics.findByPhoneNumber = function(phoneNumber, callback) {
 	return this.findOne({
 		'phoneNumber': phoneNumber
-	}, function(err, subscriber) {
-		if (err) {
-			errback(err);
-		} else {
-			callback(subscriber);
-		}
-	});
+	}, function(err, subscriber) { callback(err, subscriber) });
 };
 
 // findByValidationCode
 // creates a query by validation code and returns a callback function with a potentially-null single document
-SubscriberSchema.statics.findByValidationCode = function(validationCode, callback, errback) {
+SubscriberSchema.statics.findByValidationCode = function(validationCode, callback) {
 	return this.findOne({
 		'validationCode': validationCode
-	}, function(err, subscriber) {
-		if (err) {
-			errback(err);
-		} else {
-			callback(subscriber);
-		}
-	});
+	}, function(err, subscriber) { callback(err, subscriber) });
 };
+
+SubscriberSchema.statics.addNew = function(subscriber, callback) {
+	subscriber.active = false;
+	subscriber.validationCode = validationCode.generate();
+	return this.create(subscriber, function(err, subscriber) { callback(err, subscriber) });
+}
 
 // export
 module.exports = mongoose.model('Subscriber', SubscriberSchema);

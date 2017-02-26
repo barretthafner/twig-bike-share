@@ -27,8 +27,8 @@ router.get('/new', middleware.isLoggedIn, function(req, res) {
 
 // CREATE route
 router.post('/', middleware.isLoggedIn, function(req, res) {
-	SubscriberGroup.create(req.body.subscriberGroup, function(err) {
-		if (err) { req.flash('error', 'Server error adding subscriber group: ' + err.message); }
+	SubscriberGroup.createWithUrl(req.body.subscriberGroup, function(err) {
+		if (err) { req.flash('error', 'Server error adding subscriber group: ' + err.message); console.log(err); }
 		res.redirect(routes.subscriberGroups);
 	});
 });

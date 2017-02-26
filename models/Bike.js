@@ -21,16 +21,10 @@ var BikeSchema = new mongoose.Schema({
 // findByBikeID
 // creates a query by bikeId, and returns a callback function with a potentially-null single document
 // bikeId's are unique, this should return only one result
-BikeSchema.statics.findByBikeId = function(bikeId, callback, errback) {
+BikeSchema.statics.findByBikeId = function(bikeId, callback) {
 	return this.findOne({
 		'bikeId': bikeId
-	}, function(err, bike) {
-		if (err) {
-			errback(err);
-		} else {
-			callback(bike);
-		}
-	});
+	}, function(err, bike) { callback(err, bike) });
 };
 
 //export

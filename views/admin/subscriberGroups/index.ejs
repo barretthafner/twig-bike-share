@@ -10,13 +10,13 @@
         <table class="table table-hover subscriber-group-list">
             <tr>
                 <th>Group</th>
-                <th>Invite Page</th>
+                <th>Sign Up Page URL</th>
                 <th>Edit</th>
             </tr>
             <% subscriberGroups.forEach(function(subscriberGroup){ %>
                 <tr>
                     <td><%= subscriberGroup.groupName %></td>
-                    <td><%= subscriberGroup.invitePage %></td>
+                    <td><%= subscriberGroup.signUpUrl %></td>
                     <td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/edit" class="btn btn-xs btn-warning">Edit</a></td>
                 </tr>
             <% }); %>

@@ -36,7 +36,7 @@ router.post('/', function(req, res) {
 					req.flash('error', err.message);
 					res.redirect(routes.setup);
 				} else {
-					console.log('added administrator:' + administrator.username);
+					console.log('added administrator: ' + administrator.username);
 					// instantiate the database and set twilio endpoints
 					seed({
 						administrators: false,

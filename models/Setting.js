@@ -20,9 +20,7 @@ var SettingSchema = new mongoose.Schema({
 SettingSchema.statics.findByKey = function(key, callback) {
 	return this.findOne({
 		'key': key
-	}, function(err, setting) {
-		callback(err, setting);
-	});
+	}, function(err, setting) { callback(err, setting) });
 };
 
 // findByKeyAndUpdate

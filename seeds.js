@@ -9,9 +9,9 @@ var validationCode = require('./modules/validationCode');
 var twilio = require('./modules/twilio');
 
 var administratorData = [{
-	name: 'Open Bike Administrator',
-	username: 'info@openbike.org',
-	password: 'bikesaregreat'
+	name: 'WTA Admin',
+	username: 'bikeshare@wta-tma.org',
+	password: 'bikes'
 }];
 
 var bikeData =
@@ -51,7 +51,7 @@ var subscriberGroupData =
 [{
 	'groupName': 'Open Bike',
 	'emailDomain': 'openbikeinitiative.com',
-	'inviteUrl': 'open-bike-initiative'
+	'signUpSlug': 'open-bike-initiative'
 }];
 
 var subscriberData =
@@ -111,11 +111,15 @@ function seed(config) {
 			} else {
 				console.log('removed administrators!');
 				administratorData.forEach(function(administrator) {
-					Administrator.create(administrator, function(err, administrator) {
+					var newAdministrator = new Administrator({
+						name: administrator.name,
+						username: administrator.username
+					});
+					Administrator.register(newAdministrator, administrator.password, function(err, administrator) {
 						if (err) {
 							console.log(err);
 						} else {
-							console.log('added administrator: ' + administrator.username)
+							console.log('added administrator: ' + administrator.username);
 						}
 					});
 				});
@@ -152,7 +156,7 @@ function seed(config) {
 			} else {
 				console.log('removed subscriber groups!');
 				subscriberGroupData.forEach(function(group) {
-					SubscriberGroup.create(group, function(err, group) {
+					SubscriberGroup.createWithUrl(group, function(err, group) {
 						if (err) {
 							console.log(err);
 						} else {

@@ -40,8 +40,8 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // EDIT route
-router.get('/:bike_id/edit', middleware.isLoggedIn, function(req, res) {
-	Bike.findById(req.params.bike_id, function(err, bike) {
+router.get('/:id/edit', middleware.isLoggedIn, function(req, res) {
+	Bike.findById(req.params.id, function(err, bike) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -53,8 +53,8 @@ router.get('/:bike_id/edit', middleware.isLoggedIn, function(req, res) {
 });
 
 // UPDATE route
-router.put('/:bike_id', middleware.isLoggedIn, function(req, res) {
-	Bike.findByIdAndUpdate(req.params.bike_id, req.body.bike, function(err) {
+router.put('/:id', middleware.isLoggedIn, function(req, res) {
+	Bike.findByIdAndUpdate(req.params.id, req.body.bike, function(err) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -64,8 +64,8 @@ router.put('/:bike_id', middleware.isLoggedIn, function(req, res) {
 });
 
 // DESTROY route
-router.delete('/:bike_id', middleware.isLoggedIn, function(req, res) {
-	Bike.findByIdAndRemove(req.params.bike_id, function(err) {
+router.delete('/:id', middleware.isLoggedIn, function(req, res) {
+	Bike.findByIdAndRemove(req.params.id, function(err) {
 		if (err) {
 			console.log(err);
 			res.redirect(routes.bikes);

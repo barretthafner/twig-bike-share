@@ -43,8 +43,8 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // EDIT route
-router.get('/:admin_id/edit', middleware.isLoggedIn, function(req, res) {
-	Administrator.findById(req.params.admin_id, function(err, administrator) {
+router.get('/:id/edit', middleware.isLoggedIn, function(req, res) {
+	Administrator.findById(req.params.id, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
 			res.redirect(routes.administrators);
@@ -57,8 +57,8 @@ router.get('/:admin_id/edit', middleware.isLoggedIn, function(req, res) {
 });
 
 // UPDATE route
-router.put('/:admin_id', middleware.isLoggedIn, function(req, res) {
-	Administrator.findById(req.params.admin_id, function(err, administrator) {
+router.put('/:id', middleware.isLoggedIn, function(req, res) {
+	Administrator.findById(req.params.id, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
 		} else {
@@ -76,8 +76,8 @@ router.put('/:admin_id', middleware.isLoggedIn, function(req, res) {
 });
 
 // DESTROY route
-router.delete('/:admin_id', middleware.isLoggedIn, function(req, res) {
-	Administrator.findByIdAndRemove(req.params.admin_id, function(err) {
+router.delete('/:id', middleware.isLoggedIn, function(req, res) {
+	Administrator.findByIdAndRemove(req.params.id, function(err) {
 		if (err) {
 			req.flash('error', err.message);
 		} else {
