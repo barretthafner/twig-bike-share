@@ -5,10 +5,9 @@
 
 var express = require('express'),
 	router = express.Router(),
-	middleware = require('../middleware'),
-	regEx = require('../modules/regExParser'),
-	client = require('../modules/twilio'),
-	middleware = require('../middleware');
+	middleware = require('../../middleware'),
+	regEx = require('../../modules/regExParser'),
+	client = require('../../modules/twilio'),
 
 var Subscriber = require('../models/Subscriber'),
 	Bike = require('../models/Bike');
