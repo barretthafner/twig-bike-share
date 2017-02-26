@@ -11,7 +11,7 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 	SubscriberGroup.find({}, function(err, subscriberGroups) {
 		if (err) {
 			req.flash('error', 'Server error finding subscriber groups: ' + err);
-			res.redirect(routes.admin.path);
+			res.redirect(routes.admin);
 		} else {
 			res.render("subscriberGroups/index", {
 				subscriberGroups: subscriberGroups
@@ -31,7 +31,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			req.flash('error', 'Server error adding subscriber group: ' + err);
 		}
-		res.redirect(routes.subscriberGroups.path);
+		res.redirect(routes.subscriberGroups);
 	});
 });
 
@@ -54,7 +54,7 @@ router.put("/:id", middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			req.flash('error', 'Server error updating subscriber group: ' + err);
 		}
-		res.redirect(routes.subscriberGroups.path);
+		res.redirect(routes.subscriberGroups);
 	})
 });
 
@@ -64,7 +64,7 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			req.flash('error', 'Server error deleting subscriber group: ' + err);
 		}
-		res.redirect(routes.subscriberGroups.path);
+		res.redirect(routes.subscriberGroups);
 	});
 });
 

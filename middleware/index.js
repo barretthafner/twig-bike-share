@@ -26,7 +26,7 @@ middlewareObj.addGlobals = function(req, res, next) {
 // Check if we need to render the setup page
 middlewareObj.checkDbEmpty = function(req, res, next) {
 	if (global.dbEmpty) {
-		var re = new RegExp(routes.setup.path);
+		var re = new RegExp(routes.setup);
 		if (req.url.match(re)) {
 			console.log('bam!');
 			next()
@@ -37,7 +37,7 @@ middlewareObj.checkDbEmpty = function(req, res, next) {
 					global.dbEmpty = false;
 					next();
 				} else {
-					res.redirect(routes.setup.path);
+					res.redirect(routes.setup);
 				}
 			});
 		}

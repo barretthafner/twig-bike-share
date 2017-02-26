@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
 				if (err) {
 					console.log(err);
 					req.flash('error', err.message);
-					res.redirect(routes.setup.path);
+					res.redirect(routes.setup);
 				} else {
 					console.log("added admin:" + admin.username);
 					// instantiate the database and set twilio endpoints
@@ -46,7 +46,7 @@ router.post('/', function(req, res) {
 					});
 					// keep the setup middleware from triggering
 					global.dbEmpty = false;
-					res.redirect(routes.admin.path);
+					res.redirect(routes.admin);
 				}
 			});
 		}

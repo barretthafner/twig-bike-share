@@ -15,7 +15,7 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 	Subscriber.find({}, function(err, subscribers) {
 		if (err) {
 			req.flash('error', 'Server error finding subscribers: ' + err);
-			res.redirect(routes.admin.path);
+			res.redirect(routes.admin);
 		} else {
 			res.render("subscribers/index", {
 				subscribers: subscribers
@@ -43,7 +43,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 		} else {
 			req.flash('success', 'Subscriber ' + newSubscriber + ' added!');
 		}
-		res.redirect(routes.subscriber.path);
+		res.redirect(routes.subscriber);
 	});
 });
 
@@ -52,7 +52,7 @@ router.get("/:id/edit", middleware.isLoggedIn, function(req, res) {
 	Subscriber.findById(req.params.id, function(err, subscriber) {
 		if (err) {
 			req.flash('error', 'Server error finding subscriber: ' + err);
-			res.redirect(routes.subscribers.path);
+			res.redirect(routes.subscribers);
 		} else {
 			res.render("subscribers/edit", {
 				subscriber: subscriber
@@ -83,7 +83,7 @@ router.put("/:id", middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			req.flash('error', 'Server error updating subscriber: ' + err);
 		}
-		res.redirect(routes.subscribers.path);
+		res.redirect(routes.subscribers);
 	})
 });
 
@@ -93,7 +93,7 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			req.flash('error', 'Server error deleting subscriber: ' + err);
 		}
-		res.redirect(routes.subscribers.path);
+		res.redirect(routes.subscribers);
 	});
 });
 
@@ -104,7 +104,7 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 // 	Subscriber.find({}, function(err, subscribers) {
 // 		if (err) {
 // 			console.log("1", err);
-// 			res.redirect(routes.subscribers.path);
+// 			res.redirect(routes.subscribers);
 // 		} else {
 // 			var process = new Promise(function(resolve, reject) {
 // 				resolve(1);
@@ -129,7 +129,7 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 // 					}
 // 				});
 // 			}).then(function() {
-// 				res.redirect(routes.subscribers.path);
+// 				res.redirect(routes.subscribers);
 // 			});
 // 		}
 // 	});
@@ -142,7 +142,7 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 // 	Setting.findByKey("inviteHtml", function(err, setting) {
 // 		if (err) {
 // 			console.log(err);
-// 			res.redirect(routes.subscribers.path);
+// 			res.redirect(routes.subscribers);
 // 		} else {
 // 			inviteHtml = setting.value;
 // 		}
@@ -152,7 +152,7 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 // 		if (err || !inviteHtml) {
 // 			console.log(err);
 // 			//flash : err
-// 			res.redirect(routes.subscribers.path);
+// 			res.redirect(routes.subscribers);
 // 		} else if (!subscriber.invited) {
 
 
@@ -168,17 +168,17 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 // 			mailer.sendOne(params, function(err) {
 // 				if (err) {
 // 					console.log(err);
-// 					res.redirect(routes.subscribers.path);
+// 					res.redirect(routes.subscribers);
 // 				} else {
 // 					subscriber.invited = true;
 // 					subscriber.save(function() {
-// 						res.redirect(routes.subscribers.path);
+// 						res.redirect(routes.subscribers);
 // 					});
 // 				}
 // 			});
 // 		} else {
 // 			// flash: subscriber has been invited already
-// 			res.redirect(routes.subscribers.path);
+// 			res.redirect(routes.subscribers);
 // 		}
 // 	});
 // });

@@ -11,7 +11,7 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 	Setting.find({}, function(err, settings) {
 		if (err) {
 			req.flash(err);
-			res.redirect(routes.admin.path);
+			res.redirect(routes.admin);
 		} else {
 			res.render('settings/index', {
 				settings: settings
@@ -45,7 +45,7 @@ router.put('/:setting_id', middleware.isLoggedIn, function(req, res) {
 					req.flash('error', err);
 				} else {
 					req.flash('success', 'Setting \'' + setting.key + '\' was updated!');
-					res.redirect(routes.settings.path);
+					res.redirect(routes.settings);
 				}
 			});
 		}
