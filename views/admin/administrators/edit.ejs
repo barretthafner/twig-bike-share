@@ -1,0 +1,26 @@
+<% include ../../partials/header %>
+<% include ../../partials/nav %>
+
+<div class="container">
+	<h1>Edit administrator: <% administrator.name %></h1>
+	<div>
+		<form action="<%= routes.administrators %>/<%= administrator.id%>" method="POST">
+			<div class="form-group">
+				<input class="form-control" name="user[name]" type="text" value="<%= administrator.name %>">
+			</div>
+			<div class="form-group">
+				<input class="form-control" name="user[username]" type="text" value="<%= administrator.username %>">
+			</div>
+			<div class="form-group">
+				<input class="form-control" name="user[password]" type="password" placeholder="new password">
+			</div>
+			<div class="form-group">
+				<button class="btn btn-lg btn-primary btn-block">Submit!</button>
+				<input type="hidden" name="_method" value="PUT">
+			</div>
+		</form>
+		<a href="<%= routes.administrators %>">Go Back</a>
+	</div>
+</div>
+
+<% include ../../partials/footer %>

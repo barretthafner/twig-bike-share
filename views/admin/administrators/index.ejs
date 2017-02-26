@@ -1,9 +1,9 @@
-<% include ../partials/header %>
-<% include ../partials/nav %>
+<% include ../../partials/header %>
+<% include ../../partials/nav %>
 
 <div class="container">
     <div class="row">
-        <a class="btn btn-primary btn-large" href="<%= routes.admins %>/new">Add a new Administrator</a>
+        <a class="btn btn-primary btn-large" href="<%= routes.administrators %>/new">Add a new Administrator</a>
     </div>
 
     <div class="row">
@@ -14,15 +14,15 @@
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
-            <% admins.forEach(function(admin){ %>
+            <% administrators.forEach(function(administrator){ %>
             <tr>
-                <td><%= admin.name %></td>
-                <td><%= admin.username %></td>
+                <td><%= administrator.name %></td>
+                <td><%= administrator.username %></td>
                 <td>
-                    <a href="<%= routes.admins %>/<%= admin._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
+                    <a href="<%= routes.administrators %>/<%= administrator.id %>/edit" class="btn btn-xs btn-warning">Edit</a>
                 </td>
                 <td>
-                    <form action="<%= routes.admins %>/<%= admin._id %>" method="POST" class="make-inline">
+                    <form action="<%= routes.administrators %>/<%= administrator.id %>" method="POST" class="make-inline">
                         <button class="btn btn-xs btn-danger">Delete</button>
                         <input type="hidden" name="_method" value="DELETE">
                     </form>
@@ -33,4 +33,4 @@
     </div>
 </div>
 
-<% include ../partials/footer %>
+<% include ../../partials/footer %>

@@ -4,7 +4,7 @@
 // Free email service for up to 400 messages a day
 
 // require config for environment variables
-var config = require("../../config");
+var config = require('../../config');
 
 // set config variables
 var api_key = config.mailgunPrivateApiKey;
@@ -23,10 +23,10 @@ var mailer = {};
 // sendOne
 // sends one email, requires paramater object :
 // params = {
-//   to: "Blah blah <blah@blah.net>",
-//   subject: "Blah dee blah",
-//   text: "Blah deedee blah",
-//   html: "<h1>Blah deedee blah</h1>"
+//   to: 'Blah blah <blah@blah.net>',
+//   subject: 'Blah dee blah',
+//   text: 'Blah deedee blah',
+//   html: '<h1>Blah deedee blah</h1>'
 // };
 mailer.sendOne = function(params, callback) {
 

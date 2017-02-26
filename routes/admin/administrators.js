@@ -8,13 +8,13 @@ var express = require('express'),
 
 // INDEX route
 router.get('/', middleware.isLoggedIn, function(req, res) {
-	Admin.find({}, function(err, admins) {
+	Admin.find({}, function(err, administrators) {
 		if (err) {
 			res.flash('error', err.message);
 			res.redirect(routes.admin);
 		} else {
-			res.render('admins/index', {
-				admins: admins
+			res.render('admin/administrators/index', {
+				administrators: administrators
 			});
 		}
 	});
@@ -22,35 +22,35 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 
 // NEW route
 router.get('/new', middleware.isLoggedIn, function(req, res) {
-	res.render('admins/new');
+	res.render('admin/administrators/new');
 });
 
 // CREATE route
 router.post('/', middleware.isLoggedIn, function(req, res) {
-	var admin = req.body.user;
-	var newAdmin = new Admin({
-		name: admin.name,
-		username: admin.username
+	var administrator = req.body.user;
+	var newAdministrator = new Admin({
+		name: administrator.name,
+		username: administrator.username
 	});
-	Admin.register(newAdmin, admin.password, function(err, admin) {
+	Admin.register(newAdministrator, administrator.password, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
 		} else {
-			req.flash('success', 'Added admin: ' + admin.username);
+			req.flash('success', 'Added administrator: ' + administrator.username);
 		}
-		res.redirect(routes.admins);
+		res.redirect(routes.administrators);
 	});
 });
 
 // EDIT route
 router.get('/:admin_id/edit', middleware.isLoggedIn, function(req, res) {
-	Admin.findById(req.params.admin_id, function(err, admin) {
+	Admin.findById(req.params.admin_id, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
-			res.redirect(routes.admins);
+			res.redirect(routes.administrators);
 		} else {
-			res.render('admins/edit', {
-				admin: admin
+			res.render('admin/administrators/edit', {
+				administrator: administrator
 			})
 		}
 	});
@@ -58,20 +58,20 @@ router.get('/:admin_id/edit', middleware.isLoggedIn, function(req, res) {
 
 // UPDATE route
 router.put('/:admin_id', middleware.isLoggedIn, function(req, res) {
-	Admin.findById(req.params.admin_id, function(err, admin) {
+	Admin.findById(req.params.admin_id, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
 		} else {
-			admin.setPassword(req.body.user.password, function(err) {
+			administrator.setPassword(req.body.user.password, function(err) {
 				if (err) {
 					req.flash('error', err.message);
 				} else {
-					admin.save();
-					req.flash('success', 'Password for ' + admin.username + ' changed!');
+					administrator.save();
+					req.flash('success', 'Password for ' + administrator.username + ' changed!');
 				}
 			});
 		}
-		res.redirect(routes.admins);
+		res.redirect(routes.administrators);
 	});
 });
 
@@ -83,7 +83,7 @@ router.delete('/:admin_id', middleware.isLoggedIn, function(req, res) {
 		} else {
 			req.flash('success', 'Administrator removed');
 		}
-		res.redirect(routes.admins);
+		res.redirect(routes.administrators);
 	});
 });
 

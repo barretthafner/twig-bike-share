@@ -8,7 +8,7 @@ var Setting = require('./models/Setting');
 var validationCode = require('./modules/validationCode');
 var twilio = require('./modules/twilio');
 
-var adminData = [{
+var administratorData = [{
 	name: 'Open Bike Admin',
 	username: 'info@openbike.org',
 	password: 'bikesaregreat'
@@ -104,18 +104,18 @@ var settingData =
 
 function seed(config) {
 
-	if (config.admin === true) {
+	if (config.administrators === true) {
 		Admin.remove({}, function(err) {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('removed admins!');
-				adminData.forEach(function(admin) {
-					Admin.create(admin, function(err, admin) {
+				console.log('removed administrators!');
+				administratorData.forEach(function(administrator) {
+					Admin.create(administrator, function(err, administrator) {
 						if (err) {
 							console.log(err);
 						} else {
-							console.log('added admin: ' + admin.username)
+							console.log('added administrator: ' + administrator.username)
 						}
 					});
 				});

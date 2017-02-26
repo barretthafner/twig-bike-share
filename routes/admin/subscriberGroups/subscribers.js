@@ -1,23 +1,23 @@
 'use strict';
-var express = require("express"),
+var express = require('express'),
 	router = express.Router(),
-	validationCode = require("../../modules/validationCode"),
-	mailer = require("../../modules/mailgun"),
-	Setting = require("../../models/Setting"),
-	Subscriber = require("../../models/Subscriber"),
-	config = require("../../config"),
+	validationCode = require('../../modules/validationCode'),
+	mailer = require('../../modules/mailgun'),
+	Setting = require('../../models/Setting'),
+	Subscriber = require('../../models/Subscriber'),
+	config = require('../../config'),
 	routes = config.routes,
-	middleware = require("../../middleware");
+	middleware = require('../../middleware');
 
 
 // INDEX route
-router.get("/", middleware.isLoggedIn, function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
 	Subscriber.find({}, function(err, subscribers) {
 		if (err) {
 			req.flash('error', 'Server error finding subscribers: ' + err);
 			res.redirect(routes.admin);
 		} else {
-			res.render("subscribers/index", {
+			res.render('subscribers/index', {
 				subscribers: subscribers
 			});
 		}
@@ -25,12 +25,12 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 });
 
 // NEW route
-router.get("/new", middleware.isLoggedIn, function(req, res) {
-	res.render("subscribers/new");
+router.get('/new', middleware.isLoggedIn, function(req, res) {
+	res.render('subscribers/new');
 });
 
 // CREATE route
-router.post("/", middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
 
 	var subscriber = req.body.subscriber;
 	subscriber.validationCode = validationCode.generate();
@@ -48,13 +48,13 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 });
 
 // EDIT route
-router.get("/:id/edit", middleware.isLoggedIn, function(req, res) {
+router.get('/:id/edit', middleware.isLoggedIn, function(req, res) {
 	Subscriber.findById(req.params.id, function(err, subscriber) {
 		if (err) {
 			req.flash('error', 'Server error finding subscriber: ' + err);
 			res.redirect(routes.subscribers);
 		} else {
-			res.render("subscribers/edit", {
+			res.render('subscribers/edit', {
 				subscriber: subscriber
 			});
 		}
@@ -62,7 +62,7 @@ router.get("/:id/edit", middleware.isLoggedIn, function(req, res) {
 });
 
 // UPDATE route
-router.put("/:id", middleware.isLoggedIn, function(req, res) {
+router.put('/:id', middleware.isLoggedIn, function(req, res) {
 	var subscriber = req.body.subscriber;
 
 	subscriber.active = !!subscriber.active;
@@ -88,7 +88,7 @@ router.put("/:id", middleware.isLoggedIn, function(req, res) {
 });
 
 // DESTROY route
-router.delete("/:id", middleware.isLoggedIn, function(req, res) {
+router.delete('/:id', middleware.isLoggedIn, function(req, res) {
 	Subscriber.findByIdAndRemove(req.params.id, function(err) {
 		if (err) {
 			req.flash('error', 'Server error deleting subscriber: ' + err);
@@ -99,11 +99,11 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 
 
 // Invite All Uninvited
-// router.get("/invite", middleware.isLoggedIn, function(req, res) {
+// router.get('/invite', middleware.isLoggedIn, function(req, res) {
 
 // 	Subscriber.find({}, function(err, subscribers) {
 // 		if (err) {
-// 			console.log("1", err);
+// 			console.log('1', err);
 // 			res.redirect(routes.subscribers);
 // 		} else {
 // 			var process = new Promise(function(resolve, reject) {
@@ -114,13 +114,13 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 // 					if (!subscriber.invited) {
 // 						var params = {
 // 							to: subscriber.emailString(),
-// 							subject: "Welcome to the Open Bike Project",
-// 							text: "Test text",
-// 							html: "<h1>Test @ " + (new Date).toUTCString() + "</h1><h2>" + subscriber.validationCode + "</h2>"
+// 							subject: 'Welcome to the Open Bike Project',
+// 							text: 'Test text',
+// 							html: '<h1>Test @ ' + (new Date).toUTCString() + '</h1><h2>' + subscriber.validationCode + '</h2>'
 // 						};
 // 						mailer.sendOne(params, function(err) {
 // 							if (err) {
-// 								console.log("2", err);
+// 								console.log('2', err);
 // 							} else {
 // 								subscriber.invited = true;
 // 								subscriber.save();
@@ -136,10 +136,10 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 // });
 
 // // Invite Subscriber route
-// router.get("/:id/invite", middleware.isLoggedIn, function(req, res) {
+// router.get('/:id/invite', middleware.isLoggedIn, function(req, res) {
 
 // 	var inviteHtml;
-// 	Setting.findByKey("inviteHtml", function(err, setting) {
+// 	Setting.findByKey('inviteHtml', function(err, setting) {
 // 		if (err) {
 // 			console.log(err);
 // 			res.redirect(routes.subscribers);
@@ -156,7 +156,7 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res) {
 // 		} else if (!subscriber.invited) {
 
 
-// 			var emailHtml = "<h1>Test @ " + (new Date).toUTCString() + "</h1>" + inviteHtml + "<h2>Text your validation code: <a href='sms://" + config.twilioSendingNumber + "&body=" + subscriber.validationCode + "'>" + subscriber.validationCode + "</a> to: " + config.twilioSendingNumber + "</h2>"
+// 			var emailHtml = '<h1>Test @ ' + (new Date).toUTCString() + '</h1>' + inviteHtml + '<h2>Text your validation code: <a href="sms://"' + config.twilioSendingNumber + '&body=' + subscriber.validationCode + '">' + subscriber.validationCode + '</a> to: ' + config.twilioSendingNumber + '</h2>'
 
 // 			var params = {
 // 				from: config.mailgunFromEmail,

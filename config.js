@@ -26,7 +26,7 @@ config.protocol = 'http://';
 config.routes = {
 	root: '/',
 	admin: '/a',
-	admins: '/a/admins',
+	administrators: '/a/administrators',
 	bikes: '/a/bikes',
 	invite: '/a/invite',
 	logout: '/a/logout',

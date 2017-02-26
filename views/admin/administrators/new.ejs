@@ -1,9 +1,9 @@
-<% include ../partials/header %>
-<% include ../partials/nav %>
+<% include ../../partials/header %>
+<% include ../../partials/nav %>
 
 <div class="container">
-	<h1>Create a New admin</h1>
-	<form action="<%= routes.admins %>" method="POST">
+	<h1>Create a New Administrator</h1>
+	<form action="<%= routes.administrators %>" method="POST">
 		<div class="form-group">
 			<input class="form-control" name="user[name]" type="text" placeholder="Name">
 		</div>
@@ -17,7 +17,7 @@
 			<button class="btn btn-lg btn-primary btn-block">Submit!</button>
 		</div>
 	</form>
-	<a href="<%= routes.admins %>">Go Back</a>
+	<a href="<%= routes.administrators %>">Go Back</a>
 </div>
 
-<% include ../partials/footer %>
+<% include ../../partials/footer %>

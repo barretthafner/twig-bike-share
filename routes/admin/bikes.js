@@ -13,7 +13,7 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 			req.flash('error', err.message);
 			res.redirect(routes.admin);
 		} else {
-			res.render('bikes/index', {
+			res.render('admin/bikes/index', {
 				bikes: bikes
 			});
 		}
@@ -22,7 +22,7 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 
 // NEW route
 router.get('/new', middleware.isLoggedIn, function(req, res) {
-	res.render('bikes/new');
+	res.render('admin/bikes/new');
 });
 
 // CREATE route
@@ -45,7 +45,7 @@ router.get('/:bike_id/edit', middleware.isLoggedIn, function(req, res) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.render('bikes/edit', {
+			res.render('admin/bikes/edit', {
 				bike: bike
 			})
 		}

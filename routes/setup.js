@@ -20,26 +20,26 @@ router.get('/', function(req, res) {
 // Admin panel
 router.post('/', function(req, res) {
 	Admin.count({}, function(err, count) {
-		// if there is 1 or more admins in the data base return 404
+		// if there is 1 or more administrators in the data base return 404
 		if (count > 0) {
 			res.sendStatus(404);
 		} else {
 			// else add new user and register
-			var admin = req.body.user;
+			var administrator = req.body.user;
 			var newAdmin = new Admin({
-				name: admin.name,
-				username: admin.username
+				name: administrator.name,
+				username: administrator.username
 			});
-			Admin.register(newAdmin, admin.password, function(err, admin) {
+			Admin.register(newAdmin, administrator.password, function(err, administrator) {
 				if (err) {
 					console.log(err);
 					req.flash('error', err.message);
 					res.redirect(routes.setup);
 				} else {
-					console.log("added admin:" + admin.username);
+					console.log('added administrator:' + administrator.username);
 					// instantiate the database and set twilio endpoints
 					seed({
-						admin: false,
+						administrators: false,
 						bikes: true,
 						subscriberGroups: true,
 						twilio: true

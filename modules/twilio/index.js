@@ -29,7 +29,7 @@ messenger.getMessageData = function(req) {
 
 // sendSms
 // send a sms through the twilio client
-// requires a "to" string and a "message" string
+// requires a 'to' string and a 'message' string
 messenger.sendSms = function(to, message) {
 	client.messages.create({
 		body: message,

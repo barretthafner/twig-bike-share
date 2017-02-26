@@ -1,17 +1,17 @@
 'use strict';
-var express = require("express"),
+var express = require('express'),
 	router = express.Router(),
-	middleware = require("../../middleware");
+	middleware = require('../../middleware');
 
-var Setting = require("../../models/Setting");
+var Setting = require('../../models/Setting');
 
 // EDIT Route
-router.get("/edit", middleware.isLoggedIn, function(req, res) {
-	Setting.findByKey("inviteHtml", function(err, invite) {
+router.get('/edit', middleware.isLoggedIn, function(req, res) {
+	Setting.findByKey('inviteHtml', function(err, invite) {
 		if (err) {
-			res.redirect("/subscribers");
+			res.redirect('/subscribers');
 		} else {
-			res.render("invite/edit", {
+			res.render('invite/edit', {
 				invite: invite
 			});
 		}
@@ -19,13 +19,13 @@ router.get("/edit", middleware.isLoggedIn, function(req, res) {
 });
 
 // UPDATE route
-router.put("/edit", middleware.isLoggedIn, function(req, res) {
-	Setting.findByKeyAndUpdate("inviteHtml", req.body.inviteHtml, function(err, invite) {
+router.put('/edit', middleware.isLoggedIn, function(req, res) {
+	Setting.findByKeyAndUpdate('inviteHtml', req.body.inviteHtml, function(err, invite) {
 		if (err) {
 			console.log(err);
-			res.redirect("/subscribers");
+			res.redirect('/subscribers');
 		} else {
-			res.render("invite/edit", {
+			res.render('invite/edit', {
 				invite: invite
 			});
 		}
