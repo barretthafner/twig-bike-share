@@ -39,5 +39,42 @@ config.routes = {
 	twilioApiIncomingVoice: '/voice'
 };
 
+config.routeTree = {
+	path: '/',
+	adminPanel: {
+		path: '/a',
+		admins: {
+			path: '/a/admins',
+			new: { path: '/a/admins/new' },
+			create: { path: '/a/admins' },
+			edit: { path: '/a/admins/:admin_id/edit' },
+			update: { path: '/a/admins/:admin_id' },
+			destroy: { path: '/a/admins/:admin_id' }
+		},
+		bikes: {
+			path: '/a/bikes',
+			new: { path: '/a/bikes/new' },
+			create: { path: '/a/bikes' },
+			edit: { path: '/a/bikes/:bike_id/edit' },
+			update: { path: '/a/bikes/:bike_id' },
+			destroy: { path: '/a/bikes/:bike_id' }
+		},
+		subscriberGroups: {
+			path: '/a/subscriber-groups',
+			new: { path: '/a/subscriber-groups/new' },
+			create: { path: '/a/subscriber-groups' },
+			edit: { path: '/a/subscriber-groups/:id/edit' },
+			update: { path: '/a/subscriber-groups/:id' },
+			destroy: { path: '/a/subscriber-groups/:id' }
+		}
+	},
+	setup: { path: '/setup' },
+	twilioApi: {
+		path: '/twilio',
+		incomingMessage: { path: '/twilio/msg' },
+		incomingVoice: { path: '/twilio/voice' }
+	}
+}
+
 // Export module -------------------------------------------------------------------
 module.exports = config;
