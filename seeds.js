@@ -49,8 +49,8 @@ var bikeData =
 
 var subscriberGroupData =
 	[{
-		'groupName': 'Open Bike',
-		'emailDomain': 'openbikeinitiative.com',
+		'groupName': 'Open Bike Initiative',
+		'emailDomain': '@openbikeinitiative.com',
 		'signUpSlug': 'open-bike-initiative'
 	}];
 
