@@ -7,7 +7,7 @@ var express = require('express'),
 
 
 // INDEX route
-router.get('/', middleware.isLoggedIn, function(req, res) {
+router.get('/', function(req, res) {
 	Administrator.find({}, function(err, administrators) {
 		if (err) {
 			res.flash('error', err.message);
@@ -21,13 +21,13 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // NEW route
-router.get('/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', function(req, res) {
 	res.render('admin/administrators/new');
 });
 
 // CREATE route
-router.post('/', middleware.isLoggedIn, function(req, res) {
-	var administrator = req.body.user;
+router.post('/', function(req, res) {
+	var administrator = req.body.administrator;
 	var newAdministrator = new Administrator({
 		name: administrator.name,
 		username: administrator.username
@@ -43,7 +43,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // EDIT route
-router.get('/:id/edit', middleware.isLoggedIn, function(req, res) {
+router.get('/:id/edit', function(req, res) {
 	Administrator.findById(req.params.id, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
@@ -57,7 +57,33 @@ router.get('/:id/edit', middleware.isLoggedIn, function(req, res) {
 });
 
 // UPDATE route
-router.put('/:id', middleware.isLoggedIn, function(req, res) {
+router.put('/:id', function(req, res) {
+	Administrator.findByIdAndUpdate(req.params.id, req.body.administrator, function(err, administrator) {
+		if (err) {
+			req.flash('error', err.message);
+		} else {
+			req.flash('success', 'User: ' + administrator.username + ' updated!');
+		}
+		res.redirect(routes.administrators);
+	});
+});
+
+// EDIT password route
+router.get('/:id/password', function(req, res) {
+	Administrator.findById(req.params.id, function(err, administrator) {
+		if (err) {
+			req.flash('error', err.message);
+			res.redirect(routes.administrators);
+		} else {
+			res.render('admin/administrators/password', {
+				administrator: administrator
+			})
+		}
+	});
+});
+
+// UPDATE password route
+router.put('/:id/password', function(req, res) {
 	Administrator.findById(req.params.id, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
@@ -76,7 +102,7 @@ router.put('/:id', middleware.isLoggedIn, function(req, res) {
 });
 
 // DESTROY route
-router.delete('/:id', middleware.isLoggedIn, function(req, res) {
+router.delete('/:id', function(req, res) {
 	Administrator.findByIdAndRemove(req.params.id, function(err) {
 		if (err) {
 			req.flash('error', err.message);

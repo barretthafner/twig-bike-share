@@ -1,13 +1,12 @@
 'use strict';
 var express = require('express'),
 	router = express.Router(),
-	middleware = require('../../middleware'),
 	Bike = require('../../models/Bike'),
 	routes = require('../../config').routes;
 
 
 // INDEX route
-router.get('/', middleware.isLoggedIn, function(req, res) {
+router.get('/', function(req, res) {
 	Bike.find({}, function(err, bikes) {
 		if (err) {
 			req.flash('error', err.message);
@@ -21,12 +20,12 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // NEW route
-router.get('/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', function(req, res) {
 	res.render('admin/bikes/new');
 });
 
 // CREATE route
-router.post('/', middleware.isLoggedIn, function(req, res) {
+router.post('/', function(req, res) {
 	Bike.create(req.body.bike, function(err, bike) {
 		if (err) {
 			req.flash('error', err.message);
@@ -40,7 +39,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // EDIT route
-router.get('/:id/edit', middleware.isLoggedIn, function(req, res) {
+router.get('/:id/edit', function(req, res) {
 	Bike.findById(req.params.id, function(err, bike) {
 		if (err) {
 			console.log(err);
@@ -53,7 +52,7 @@ router.get('/:id/edit', middleware.isLoggedIn, function(req, res) {
 });
 
 // UPDATE route
-router.put('/:id', middleware.isLoggedIn, function(req, res) {
+router.put('/:id', function(req, res) {
 	Bike.findByIdAndUpdate(req.params.id, req.body.bike, function(err) {
 		if (err) {
 			console.log(err);
@@ -64,7 +63,7 @@ router.put('/:id', middleware.isLoggedIn, function(req, res) {
 });
 
 // DESTROY route
-router.delete('/:id', middleware.isLoggedIn, function(req, res) {
+router.delete('/:id', function(req, res) {
 	Bike.findByIdAndRemove(req.params.id, function(err) {
 		if (err) {
 			console.log(err);

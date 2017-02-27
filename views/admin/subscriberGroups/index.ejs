@@ -16,7 +16,7 @@
             <% subscriberGroups.forEach(function(subscriberGroup){ %>
                 <tr>
                     <td><%= subscriberGroup.groupName %></td>
-                    <td><%= subscriberGroup.signUpUrl %></td>
+                    <td><a href="<%= subscriberGroup.signUpUrl %>"><%= subscriberGroup.signUpUrl %></a></td>
                     <td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/edit" class="btn btn-xs btn-warning">Edit</a></td>
                 </tr>
             <% }); %>

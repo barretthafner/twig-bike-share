@@ -7,7 +7,7 @@ var express = require('express'),
 
 
 // INDEX route
-router.get('/', middleware.isLoggedIn, function(req, res) {
+router.get('/', function(req, res) {
 	SubscriberGroup.find({}, function(err, subscriberGroups) {
 		if (err) {
 			req.flash('error', 'Server error finding subscriber groups: ' + err.message);
@@ -21,20 +21,20 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // NEW route
-router.get('/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', function(req, res) {
 	res.render('admin/subscriberGroups/new');
 });
 
 // CREATE route
-router.post('/', middleware.isLoggedIn, function(req, res) {
+router.post('/', function(req, res) {
 	SubscriberGroup.createWithUrl(req.body.subscriberGroup, function(err) {
-		if (err) { req.flash('error', 'Server error adding subscriber group: ' + err.message); console.log(err); }
+		if (err) { req.flash('error', 'Server error adding subscriber group: ' + err.message); }
 		res.redirect(routes.subscriberGroups);
 	});
 });
 
 // EDIT route
-router.get('/:id/edit', middleware.isLoggedIn, function(req, res) {
+router.get('/:id/edit', function(req, res) {
 	SubscriberGroup.findById(req.params.id, function(err, subscriberGroup) {
 		if (err) {
 			req.flash('error', 'Server error finding subscriber group: ' + err.message);
@@ -48,7 +48,7 @@ router.get('/:id/edit', middleware.isLoggedIn, function(req, res) {
 });
 
 // UPDATE route
-router.put('/:id', middleware.isLoggedIn, function(req, res) {
+router.put('/:id', function(req, res) {
 	SubscriberGroup.findByIdAndUpdate(req.params.id, req.body.subscriberGroup, function(err) {
 		if (err) { req.flash('error', 'Server error updating subscriber group: ' + err.message); }
 		res.redirect(routes.subscriberGroups);
@@ -56,7 +56,7 @@ router.put('/:id', middleware.isLoggedIn, function(req, res) {
 });
 
 // DESTROY route
-router.delete('/:id', middleware.isLoggedIn, function(req, res) {
+router.delete('/:id', function(req, res) {
 	SubscriberGroup.findByIdAndRemove(req.params.id, function(err) {
 		if (err) { req.flash('error', 'Server error deleting subscriber group: ' + err.message); }
 		res.redirect(routes.subscriberGroups);
@@ -65,7 +65,7 @@ router.delete('/:id', middleware.isLoggedIn, function(req, res) {
 
 
 // Group subscriber index
-router.get('/:id/subscribers', middleware.isLoggedIn, function(req, res) {
+router.get('/:id/subscribers', function(req, res) {
 	SubscriberGroup.findById(req.params.id).populate('subscribers').exec(function(err, subscriberGroups) {
 		if (err) {
 			req.flash('error', 'Server error finding subscribers: ' + err.message);

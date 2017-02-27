@@ -2,29 +2,23 @@
 var express = require('express');
 var router = express.Router();
 
-var routes = require('../config').routes;
+var middleware = require('../middleware');
 
-// Connect routes
-var setupRoutes = require('./setup');
-var twilioApiRoutes = require('./twilioApi');
-var signUpRoutes = require('./signup');
-var adminRoutes = require('./admin');
-var bikeRoutes = require('./admin/bikes');
-var administratorsRoutes = require('./admin/administrators');
-var subscriberGroupRoutes = require('./admin/subscriberGroups');
+var routes = require('../config').routes;
 
 // Root ('/') route
 router.get(routes.root, function(req, res) {
 	res.render('index');
 });
 
-router.use(routes.setup, setupRoutes);
-router.use(routes.admin, adminRoutes);
-router.use(routes.twilioApi, twilioApiRoutes);
-router.use(routes.signUp, signUpRoutes);
-router.use(routes.bikes, bikeRoutes);
-router.use(routes.administrators, administratorsRoutes);
-router.use(routes.subscriberGroups, subscriberGroupRoutes);
+// Connect routes
+router.use(routes.setup, require('./setup'));
+router.use(routes.admin, require('./admin'));
+router.use(routes.twilioApi, require('./twilioApi'));
+router.use(routes.signUp, require('./signup'));
+router.use(routes.bikes, middleware.isLoggedIn, require('./admin/bikes'));
+router.use(routes.administrators, middleware.isLoggedIn, require('./admin/administrators'));
+router.use(routes.subscriberGroups, middleware.isLoggedIn, require('./admin/subscriberGroups'));
 
 
 router.get('*', function(req, res) {
