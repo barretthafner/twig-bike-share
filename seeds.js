@@ -51,7 +51,8 @@ var subscriberGroupData =
 	[{
 		'groupName': 'Open Bike Initiative',
 		'emailDomain': '@openbikeinitiative.com',
-		'signUpSlug': 'open-bike-initiative'
+		'signUpSlug': 'open-bike-initiative',
+		'logoSrc': '/img/OBI_logo_web.png'
 	}];
 
 var subscriberData =

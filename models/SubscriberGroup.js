@@ -22,6 +22,9 @@ var SubscriberGroupSchema = new mongoose.Schema({
 		required: [true, 'Sign Up Slug required'],
 		match: [/^[a-z\-]+$/, 'Sign Up Slug must be composed of lowercase letters and hyphen allowed.']
 	},
+	logoSrc: {
+		type: String
+	},
 	signUpUrl: {
 		type: String,
 		unique: [true, 'Sign Up URL must be unique'],
