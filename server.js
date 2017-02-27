@@ -82,10 +82,10 @@ app.use(router);
 if (process.argv.indexOf('--seedDb') > -1) {
 	var seed = require('./seeds');
 	seed({
-		administrators: true,
-		bikes: true,
+		administrators: false,
+		bikes: false,
 		subscriberGroups: true,
-		twilio: true
+		twilio: false
 	});
 	global.dbEmpty = false;
 }

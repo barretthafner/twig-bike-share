@@ -48,19 +48,17 @@ var bikeData =
 	}];
 
 var subscriberGroupData =
-[{
-	'groupName': 'Open Bike',
-	'emailDomain': 'openbikeinitiative.com',
-	'signUpSlug': 'open-bike-initiative'
-}];
+	[{
+		'groupName': 'Open Bike',
+		'emailDomain': 'openbikeinitiative.com',
+		'signUpSlug': 'open-bike-initiative'
+	}];
 
 var subscriberData =
 	[{
-			'firstName': 'Barrett',
-			'lastName': 'Hafner',
-			'email': 'barrett@hafnerindustries.com',
-			'active': 'false',
-			'invited': 'false'
+			'firstName': 'Test',
+			'lastName': 'User',
+			'email': 'barrett@hafnerindustries.com'
 		}
 		// { 'firstName': 'Steve', 'lastName': 'Zissou', 'email': 'thezissou@thesea.com',  }
 		// { 'firstName': 'Charley', 'lastName': 'Murphy', 'email': 'charley@themurphys.com', 'phoneNumber': '6024458890' },
@@ -155,12 +153,23 @@ function seed(config) {
 				console.log(err);
 			} else {
 				console.log('removed subscriber groups!');
-				subscriberGroupData.forEach(function(group) {
-					SubscriberGroup.createWithUrl(group, function(err, group) {
+				subscriberGroupData.forEach(function(subscriberGroup) {
+					SubscriberGroup.createWithUrl(subscriberGroup, function(err, subscriberGroup) {
 						if (err) {
 							console.log(err);
 						} else {
-							console.log('added subscriber group: ' + group.groupName);
+							console.log('added subscriber group: ' + subscriberGroup.groupName);
+							subscriberData.forEach(function(subscriber) {
+								Subscriber.addNew(subscriber, function(err, subscriber) {
+									if (err) {
+										console.log(err);
+									} else {
+										subscriberGroup.subscribers.push(subscriber);
+										subscriberGroup.save();
+										console.log('added subscriber: ' + subscriber.email + ' to subscriber group: ' + subscriberGroup.groupName);
+									}
+								})
+							});
 						}
 					});
 				});
@@ -172,49 +181,6 @@ function seed(config) {
 		// set twilio endpoints
 		twilio.setEndpoints();
 	}
-
-	// if (config.subscribers === true) {
-	// 	// clear and load Subscribers
-	// 	Subscriber.remove({}, function(err) {
-	// 		if (err) {
-	// 			console.log(err);
-	// 		} else {
-	// 			console.log('removed subscribers!');
-	// 			subscriberData.forEach(function(subscriber) {
-	// 				Subscriber.create(subscriber, function(err, subscriber) {
-	// 					if (err) {
-	// 						console.log(err);
-	// 					} else {
-	// 						subscriber.validationCode = validationCode.generate();
-	// 						subscriber.save();
-	// 						console.log('added subscriber: ' + subscriber.email);
-	// 						console.log('validation code: ' + subscriber.validationCode);
-	// 					}
-	// 				});
-	// 			});
-	// 		}
-	// 	});
-	// }
-
-	// if (config.settings === true) {
-	// 	// clear and load Settings
-	// 	Setting.remove({}, function(err) {
-	// 		if (err) {
-	// 			console.log(err);
-	// 		} else {
-	// 			console.log('removed settings!');
-	// 			settingData.forEach(function(setting) {
-	// 				Setting.create(setting, function(err, setting) {
-	// 					if (err) {
-	// 						console.log(err);
-	// 					} else {
-	// 						console.log('added setting: ' + setting.key);
-	// 					}
-	// 				});
-	// 			});
-	// 		}
-	// 	});
-	// }
 };
 
 module.exports = seed;
