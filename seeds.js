@@ -167,6 +167,7 @@ function seed(config) {
 									} else {
 										subscriberGroup.subscribers.push(subscriber);
 										subscriberGroup.save();
+										console.log(subscriber);
 										console.log('added subscriber: ' + subscriber.email + ' to subscriber group: ' + subscriberGroup.groupName);
 									}
 								})
