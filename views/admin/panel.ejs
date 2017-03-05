@@ -1,10 +1,12 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 
-<div class="container">
-	<a class="btn btn-success" href="<%= routes.bikes %>">Manage Bikes</a>
-	<a class="btn btn-success" href="<%= routes.subscriberGroups %>">Manage Subscriber Groups</a>
-	<a class="btn btn-success" href="<%= routes.administrators %>">Manage Administrators</a>
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<a class="btn btn-primary m-2" href="<%= routes.bikes %>">Manage Bikes</a>
+		<a class="btn btn-primary m-2" href="<%= routes.subscriberGroups %>">Manage Subscriber Groups</a>
+		<a class="btn btn-primary m-2" href="<%= routes.administrators %>">Manage Administrators</a>
+	</div>
 </div>
 
 <% include ../partials/scripts %>

@@ -2,24 +2,22 @@
 <% include ../../partials/nav %>
 
 <div class="container">
-    <div class="row">
-        <h1 style="text-align: center">Create a New Bike</h1>
-        <div style="width: 30%; margin: 30px auto;">
-            <form action="<%= routes.bikes %>" method="POST">
-                <div class="form-group">
-                    <input class="form-control" name="bike[bikeId]" type="text" placeholder="2-digit ID">
+	<h1 class="row justify-content-center mt-2">Create a New Bike</h1>
+	<div class="row justify-content-center">
+		<form action="<%= routes.bikes %>" method="POST">
+			<div class="form-group">
+				<input class="form-control" name="bike[bikeId]" type="text" placeholder="2-digit ID">
 
-                </div>
-                <div class="form-group">
-                    <input class="form-control" name="bike[code]" type="text" placeholder="4-digit code">
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
-                </div>
-            </form>
-            <a href="<%= routes.bikes %>">Go Back</a>
-        </div>
-    </div>
+			</div>
+			<div class="form-group">
+				<input class="form-control" name="bike[code]" type="text" placeholder="4-digit code">
+			</div>
+			<div class="form-group">
+				<button class="btn btn-lg btn-primary btn-block">Submit!</button>
+			</div>
+		</form>
+	</div>
+	<a class="row justify-content-center" href="<%= routes.bikes %>">Go Back</a>
 </div>
 
 <% include ../../partials/scripts %>
