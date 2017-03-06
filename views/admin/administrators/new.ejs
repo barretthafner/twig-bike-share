@@ -2,22 +2,27 @@
 <% include ../../partials/nav %>
 
 <div class="container">
-	<h1>Create a New Administrator</h1>
-	<form action="<%= routes.administrators %>" method="POST">
-		<div class="form-group">
-			<input class="form-control" name="administrator[name]" type="text" placeholder="Name">
-		</div>
-		<div class="form-group">
-			<input class="form-control" name="administrator[username]" type="text" placeholder="Email">
-		</div>
-		<div class="form-group">
-			<input class="form-control" name="administrator[password]" type="password" placeholder="Password">
-		</div>
-		<div class="form-group">
-			<button class="btn btn-lg btn-primary btn-block">Submit!</button>
-		</div>
-	</form>
-	<a href="<%= routes.administrators %>">Go Back</a>
+	<h1 class="row justify-content-center my-2">Create a New Administrator</h1>
+	<div class="row justify-content-center my-2">
+		<form class="col-md-6" action="<%= routes.administrators %>" method="POST">
+			<div class="form-group">
+				<label for="adminName">Name</label>
+				<input class="form-control" id="adminName" name="administrator[name]" type="text" placeholder="Name">
+			</div>
+			<div class="form-group">
+				<label for="adminEmail">Email</label>
+				<input class="form-control" id="adminEmail" name="administrator[username]" type="text" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<label for="adminPassword">Password</label>
+				<input class="form-control" id="adminPassword" name="administrator[password]" type="password" placeholder="Password">
+			</div>
+			<div class="form-group row justify-content-center">
+				<button class="col-md-4 btn btn-lg btn-primary btn-block">Submit</button>
+			</div>
+		</form>
+	</div>
+	<a class="row justify-content-center my-2" href="<%= routes.administrators %>">Go Back</a>
 </div>
 
 <% include ../../partials/scripts %>

@@ -2,26 +2,31 @@
 <% include ../../partials/nav %>
 
 <div class="container">
-    <div class="row">
-        <a class="btn btn-primary btn-large" href="<%= routes.subscriberGroups %>/new">Add new subscriber group</a>
-    </div>
 
-    <div class="row">
-        <table class="table table-hover subscriber-group-list">
-            <tr>
-                <th>Group</th>
-                <th>Sign Up Page URL</th>
-                <th>Edit</th>
-            </tr>
-            <% subscriberGroups.forEach(function(subscriberGroup){ %>
-                <tr>
-                    <td><%= subscriberGroup.groupName %></td>
-                    <td><a href="<%= subscriberGroup.signUpUrl %>"><%= subscriberGroup.signUpUrl %></a></td>
-                    <td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/edit" class="btn btn-xs btn-warning">Edit</a></td>
-                </tr>
-            <% }); %>
-        </table>
-    </div>
+	<h1 class="row my-2">Subscriber Groups</h1>
+
+	<div class="row my-2">
+		<table class="table table-hover subscriber-group-list">
+			<tr>
+				<th>Group</th>
+				<th>Sign Up Page URL</th>
+				<th>Manage Subscribers</th>
+				<th>Edit Settings</th>
+			</tr>
+			<% subscriberGroups.forEach(function(subscriberGroup){ %>
+				<tr>
+					<td><%= subscriberGroup.groupName %></td>
+					<td><a href="<%= subscriberGroup.signUpUrl %>"><%= subscriberGroup.signUpUrl %></a></td>
+					<td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/edit" class="btn btn-xs btn-info">Subscribers</a></td>
+					<td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/edit" class="btn btn-xs btn-warning">Settings</a></td>
+				</tr>
+			<% }); %>
+		</table>
+	</div>
+
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-primary btn-large" href="<%= routes.subscriberGroups %>/new">Add new subscriber group</a>
+	</div>
 </div>
 
 <% include ../../partials/scripts %>

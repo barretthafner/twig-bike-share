@@ -6,9 +6,14 @@
 * Add data analysis
 * Generate appSecret on seed
 * Improve validation codes - plain english + a number, like heroku
+* Delete confirmations
 
 - Onboarding
-	-
+	- Sign up page validation
+	- SubscriberGroups/subscriber routes
+	- SubscriberGroups/settings routes
+
+
 
 # Reminders
 

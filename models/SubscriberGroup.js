@@ -33,10 +33,6 @@ var SubscriberGroupSchema = new mongoose.Schema({
 	subscribers: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Subscriber'
-	}],
-	settings: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Setting'
 	}]
 });
 

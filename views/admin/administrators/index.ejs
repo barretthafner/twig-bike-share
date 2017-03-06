@@ -2,35 +2,38 @@
 <% include ../../partials/nav %>
 
 <div class="container">
-    <div class="row">
-        <a class="btn btn-primary btn-large" href="<%= routes.administrators %>/new">Add a new Administrator</a>
-    </div>
 
-    <div class="row">
-        <table class="table table-hover bike-list">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            <% administrators.forEach(function(administrator){ %>
-            <tr>
-                <td><%= administrator.name %></td>
-                <td><%= administrator.username %></td>
-                <td>
-                    <a href="<%= routes.administrators %>/<%= administrator.id %>/edit" class="btn btn-xs btn-warning">Edit</a>
-                </td>
-                <td>
-                    <form action="<%= routes.administrators %>/<%= administrator.id %>" method="POST" class="make-inline">
-                        <button class="btn btn-xs btn-danger">Delete</button>
-                        <input type="hidden" name="_method" value="DELETE">
-                    </form>
-                </td>
-            </tr>
-            <% }); %>
-        </table>
-    </div>
+	<h1 class="row my-2">Administrators</h1>
+
+	<div class="row">
+		<table class="table table-hover bike-list">
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+			<% administrators.forEach(function(administrator){ %>
+			<tr>
+				<td><%= administrator.name %></td>
+				<td><%= administrator.username %></td>
+				<td>
+					<a href="<%= routes.administrators %>/<%= administrator.id %>/edit" class="btn btn-xs btn-warning">Edit</a>
+				</td>
+				<td>
+					<form action="<%= routes.administrators %>/<%= administrator.id %>" method="POST" class="make-inline">
+						<button class="btn btn-xs btn-danger">Delete</button>
+						<input type="hidden" name="_method" value="DELETE">
+					</form>
+				</td>
+			</tr>
+			<% }); %>
+		</table>
+	</div>
+
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-primary btn-large" href="<%= routes.administrators %>/new">Add a new Administrator</a>
+	</div>
 </div>
 
 <% include ../../partials/scripts %>
