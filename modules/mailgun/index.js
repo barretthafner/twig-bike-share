@@ -45,7 +45,7 @@ mailer.sendOne = function(params, callback) {
 		} else if (err) {
 			console.log(err);
 		} else {
-			console.log('email sent!');
+			console.log('email sent to: ' + params.to);
 		}
 	});
 };

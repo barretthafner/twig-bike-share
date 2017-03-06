@@ -4,6 +4,7 @@ var router = express.Router();
 var SubscriberGroup = require('../models/SubscriberGroup');
 var Subscriber = require('../models/Subscriber');
 var routes = require('../config').routes;
+var mailer = require('../modules/mailgun');
 
 
 // INDEX route
@@ -26,10 +27,20 @@ router.post('/:group_slug', function(req, res) {
 			req.flash('err', 'Server error adding subscriber: ' + err.message);
 			res.redirect(routes.root);
 		} else {
-			res.render('signup/thank-you', {
-				subscriberGroup: subscriberGroup,
-				subscriber: subscriber
+
+			mailer.sendOne({
+				to: subscriber.email,
+				subject: 'Welcome!',
+				text: 'Test!',
+				html: '<h1>Test!</h1>'
 			});
+
+			// res.render('signup/thank-you', {
+			// 	subscriberGroup: subscriberGroup,
+			// 	subscriber: subscriber
+			// });
+
+			res.redirect(routes.root);
 		}
 	})
 });

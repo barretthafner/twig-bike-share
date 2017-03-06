@@ -59,7 +59,7 @@ var subscriberData =
 	[{
 			'firstName': 'Test',
 			'lastName': 'User',
-			'email': 'barrett@hafnerindustries.com'
+			'email': 'bikeshare@wta-tma.org'
 		}
 		// { 'firstName': 'Steve', 'lastName': 'Zissou', 'email': 'thezissou@thesea.com',  }
 		// { 'firstName': 'Charley', 'lastName': 'Murphy', 'email': 'charley@themurphys.com', 'phoneNumber': '6024458890' },
@@ -160,18 +160,18 @@ function seed(config) {
 							console.log(err);
 						} else {
 							console.log('added subscriber group: ' + subscriberGroup.groupName);
-							subscriberData.forEach(function(subscriber) {
-								Subscriber.addNew(subscriber, function(err, subscriber) {
-									if (err) {
-										console.log(err);
-									} else {
-										subscriberGroup.subscribers.push(subscriber);
-										subscriberGroup.save();
-										console.log(subscriber);
-										console.log('added subscriber: ' + subscriber.email + ' to subscriber group: ' + subscriberGroup.groupName);
-									}
-								})
-							});
+							// subscriberData.forEach(function(subscriber) {
+							// 	Subscriber.addNew(subscriber, function(err, subscriber) {
+							// 		if (err) {
+							// 			console.log(err);
+							// 		} else {
+							// 			subscriberGroup.subscribers.push(subscriber);
+							// 			subscriberGroup.save();
+							// 			console.log(subscriber);
+							// 			console.log('added subscriber: ' + subscriber.email + ' to subscriber group: ' + subscriberGroup.groupName);
+							// 		}
+							// 	})
+							// });
 						}
 					});
 				});
