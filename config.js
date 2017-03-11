@@ -17,8 +17,8 @@ config.twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
 config.twilioSendingNumber = process.env.TWILIO_NUMBER;
 
 // Set composed configurations
-config.mailgunDomain = 'openbike.hafnerindustries.com';//config.appDomain;
-config.mailgunFromEmail = 'NoReply <noreply@' + /*config.appDomain*/'openbike.hafnerindustries.com' + '>';
+config.mailgunDomain = 'wta-tma.org';
+config.mailgunFromEmail = 'Bikeshare <bikeshare@wta-tma.org>';
 
 config.siteTitle = 'WTA Bike Share';
 config.protocol = 'http://';
