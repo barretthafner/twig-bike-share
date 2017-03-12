@@ -10,6 +10,7 @@ var SubscriberSchema = new mongoose.Schema({
 	lastName: String,
 	email: {
 		type: String,
+		unique: true,
 		required: [true, 'Email field is required'],
 		match: [/.+@.+/, 'Email is not valid']
 	},

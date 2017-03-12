@@ -7,7 +7,6 @@ var routes = require('../config').routes;
 var mailer = require('../modules/mailgun');
 
 
-// INDEX route
 router.get('/:group_slug', function(req, res) {
 	SubscriberGroup.findBySlug(req.params.group_slug, function(err, subscriberGroup) {
 		if (err) {
@@ -24,8 +23,8 @@ router.get('/:group_slug', function(req, res) {
 router.post('/:group_slug', function(req, res) {
 	SubscriberGroup.findBySlugAndAddSubscriber(req.params.group_slug, req.body.subscriber, function(err, subscriberGroup, subscriber) {
 		if (err) {
-			req.flash('err', 'Server error adding subscriber: ' + err.message);
-			res.redirect(routes.root);
+			req.flash('error', 'Server error adding subscriber: ' + err.message);
+			res.redirect('back');
 		} else {
 
 			mailer.sendOne({
@@ -35,12 +34,11 @@ router.post('/:group_slug', function(req, res) {
 				html: '<h1>Test!</h1>'
 			});
 
-			// res.render('signup/thank-you', {
-			// 	subscriberGroup: subscriberGroup,
-			// 	subscriber: subscriber
-			// });
+			res.render('signup/thank-you', {
+				subscriberGroup: subscriberGroup,
+				subscriber: subscriber
+			});
 
-			res.redirect(routes.root);
 		}
 	})
 });
