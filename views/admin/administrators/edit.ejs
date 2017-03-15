@@ -2,8 +2,10 @@
 <% include ../../partials/nav %>
 
 <div class="container">
+
 	<h1 class="row justify-content-center my-2">Edit administrator:</h1>
 	<h1 class="row justify-content-center my-2"><em><%= administrator.name %></em></h1>
+
 	<div class="row justify-content-center">
 		<form class="col-md-6" action="<%= routes.administrators %>/<%= administrator.id%>" method="POST">
 			<div class="form-group row">
@@ -20,10 +22,25 @@
 			</div>
 		</form>
 	</div>
+
 	<div class="row my-2 justify-content-center">
 		<a class="col-md-3 btn btn-lg btn-warning btn-block" href="<%= routes.administrators + administrator.id + '/password' %>">Change Password</a>
 	</div>
-	<a class="row justify-content-center" href="<%= routes.administrators %>">Go Back</a>
+
+	<form
+		class="row justify-content-center"
+		action="<%= routes.administrators %>/<%= administrator.id %>"
+		method="POST"
+		onsubmit="return confirm('Do you really want to delete <%= administrator.username %>?');">
+
+		<button class="btn btn-lg btn-danger">Delete</button>
+		<input type="hidden" name="_method" value="DELETE">
+	</form>
+
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-lg btn-success" href="<%= routes.administrators %>">Go Back</a>
+	</div>
+
 </div>
 
 <% include ../../partials/scripts %>

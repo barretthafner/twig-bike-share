@@ -20,12 +20,19 @@
 		</form>
 	</div>
 
-	<a class="row justify-content-center mt-5" href="<%= routes.bikes %>">Go Back</a>
+	<form
+		class="row justify-content-center"
+		action="<%= routes.bikes %>/<%= bike.id %>"
+		method="POST"
+		onsubmit="return confirm('Do you really want to delete bike #<%= bike.bikeId %>?');">
 
-	<form class="make-inline row justify-content-center mt-5" action="<%= routes.bikes %>/<%= bike.id %>" method="POST">
-		<button class="btn btn-xs btn-danger">Delete</button>
+		<button class="btn btn-lg btn-danger">Delete Bike</button>
 		<input type="hidden" name="_method" value="DELETE">
 	</form>
+
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-lg btn-success" href="<%= routes.bikes %>">Go Back</a>
+	</div>
 
 </div>
 
