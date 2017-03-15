@@ -49,7 +49,7 @@ router.get('/:id/edit', function(req, res) {
 
 // UPDATE route
 router.put('/:id', function(req, res) {
-	SubscriberGroup.findByIdAndUpdate(req.params.id, req.body.subscriberGroup, function(err) {
+	SubscriberGroup.updateWithUrl(req.params.id, req.body.subscriberGroup, function(err) {
 		if (err) { req.flash('error', 'Server error updating subscriber group: ' + err.message); }
 		res.redirect(routes.subscriberGroups);
 	})

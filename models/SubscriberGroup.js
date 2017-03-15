@@ -39,7 +39,12 @@ var SubscriberGroupSchema = new mongoose.Schema({
 SubscriberGroupSchema.statics.createWithUrl = function(subscriberGroup, callback) {
 	subscriberGroup.signUpUrl = config.protocol + config.appDomain + config.routes.signUp + '/' + subscriberGroup.signUpSlug;
 	return this.create(subscriberGroup, function(err, subscriberGroup) { callback(err, subscriberGroup) });
-}
+};
+
+SubscriberGroupSchema.statics.updateWithUrl = function(id, subscriberGroup, callback) {
+	subscriberGroup.signUpUrl = config.protocol + config.appDomain + config.routes.signUp + '/' + subscriberGroup.signUpSlug;
+	return this.findByIdAndUpdate(id, subscriberGroup, function(err, group) { callback(err, subscriberGroup) });
+};
 
 // findBySlug
 // creates a query by signUpSlug and returns a callback function with a potentially-null single document
@@ -65,7 +70,7 @@ SubscriberGroupSchema.statics.findBySlugAndAddSubscriber = function(slug, subscr
 			});
 		}
 	});
-}
+};
 
 // export
 module.exports = mongoose.model('SubscriberGroup', SubscriberGroupSchema);
