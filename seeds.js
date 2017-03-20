@@ -129,18 +129,18 @@ function seed(config) {
 							console.log(err);
 						} else {
 							console.log('added subscriber group: ' + subscriberGroup.groupName);
-							// subscriberData.forEach(function(subscriber) {
-							// 	Subscriber.addNew(subscriber, function(err, subscriber) {
-							// 		if (err) {
-							// 			console.log(err);
-							// 		} else {
-							// 			subscriberGroup.subscribers.push(subscriber);
-							// 			subscriberGroup.save();
-							// 			console.log(subscriber);
-							// 			console.log('added subscriber: ' + subscriber.email + ' to subscriber group: ' + subscriberGroup.groupName);
-							// 		}
-							// 	})
-							// });
+							subscriberData.forEach(function(subscriber) {
+								Subscriber.addNew(subscriber, function(err, subscriber) {
+									if (err) {
+										console.log(err);
+									} else {
+										subscriberGroup.subscribers.push(subscriber);
+										subscriberGroup.save();
+										console.log(subscriber);
+										console.log('added subscriber: ' + subscriber.email + ' to subscriber group: ' + subscriberGroup.groupName);
+									}
+								})
+							});
 						}
 					});
 				});

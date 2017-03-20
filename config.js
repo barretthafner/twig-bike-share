@@ -31,6 +31,7 @@ config.routes = {
 	logout: '/a/logout',
 	setup: '/setup',
 	subscriberGroups: '/a/subscriber-groups',
+	subscribers: '/subscribers',
 	twilioApi: '/twilio',
 	twilioApiIncomingMessage: '/msg',
 	twilioApiIncomingVoice: '/voice',
