@@ -27,7 +27,7 @@ router.get('/new', function(req, res) {
 
 // CREATE route
 router.post('/', function(req, res) {
-	SubscriberGroup.createWithUrl(req.body.subscriberGroup, function(err) {
+	SubscriberGroup.create(req.body.subscriberGroup, function(err) {
 		if (err) { req.flash('error', 'Server error adding subscriber group: ' + err.message); }
 		res.redirect(routes.subscriberGroups);
 	});
@@ -49,7 +49,7 @@ router.get('/:id/edit', function(req, res) {
 
 // UPDATE route
 router.put('/:id', function(req, res) {
-	SubscriberGroup.updateWithUrl(req.params.id, req.body.subscriberGroup, function(err) {
+	SubscriberGroup.findByIdAndUpdate(req.params.id, req.body.subscriberGroup, function(err) {
 		if (err) { req.flash('error', 'Server error updating subscriber group: ' + err.message); }
 		res.redirect(routes.subscriberGroups);
 	})

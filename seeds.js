@@ -124,7 +124,7 @@ function seed(config) {
 			} else {
 				console.log('removed subscriber groups!');
 				subscriberGroupData.forEach(function(subscriberGroup) {
-					SubscriberGroup.createWithUrl(subscriberGroup, function(err, subscriberGroup) {
+					SubscriberGroup.create(subscriberGroup, function(err, subscriberGroup) {
 						if (err) {
 							console.log(err);
 						} else {

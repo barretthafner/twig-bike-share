@@ -25,26 +25,11 @@ var SubscriberGroupSchema = new mongoose.Schema({
 	logoSrc: {
 		type: String
 	},
-	signUpUrl: {
-		type: String,
-		unique: [true, 'Sign Up URL must be unique'],
-		required: [true, 'Sign Up URL required']
-	},
 	subscribers: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Subscriber'
 	}]
 });
-
-SubscriberGroupSchema.statics.createWithUrl = function(subscriberGroup, callback) {
-	subscriberGroup.signUpUrl = config.protocol + config.appDomain + config.routes.signUp + '/' + subscriberGroup.signUpSlug;
-	return this.create(subscriberGroup, function(err, subscriberGroup) { callback(err, subscriberGroup) });
-};
-
-SubscriberGroupSchema.statics.updateWithUrl = function(id, subscriberGroup, callback) {
-	subscriberGroup.signUpUrl = config.protocol + config.appDomain + config.routes.signUp + '/' + subscriberGroup.signUpSlug;
-	return this.findByIdAndUpdate(id, subscriberGroup, function(err, group) { callback(err, subscriberGroup) });
-};
 
 // findBySlug
 // creates a query by signUpSlug and returns a callback function with a potentially-null single document
