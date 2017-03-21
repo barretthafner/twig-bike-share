@@ -17,7 +17,7 @@
                     <td><%= subscriber.email %></td>
                     <td><%= subscriber.phoneNumber ? subscriber.phoneNumber : "User has not been validated" %></td>
                     <td><%= subscriber.active %></td>
-                    <td><a href="<%= routes.subscriberGroups + '/' + groupId + '/' + subscriber.id %>/edit" class="btn btn-xs btn-warning">Edit</a></td>
+                    <td><a href="<%= routes.subscriberGroups + '/' + groupId + '/subscribers/' + subscriber.id %>/edit" class="btn btn-xs btn-warning">Edit</a></td>
                 </tr>
             <% }); %>
         </table>

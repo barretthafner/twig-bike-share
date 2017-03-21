@@ -18,7 +18,7 @@
 					<td><%= subscriberGroup.groupName %></td>
 					<% var signUpUrl = protocol + domain + routes.signUp + '/' + subscriberGroup.signUpSlug; %>
 					<td><a href="<%= signUpUrl %>"><%= signUpUrl %></a></td>
-					<td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/edit" class="btn btn-xs btn-info">Subscribers</a></td>
+					<td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/subscribers" class="btn btn-xs btn-info">Subscribers</a></td>
 					<td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/edit" class="btn btn-xs btn-warning">Settings</a></td>
 				</tr>
 			<% }); %>

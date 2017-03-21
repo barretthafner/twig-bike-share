@@ -3,6 +3,7 @@ var express = require('express'),
 	router = express.Router(),
 	middleware = require('../../middleware'),
 	SubscriberGroup = require('../../models/SubscriberGroup'),
+	Subscriber = require('../../models/Subscriber'),
 	routes = require('../../config').routes;
 
 
@@ -86,14 +87,15 @@ router.get('/:id' + routes.subscribers, function(req, res) {
 });
 
 // Group subscriber EDIT route
-router.get('/:id' + routes.subscribers + '/:subsciberId/edit', function(req, res) {
-	Subscriber.findById(req.params.id, function(err, subscriber) {
+router.get('/:id' + routes.subscribers + '/:subscriberId/edit', function(req, res) {
+	Subscriber.findById(req.params.subscriberId, function(err, subscriber) {
 		if (err) {
-			req.flash('error', 'Server error finding subscriber: ' + err);
-			res.redirect(routes.subscribers);
+			req.flash('error', 'Server error finding subscriber: ' + err.message);
+			res.redirect(routes.subscriberGroups);
 		} else {
-			res.render('admin/subsriberGroups/subscribers/edit', {
-				subscriber: subscriber
+			res.render('admin/subscriberGroups/subscribers/edit', {
+				subscriber: subscriber,
+				groupId: req.params.id
 			});
 		}
 	});
