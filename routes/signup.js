@@ -5,7 +5,13 @@ var SubscriberGroup = require('../models/SubscriberGroup');
 var Subscriber = require('../models/Subscriber');
 var routes = require('../config').routes;
 var twilioSendingNumber = require('../config').twilioSendingNumber;
+var siteTitle = require('../config').siteTitle;
+var supportSite = require('../config').supportSite;
 var mailer = require('../modules/mailgun');
+var fs = require('fs');
+var path = require('path');
+
+var emailCopy = fs.readFileSync(path.resolve(__dirname, '../email.html'), 'utf8');
 
 
 router.get('/:group_slug', function(req, res) {
@@ -28,10 +34,16 @@ router.post('/:group_slug', function(req, res) {
 			res.redirect('back');
 		} else {
 
+			var email = emailCopy.slice();
+			email = email.replace(/___SITE_TITLE___/g, siteTitle);
+			email = email.replace(/___VALIDATION_CODE___/g, subscriber.validationCode);
+			email = email.replace(/___SENDING_NUMBER___/g, twilioSendingNumber);
+			email = email.replace(/___SUPPORT_ADDRESS___/g, supportSite);
+
 			mailer.sendOne({
 				to: subscriber.email,
-				subject: 'Welcome!',
-				html: '<h1>Text your validationCode: ' + subscriber.validationCode + ' to: ' + twilioSendingNumber + '</h1>'
+				subject: 'Welcome to the ' + siteTitle,
+				html: email
 			});
 
 			res.render('signup/thank-you', {
