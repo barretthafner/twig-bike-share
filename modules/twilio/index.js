@@ -24,6 +24,7 @@ messenger.getMessageData = function(req) {
 	var output = {};
 	output.body = req.body.Body;
 	output.from = req.body.From;
+	console.log('Message recieved from: ' + output.from + ' It says: ' + output.body);
 	return output;
 };
 
@@ -81,7 +82,7 @@ messenger.setEndpoints = function() {
 			smsMethod: 'POST'
 		}, function(err, number) {
 			if (err) {
-				console.log(err);
+				console.error(err);
 			} else {
 				console.log('Twilio endpoints set!');
 			}

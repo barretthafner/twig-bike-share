@@ -13,6 +13,7 @@ var Subscriber = require('../../models/Subscriber');
 var Bike = require('../../models/Bike');
 
 var routes = require('../../config').routes;
+var siteTitle = require('../../config').siteTitle;
 
 
 // incoming voice route
@@ -51,12 +52,10 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 				} else {
 					client.sendSms(subscriber.phoneNumber, 'Sorry, we could not understand your request. Please send bike ID number only.')
 				}
-				console.log(subscriber.firstName + ' sent a message! It says: ' + message.body);
 			} else if (subscriber && !subscriber.active) {
 				client.sendSms(subscriber.phoneNumber, 'Sorry, your number has been deactivated.');
 			} else if (validationCode) {
 				Subscriber.findByValidationCode(validationCode, function(err, subscriber) {
-					console.log(err, subscriber);
 					if (err) {
 						console.log('Error finding subscriber in twilioAPi/index.js!');
 						client.sendSms(message.from, 'Sorry there was an internal error, please contact system administration. Code: 2451');
@@ -65,7 +64,7 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 						subscriber.active = true;
 						subscriber.validationCode = '';
 						subscriber.save();
-						client.sendSms(subscriber.phoneNumber, 'Welcome to the Open Bike Project. Your number is now active.');
+						client.sendSms(subscriber.phoneNumber, 'Welcome to the' + siteTitle + '. Your number is now active.');
 					} else {
 						client.sendSms(message.from, 'Sorry you are not authorized to use this application.');
 					}
