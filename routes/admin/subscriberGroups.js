@@ -102,42 +102,28 @@ router.get('/:id' + routes.subscribers + '/:subscriberId/edit', function(req, re
 });
 
 // Group subscriber UPDATE route
-router.put('/:id' + routes.subscribers + '/:subsciberId', function(req, res) {
+router.put('/:id' + routes.subscribers + '/:subscriberId', function(req, res) {
 	var subscriber = req.body.subscriber;
 
 	subscriber.active = !!subscriber.active;
-	subscriber.invited = !!subscriber.invited;
 
-	// if (subscriber.active) {
-	// 	subscriber.active = true;
-	// } else {
-	// 	subscriber.active = false;
-	// }
-	// if (subscriber.invited) {
-	// 	subscriber.invited = true;
-	// } else {
-	// 	subscriber.invited = false;
-	// }
-
-	Subscriber.findByIdAndUpdate(req.params.id, req.body.subscriber, function(err) {
+	Subscriber.findByIdAndUpdate(req.params.subscriberId, subscriber, function(err) {
 		if (err) {
 			req.flash('error', 'Server error updating subscriber: ' + err);
 		}
-		res.redirect(routes.subscribers);
+		res.redirect(routes.subscriberGroups + '/' + req.params.id + routes.subscribers);
 	})
 });
 
 // Group subscriber DESTROY route
-router.delete('/:id' + routes.subscribers + '/:subsciberId', function(req, res) {
-	Subscriber.findByIdAndRemove(req.params.id, function(err) {
+router.delete('/:id' + routes.subscribers + '/:subscriberId', function(req, res) {
+	Subscriber.findByIdAndRemove(req.params.subscriberId, function(err) {
 		if (err) {
 			req.flash('error', 'Server error deleting subscriber: ' + err);
 		}
-		res.redirect(routes.subscribers);
+		res.redirect(routes.subscriberGroups + '/' + req.params.id + routes.subscribers);
 	});
 });
-
-
 
 
 module.exports = router;

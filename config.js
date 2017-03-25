@@ -36,7 +36,8 @@ config.routes = {
 	twilioApiIncomingMessage: '/msg',
 	twilioApiIncomingVoice: '/voice',
 	signUp: '/signup',
-	legal: '/legal'
+	legal: '/legal',
+	newValidation: '/newValidation'
 };
 
 // Export module -------------------------------------------------------------------

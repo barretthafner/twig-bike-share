@@ -2,56 +2,62 @@
 <% include ../../../partials/nav %>
 
 <div class="container">
-    <div class="row">
-        <h1 style="text-align: center">Edit Subscriber: <%= subscriber.firstName + " " + subscriber.lastName %></h1>
-        <div style="width: 30%; margin: 30px auto;">
-            <form action="<%= routes.subscribers %>/<%= subscriber.id %>" method="POST">
-                <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input class="form-control" id="firstName" name="subscriber[firstName]" type="text" value="<%= subscriber.firstName %>">
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input class="form-control" id="lastName" name="subscriber[lastName]" type="text" value="<%= subscriber.lastName %>">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input class="form-control" id="email" name="subscriber[email]" type="text" value="<%= subscriber.email %>">
-                </div>
-                <div class="form-group">
-                    <label for="phoneNumber">Phone Number</label>
-                    <input class="form-control" id="phoneNumber" name="subscriber[phoneNumber]" type="text" value="<%= subscriber.phoneNumber %>" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="active">Active</label>
-                    <input class="form-control" id="active" name="subscriber[active]" type="checkbox" value="true" <%= subscriber.active? "checked": "" %> >
-                </div>
-                <div class="form-group">
-                    <label for="active">Invited</label>
-                    <input class="form-control" id="active" name="subscriber[invited]" type="checkbox" value="true" <%= subscriber.invited? "checked": "" %> >
-                </div>
-                <% if (subscriber.validationCode) { %>
-                    <div class="form-group">
-                        <label for="validationCode">Validation Code</label>
-                        <input class="form-control" id="validationCode" name="subscriber[validationCode]" type="text" value="<%= subscriber.validationCode %>" readonly>
-                    </div>
-                <% } else { %>
-                <div class="row">
-                    <a class="btn btn-primary btn-lg btn-block" href="/subscribers/<%= subscriber._id %>/newValidation">Send New Validation Code</a>
-                </div>
-                <% } %>
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
-                    <input type="hidden" name="_method" value="PUT">
-                </div>
-            </form>
-            <form action="<%= routes.subscribers %>/<%= subscriber._id %>" method="POST" class="make-inline">
-                <button class="btn btn-lg btn-danger btn-block">Delete Subscriber</button>
-                <input type="hidden" name="_method" value="DELETE">
-            </form>
-            <a class="btn btn-lg btn-success btn-block" href="<%= routes.subscribers %>">Go Back</a>
-        </div>
-    </div>
+
+	<div class="row my-2 justify-content-center">
+		<h1>Edit Subscriber: <%= subscriber.firstName + " " + subscriber.lastName %></h1>
+	</div>
+
+	<div class="row my-2 justify-content-center">
+		<form class="col-md-6" action="<%= routes.subscriberGroups %>/<%= groupId %><%= routes.subscribers %>/<%= subscriber.id %>" method="POST">
+			<div class="row form-group">
+				<label for="firstName">First Name</label>
+				<input class="form-control" id="firstName" name="subscriber[firstName]" type="text" value="<%= subscriber.firstName %>">
+			</div>
+			<div class="row form-group">
+				<label for="lastName">Last Name</label>
+				<input class="form-control" id="lastName" name="subscriber[lastName]" type="text" value="<%= subscriber.lastName %>">
+			</div>
+			<div class="row form-group">
+				<label for="email">Email</label>
+				<input class="form-control" id="email" name="subscriber[email]" type="text" value="<%= subscriber.email %>">
+			</div>
+			<div class="row form-group">
+				<label for="phoneNumber">Phone Number</label>
+				<input class="form-control" id="phoneNumber" name="subscriber[phoneNumber]" type="text" value="<%= subscriber.phoneNumber %>" readonly>
+			</div>
+			<div class="row form-group">
+				<label for="active">Active</label>
+				<input class="form-control" id="active" name="subscriber[active]" type="checkbox" value="true" <%= subscriber.active? "checked": "" %> >
+			</div>
+			<div class="row form-group">
+				<label for="validationCode">Validation Code</label>
+				<input class="form-control" id="validationCode" name="subscriber[validationCode]" type="text" value="<%= subscriber.validationCode %>" readonly>
+			</div>
+			<div class="row form-group justify-content-center">
+				<button class="btn btn-lg btn-primary">Submit</button>
+				<input type="hidden" name="_method" value="PUT">
+			</div>
+		</form>
+	</div>
+
+	<div class="row my-2 justify-content-center">
+		<a class="btn btn-primary btn-lg" href="<%= routes.subscriberGroups %>/<%= groupId %><%= routes.subscribers %>/<%= subscriber.id %><%= routes.newValidation %>">Send New Validation Code</a>
+	</div>
+
+	<form
+		class="row my-2 justify-content-center"
+		action="<%= routes.subscriberGroups %>/<%= groupId %><%= routes.subscribers %>/<%= subscriber._id %>"
+		method="POST"
+		onsubmit="return confirm('Do you really want to delete subscriber: <%= subscriber.email %>?');">
+
+			<button class="btn btn-lg btn-danger">Delete Subscriber</button>
+			<input type="hidden" name="_method" value="DELETE">
+	</form>
+
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-lg btn-success" href="<%= routes.subscriberGroups %>/<%= groupId %><%= routes.subscribers %>">Go Back</a>
+	</div>
+
 </div>
 
 <% include ../../../partials/scripts %>
