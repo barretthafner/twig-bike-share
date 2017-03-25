@@ -4,6 +4,7 @@ var router = express.Router();
 var SubscriberGroup = require('../models/SubscriberGroup');
 var Subscriber = require('../models/Subscriber');
 var routes = require('../config').routes;
+var twilioSendingNumber = require('../config').twilioSendingNumber;
 var mailer = require('../modules/mailgun');
 
 
@@ -30,8 +31,7 @@ router.post('/:group_slug', function(req, res) {
 			mailer.sendOne({
 				to: subscriber.email,
 				subject: 'Welcome!',
-				text: 'Test!',
-				html: '<h1>Test!</h1>'
+				html: '<h1>Text your validationCode: ' + subscriber.validationCode + ' to: ' + twilioSendingNumber + '</h1>'
 			});
 
 			res.render('signup/thank-you', {

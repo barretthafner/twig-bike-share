@@ -36,12 +36,12 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 		var validationCode = regEx.getValidationCode(message.body);
 
 		// look up subscriber by phone number
-		Subscriber.findByPhoneNumber(message.from, function(subscriber) {
+		Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
 
 			// if the query returns a valid subscriber and the account is active, look for bike id
 			if (subscriber && subscriber.active) {
 				if (bikeId) {
-					Bike.findByBikeId(bikeId, function(bike) {
+					Bike.findByBikeId(bikeId, function(err, bike) {
 						if (bike) {
 							client.sendSms(subscriber.phoneNumber, 'The code for bike number ' + bike.bikeId + ' is: ' + bike.code);
 						} else {
@@ -55,8 +55,12 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 			} else if (subscriber && !subscriber.active) {
 				client.sendSms(subscriber.phoneNumber, 'Sorry, your number has been deactivated.');
 			} else if (validationCode) {
-				Subscriber.findByValidationCode(validationCode, function(subscriber) {
-					if (subscriber) {
+				Subscriber.findByValidationCode(validationCode, function(err, subscriber) {
+					console.log(err, subscriber);
+					if (err) {
+						console.log('Error finding subscriber in twilioAPi/index.js!');
+						client.sendSms(message.from, 'Sorry there was an internal error, please contact system administration. Code: 2451');
+					} else if (subscriber) {
 						subscriber.phoneNumber = message.from;
 						subscriber.active = true;
 						subscriber.validationCode = '';

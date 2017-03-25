@@ -28,7 +28,6 @@ SubscriberSchema.methods.emailString = function() {
 	return this.firstName + ' ' + this.lastName + ' <' + this.email + '>';
 };
 
-
 // findByPhoneNumber
 // creates a query by phone number and returns a callback function with a potentially-null single document
 SubscriberSchema.statics.findByPhoneNumber = function(phoneNumber, callback) {

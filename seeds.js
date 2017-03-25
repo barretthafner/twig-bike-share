@@ -4,7 +4,6 @@ var Administrator = require('./models/Administrator');
 var Bike = require('./models/Bike');
 var Subscriber = require('./models/Subscriber');
 var SubscriberGroup = require('./models/SubscriberGroup');
-var Setting = require('./models/Setting');
 var validationCode = require('./modules/validationCode');
 var twilio = require('./modules/twilio');
 
@@ -60,15 +59,9 @@ var subscriberData =
 		{
 			'firstName': 'Test',
 			'lastName': 'User',
-			'email': 'bikeshare@wta-tma.org'
+			'email': 'bike share@wta-tma.org'
 		}
 	];
-
-var settingData =
-	[{
-		'key': 'inviteHtml',
-		'value': '<p>Invite HTML not set!</p>'
-	}];
 
 function seed(config) {
 

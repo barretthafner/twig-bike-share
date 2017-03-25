@@ -6,7 +6,7 @@ var parser = {};
 // regEx for finding a bikeID
 var bikeIdRegEx = /^[0-9]+/;
 // regEx for finding a validation code
-var validationRegEx = /^\$[A-Za-z0-9_-]{9}/;
+var validationRegEx = /^\s*\$[A-Za-z0-9_-]{9}/;
 
 // getBikeId
 parser.getBikeId = function(string) {
