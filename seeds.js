@@ -59,7 +59,7 @@ var subscriberData =
 		{
 			'firstName': 'Test',
 			'lastName': 'User',
-			'email': 'bike share@wta-tma.org'
+			'email': 'bikeshare@wta-tma.org'
 		}
 	];
 

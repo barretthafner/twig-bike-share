@@ -64,7 +64,7 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 						subscriber.active = true;
 						subscriber.validationCode = '';
 						subscriber.save();
-						client.sendSms(subscriber.phoneNumber, 'Welcome to the' + siteTitle + '. Your number is now active.');
+						client.sendSms(subscriber.phoneNumber, 'Welcome to the ' + siteTitle + '. Your number is now active.');
 					} else {
 						client.sendSms(message.from, 'Sorry you are not authorized to use this application.');
 					}

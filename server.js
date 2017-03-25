@@ -86,8 +86,8 @@ if (process.argv.indexOf('--seedDb') > -1) {
 	seed({
 		administrators: false,
 		bikes: false,
-		subscriberGroups: false,
-		twilio: true
+		subscriberGroups: true,
+		twilio: false
 	});
 	global.dbEmpty = false;
 }
