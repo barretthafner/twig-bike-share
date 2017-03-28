@@ -86,15 +86,15 @@ if (process.argv.indexOf('--seedDb') > -1) {
 	seed({
 		administrators: false,
 		bikes: false,
-		subscriberGroups: true,
-		twilio: false
+		subscriberGroups: false,
+		twilio: true
 	});
 	global.dbEmpty = false;
 }
 
 // Start app
 app.listen(config.port, config.ipAddress, function() {
-	console.log('Server is running at: http://' + config.ipAddress + ':' + config.port);
+	console.log('Server is running at: ' + config.protocol + config.ipAddress + ':' + config.port);
 });
 
 exports.app = app;

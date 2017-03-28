@@ -22,7 +22,7 @@ config.mailgunFromEmail = 'Bikeshare <bikeshare@wta-tma.org>';
 
 config.siteTitle = 'WTA Bike Share';
 config.supportSite = 'www.wta-tma.org/bikeshare';
-config.protocol = 'http://';
+config.protocol = 'https://';
 
 config.routes = {
 	root: '/',
