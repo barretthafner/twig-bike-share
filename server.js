@@ -9,11 +9,16 @@ var MongoStore = require('connect-mongo')(session);
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var flash = require('connect-flash');
+var helmet = require('helmet');
 
 var config = require('./config');
 var middleware = require('./middleware');
 
 var app = express();
+
+// Use Helmet
+app.use(helmet());
+
 
 // Serve '/public' folder
 app.use(express.static(__dirname + '/public'));
@@ -45,6 +50,7 @@ app.use(flash());
 // Express Session (for passport)
 app.use(session({
 	secret: config.appSecret,
+	name: 'sessionId',
 	resave: false,
 	saveUninitialized: false,
 	store: new MongoStore({
