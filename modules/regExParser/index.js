@@ -3,24 +3,32 @@
 // helper module for parsing different types of messagess
 var parser = {};
 
-// regEx for finding a bikeID
-var bikeIdRegEx = /^[0-9]+/;
-// regEx for finding a validation code
-var validationRegEx = /^\s*\$[A-Za-z0-9_-]{9}/;
-
 // getBikeId
+// regEx for finding a bikeID
 parser.getBikeId = function(string) {
 
-	var matches = string.match(bikeIdRegEx);
+	var matches = string.match(   /^\s*[0-9]+/   );
 	return matches ? matches[0] : null;
 };
 
 // getValidationCode
+// regEx for finding a validation code
 parser.getValidationCode = function(string) {
 
-	var matches = string.match(validationRegEx);
+
+	var matches = string.match(   /\$[A-Za-z0-9_-]{9}/   );
 	return matches ? matches[0] : null;
 };
+
+// getRepairRequest
+// regEx for getting repair requests
+parser.getBikeIdFromRepairRequest = function(string) {
+
+	var matches = string.match(   /\$repair\s*([0-9]+)/i   );
+	console.log(matches[1]);
+	return matches ? matches[1] : null;
+};
+
 
 // export
 module.exports = parser;

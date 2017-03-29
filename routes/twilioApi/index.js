@@ -32,16 +32,27 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 
 		// get message data from request body
 		var message = client.getMessageData(req);
-		// compare body to bike id parser and validation code parser
+
+		// compare body regEx parsers
 		var bikeId = regEx.getBikeId(message.body);
 		var validationCode = regEx.getValidationCode(message.body);
+		var bikeToRepair = regEx.getBikeIdFromRepairRequest(message.body);
 
 		// look up subscriber by phone number
 		Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
 
 			// if the query returns a valid subscriber and the account is active, look for bike id
 			if (subscriber && subscriber.active) {
-				if (bikeId) {
+				if (bikeToRepair) {
+					Bike.findByBikeId(bikeToRepair, function(err, bike) {
+						if (bike) {
+							bike.addRepairRequest(subscriber.id);
+							client.sendSms(subscriber.phoneNumber, 'Thank you. A service request has been submitted for bike number ' + bike.bikeId + '.');
+						} else {
+							client.sendSms(subscriber.phoneNumber, 'Sorry, we couldn\'t find a bike with ID: ' + bikeToRepair + ' to request service.');
+						}
+					});
+				} else if (bikeId) {
 					Bike.findByBikeId(bikeId, function(err, bike) {
 						if (bike) {
 							client.sendSms(subscriber.phoneNumber, 'The code for bike number ' + bike.bikeId + ' is: ' + bike.code);
@@ -50,27 +61,24 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 						}
 					});
 				} else {
-					client.sendSms(subscriber.phoneNumber, 'Sorry, we could not understand your request. Please send bike ID number only.')
+					client.sendSms(subscriber.phoneNumber, 'Sorry, we could not understand your request.')
 				}
 			} else if (subscriber && !subscriber.active) {
 				client.sendSms(subscriber.phoneNumber, 'Sorry, your number has been deactivated.');
 			} else if (validationCode) {
 				Subscriber.findByValidationCode(validationCode, function(err, subscriber) {
-					if (err) {
-						console.log('Error finding subscriber in twilioAPi/index.js!');
-						client.sendSms(message.from, 'Sorry there was an internal error, please contact system administration. Code: 2451');
-					} else if (subscriber) {
+					if (subscriber) {
 						subscriber.phoneNumber = message.from;
 						subscriber.active = true;
 						subscriber.validationCode = '';
 						subscriber.save();
-						client.sendSms(subscriber.phoneNumber, 'Welcome to the ' + siteTitle + '. Your number is now active.');
+						client.sendSms(subscriber.phoneNumber, 'Welcome to the ' + siteTitle + ' ' + subscriber.firstName + '. Your number is now active.');
 					} else {
 						client.sendSms(message.from, 'Sorry you are not authorized to use this application.');
 					}
 				});
 			} else {
-				client.sendSms(message.from, 'Sorry you are not authorized to use this application. Validation Error');
+				client.sendSms(message.from, 'Sorry you are not authorized to use this application.');
 			}
 		});
 

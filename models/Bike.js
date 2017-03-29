@@ -15,7 +15,8 @@ var BikeSchema = new mongoose.Schema({
 		type: String,
 		required: [true, 'Bike code is required'],
 		match: [/^\d{4}$/, 'Code must be a 4-digit number.']
-	}
+	},
+	repairRequests: []
 });
 
 // findByBikeID
@@ -26,6 +27,24 @@ BikeSchema.statics.findByBikeId = function(bikeId, callback) {
 		'bikeId': bikeId
 	}, function(err, bike) { callback(err, bike) });
 };
+
+
+// addRepairRequest
+// adds a repair request to the bike
+BikeSchema.methods.addRepairRequest = function(subscriberId) {
+	this.repairRequests.push({
+		timestamp: Date.now(),
+		subscriber: subscriberId
+	});
+	this.save();
+}
+
+// clearRepairRequests
+// removes all repair requests from a bike
+BikeSchema.methods.clearRepairRequests = function() {
+	this.reqpairRequests = [];
+	this.save();
+}
 
 //export
 module.exports = mongoose.model('Bike', BikeSchema);

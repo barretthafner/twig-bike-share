@@ -49,7 +49,7 @@ middlewareObj.checkDbEmpty = function(req, res, next) {
 // Redirect traffic that did not arrive on https
 middlewareObj.redirectInsecure = function(req, res, next) {
   if (req.headers['x-forwarded-proto'] != 'https') {
-    res.redirect(status, 'https://' + req.hostname + req.originalUrl);
+    res.redirect(301, 'https://' + req.hostname + req.originalUrl);
   }
   else { next(); }
 };
