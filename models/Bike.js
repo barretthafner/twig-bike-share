@@ -3,6 +3,8 @@
 // Has a two-digit bike ID and a 4 digit unlock code for a tumbler U-lock bike lock
 var mongoose = require('mongoose');
 
+var mailer = require('../modules/mailgun');
+
 var BikeSchema = new mongoose.Schema({
 	bikeId: {
 		type: Number,
@@ -31,19 +33,34 @@ BikeSchema.statics.findByBikeId = function(bikeId, callback) {
 
 // addRepairRequest
 // adds a repair request to the bike
-BikeSchema.methods.addRepairRequest = function(subscriberId) {
+BikeSchema.methods.addRepairRequest = function(subscriber, message) {
+	var timestamp = Date.now();
+
 	this.repairRequests.push({
-		timestamp: Date.now(),
-		subscriber: subscriberId
+		timestamp: timestamp,
+		subscriber: subscriber.email,
+		message: message
 	});
-	this.save();
+
+	this.save(function(err, bike) {
+		if (err) {
+			console.error(err)
+		} else {
+			console.log('Repair request sent to ' + subscriber.subscriberGroup.repairEmail);
+			mailer.sendOne({
+				to: subscriber.subscriberGroup.repairEmail,
+				subject: 'Repair Request for bike #' + bike.bikeId,
+				text: 'A repair was requested for bike' + bike.bikeId + '\nBy user ' + subscriber.email  + '\nAt ' + (new Date(timestamp)).toLocaleString() + '\nThey said: ' + message
+			});
+		}
+	});
 }
 
 // clearRepairRequests
 // removes all repair requests from a bike
-BikeSchema.methods.clearRepairRequests = function() {
-	this.reqpairRequests = [];
-	this.save();
+BikeSchema.methods.clearRepairRequests = function(callback) {
+	this.repairRequests = [];
+	this.save(function(err) { callback(err) });
 }
 
 //export

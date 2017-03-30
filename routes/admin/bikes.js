@@ -7,7 +7,9 @@ var express = require('express'),
 
 // INDEX route
 router.get('/', function(req, res) {
-	Bike.find({}, function(err, bikes) {
+	Bike.find({})
+	.sort({ bikeId: 'ascending' })
+	.exec(function(err, bikes) {
 		if (err) {
 			req.flash('error', err.message);
 			res.redirect(routes.admin);
@@ -46,7 +48,7 @@ router.get('/:id/edit', function(req, res) {
 		} else {
 			res.render('admin/bikes/edit', {
 				bike: bike
-			})
+			});
 		}
 	});
 });
@@ -71,6 +73,39 @@ router.delete('/:id', function(req, res) {
 		} else {
 			res.redirect(routes.bikes);
 		}
+	});
+});
+
+router.get('/:id/repairs', function(req, res) {
+	Bike.findById(req.params.id, function(err, bike) {
+		if (err) {
+			console.error(err);
+			req.flash(err.message);
+			res.redirect(routes.bikes);
+		} else {
+			res.render('admin/bikes/repairs', {
+				bike: bike
+			});
+		}
+	});
+});
+
+router.post('/:id/repairs', function(req, res) {
+	Bike.findById(req.params.id, function(err, bike) {
+		if (err) {
+			console.error(err);
+			req.flash('error', err.message);
+		} else {
+			bike.clearRepairRequests(function(err) {
+				if (err) {
+					console.error(err);
+					req.flash('error', err.message);
+				} else {
+					req.flash('success', 'Fixed bike #' + bike.bikeId + '!');
+				}
+			});
+		}
+		res.redirect(routes.bikes);
 	});
 });
 

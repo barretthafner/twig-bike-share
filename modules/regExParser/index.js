@@ -20,13 +20,20 @@ parser.getValidationCode = function(string) {
 	return matches ? matches[0] : null;
 };
 
-// getRepairRequest
+// getBikeIdFromRepairRequest
 // regEx for getting repair requests
 parser.getBikeIdFromRepairRequest = function(string) {
 
-	var matches = string.match(   /\$repair\s*([0-9]+)/i   );
-	console.log(matches[1]);
+	var matches = string.match(   /repair\s*([0-9]+)\s*(.*)/i   );
 	return matches ? matches[1] : null;
+};
+
+// getMessageFromRepairRequest
+// regEx for getting repair requests
+parser.getMessageFromRepairRequest = function(string) {
+
+	var matches = string.match(   /repair\s*([0-9]+)\s*(.*)/i   );
+	return matches ? matches[2] : null;
 };
 
 

@@ -10,12 +10,20 @@
       <tr>
         <th class="text-center">Bike ID #</th>
         <th class="text-center">Bike Lock Code</th>
+        <th class="text-center">Repair Requests</th>
         <th class="text-center">Edit</th>
       </tr>
       <% bikes.forEach(function(bike){ %>
         <tr>
           <td class="text-center"><%= bike.bikeId %></td>
           <td class="text-center"><%= bike.code %></td>
+          <td class="text-center">
+            <% if (bike.repairRequests.length > 0) { %>
+              <a class="btn btn-danger" href="<%= routes.bikes %>/<%= bike.id %>/repairs"><%= bike.repairRequests.length %></a>
+            <% } else { %>
+              <%= bike.repairRequests.length %>
+            <% } %>
+          </td>
           <td class="text-center">
               <a href="<%= routes.bikes %>/<%= bike.id %>/edit" class="btn btn-warning">Edit</a>
           </td>

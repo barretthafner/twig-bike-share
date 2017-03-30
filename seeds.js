@@ -51,6 +51,7 @@ var subscriberGroupData =
 		'groupName': 'WTA Bikeshare',
 		'emailDomain': '@wta-tma.org',
 		'signUpSlug': 'wta',
+		'repairEmail': 'bikeshare@wta-tma.org',
 		'logoSrc': '/img/OBI_logo_web.png'
 	}];
 
@@ -123,7 +124,7 @@ function seed(config) {
 						} else {
 							console.log('added subscriber group: ' + subscriberGroup.groupName);
 							subscriberData.forEach(function(subscriber) {
-								Subscriber.addNew(subscriber, function(err, subscriber) {
+								Subscriber.addNew(subscriber, subscriberGroup, function(err, subscriber) {
 									if (err) {
 										console.log(err);
 									} else {

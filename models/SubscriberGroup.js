@@ -9,7 +9,7 @@ var Subscriber = require('./Subscriber');
 
 var SubscriberGroupSchema = new mongoose.Schema({
 	groupName: {
-		type:String,
+		type: String,
 		required: [true, 'Group Name required']
 	},
 	emailDomain: {
@@ -21,6 +21,10 @@ var SubscriberGroupSchema = new mongoose.Schema({
 		unique: [true, 'Sign Up Slug must be unique'],
 		required: [true, 'Sign Up Slug required'],
 		match: [/^[a-z\-]+$/, 'Sign Up Slug must be composed of lowercase letters and hyphens.']
+	},
+	repairEmail: {
+		type: String,
+		required: [true, 'Repair Requests Email required']
 	},
 	logoSrc: {
 		type: String
@@ -44,7 +48,7 @@ SubscriberGroupSchema.statics.findBySlugAndAddSubscriber = function(slug, subscr
 		if (err) {
 			callback(err);
 		} else {
-			Subscriber.addNew(subscriber, function(err, subscriber) {
+			Subscriber.addNew(subscriber, subscriberGroup, function(err, subscriber) {
 				if (err) {
 					callback(err);
 				} else {

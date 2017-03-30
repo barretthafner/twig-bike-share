@@ -1,0 +1,42 @@
+<% include ../../partials/header %>
+<% include ../../partials/nav %>
+
+<div class="container">
+
+  <h1 class="row my-2">Repair Requests for Bike #<%= bike.bikeId %></h1>
+
+  <div class="row">
+    <table class="table table-hover bike-list">
+      <tr>
+        <th class="text-center">Request #</th>
+        <th class="text-center">Timestamp</th>
+        <th class="text-center">Subscriber</th>
+        <th class="text-center">Message</th>
+      </tr>
+      <% bike.repairRequests.forEach(function(request, index){ %>
+        <tr>
+          <td class="text-center"><%= index + 1 %></td>
+          <td class="text-center"><%= (new Date(request.timestamp)).toLocaleString() %></td>
+          <td class="text-center"><%= request.subscriber %></td>
+          <td class="text-center"><%= request.message %></td>
+        </tr>
+      <% }); %>
+    </table>
+  </div>
+
+  <form
+    class="row justify-content-center"
+    action="<%= routes.bikes %>/<%= bike.id %>/repairs"
+    method="POST"
+    onsubmit="return confirm('Do you want to clear the requests for bike #<%= bike.bikeId %>?');">
+
+    <button class="btn btn-lg btn-danger">Clear Requests</button>
+  </form>
+
+  <div class="row justify-content-center my-2">
+    <a class="btn btn-lg btn-success" href="<%= routes.bikes %>">Go Back</a>
+  </div>
+</div>
+
+<% include ../../partials/scripts %>
+<% include ../../partials/footer %>

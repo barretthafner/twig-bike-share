@@ -19,7 +19,11 @@ var SubscriberSchema = new mongoose.Schema({
 		type: Boolean,
 		required: [true, 'Active field is required']
 	},
-	validationCode: String
+	validationCode: String,
+	subscriberGroup: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'SubscriberGroup'
+	}
 });
 
 // emailString
@@ -33,7 +37,7 @@ SubscriberSchema.methods.emailString = function() {
 SubscriberSchema.statics.findByPhoneNumber = function(phoneNumber, callback) {
 	return this.findOne({
 		'phoneNumber': phoneNumber
-	}, function(err, subscriber) { callback(err, subscriber) });
+	}).populate('subscriberGroup').exec(function(err, subscriber) { callback(err, subscriber) });
 };
 
 // findByValidationCode
@@ -44,9 +48,10 @@ SubscriberSchema.statics.findByValidationCode = function(validationCode, callbac
 	}, function(err, subscriber) { callback(err, subscriber) });
 };
 
-SubscriberSchema.statics.addNew = function(subscriber, callback) {
+SubscriberSchema.statics.addNew = function(subscriber, subscriberGroup, callback) {
 	subscriber.active = false;
 	subscriber.validationCode = validationCode.generate();
+	subscriber.subscriberGroup = subscriberGroup;
 	return this.create(subscriber, function(err, subscriber) { callback(err, subscriber) });
 }
 

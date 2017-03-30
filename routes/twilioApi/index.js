@@ -37,6 +37,7 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 		var bikeId = regEx.getBikeId(message.body);
 		var validationCode = regEx.getValidationCode(message.body);
 		var bikeToRepair = regEx.getBikeIdFromRepairRequest(message.body);
+		var repairMessage = regEx.getMessageFromRepairRequest(message.body);
 
 		// look up subscriber by phone number
 		Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
@@ -46,8 +47,12 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 				if (bikeToRepair) {
 					Bike.findByBikeId(bikeToRepair, function(err, bike) {
 						if (bike) {
-							bike.addRepairRequest(subscriber.id);
-							client.sendSms(subscriber.phoneNumber, 'Thank you. A service request has been submitted for bike number ' + bike.bikeId + '.');
+							bike.addRepairRequest(subscriber, repairMessage);
+							var composedMessage = 'Thank you. A service request has been submitted for bike number ' + bike.bikeId + '.';
+							if (repairMessage) {
+								composedMessage = composedMessage + ' Repair message: ' + repairMessage;
+							}
+							client.sendSms(subscriber.phoneNumber, composedMessage);
 						} else {
 							client.sendSms(subscriber.phoneNumber, 'Sorry, we couldn\'t find a bike with ID: ' + bikeToRepair + ' to request service.');
 						}
