@@ -19,6 +19,7 @@ router.use(routes.signUp, require('./signup'));
 router.use(routes.bikes, middleware.isLoggedIn, require('./admin/bikes'));
 router.use(routes.administrators, middleware.isLoggedIn, require('./admin/administrators'));
 router.use(routes.subscriberGroups, middleware.isLoggedIn, require('./admin/subscriberGroups'));
+router.use(routes.checkouts, middleware.isLoggedIn, require('./admin/checkouts'));
 
 
 router.get('*', function(req, res) {

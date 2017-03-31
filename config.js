@@ -30,15 +30,16 @@ config.routes = {
 	administrators: '/a/administrators',
 	bikes: '/a/bikes',
 	logout: '/a/logout',
-	setup: '/setup',
+	checkouts: '/a/checkouts',
 	subscriberGroups: '/a/subscriber-groups',
+	setup: '/setup',
 	subscribers: '/subscribers',
 	twilioApi: '/twilio',
 	twilioApiIncomingMessage: '/msg',
 	twilioApiIncomingVoice: '/voice',
 	signUp: '/signup',
 	legal: '/legal',
-	newValidation: '/newValidation'
+	newValidation: '/newValidation',
 };
 
 // Export module -------------------------------------------------------------------
