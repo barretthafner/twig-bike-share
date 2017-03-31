@@ -30,7 +30,7 @@ config.routes = {
 	administrators: '/a/administrators',
 	bikes: '/a/bikes',
 	logout: '/a/logout',
-	checkouts: '/a/checkouts',
+	data: '/a/data',
 	subscriberGroups: '/a/subscriber-groups',
 	setup: '/setup',
 	subscribers: '/subscribers',
@@ -40,6 +40,8 @@ config.routes = {
 	signUp: '/signup',
 	legal: '/legal',
 	newValidation: '/newValidation',
+	checkouts: '/checkouts',
+	subscriberEmailData: '/subscribers'
 };
 
 // Export module -------------------------------------------------------------------
