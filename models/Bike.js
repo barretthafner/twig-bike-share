@@ -50,7 +50,7 @@ BikeSchema.methods.addRepairRequest = function(subscriber, message) {
 			mailer.sendOne({
 				to: subscriber.subscriberGroup.repairEmail,
 				subject: 'Repair Request for bike #' + bike.bikeId,
-				text: 'A repair was requested for bike' + bike.bikeId + '\nBy user ' + subscriber.email  + '\nAt ' + (new Date(timestamp)).toLocaleString() + '\nThey said: ' + message
+				text: 'A repair was requested for bike ' + bike.bikeId + '\nBy user ' + subscriber.email + '\nAt ' + (new Date(timestamp)).toLocaleString() + '\nThey said: \n' + message
 			});
 		}
 	});

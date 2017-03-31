@@ -45,7 +45,7 @@ SubscriberSchema.statics.findByPhoneNumber = function(phoneNumber, callback) {
 SubscriberSchema.statics.findByValidationCode = function(validationCode, callback) {
 	return this.findOne({
 		'validationCode': validationCode
-	}, function(err, subscriber) { callback(err, subscriber) });
+	}).populate('subscriberGroup').exec(function(err, subscriber) { callback(err, subscriber) });
 };
 
 SubscriberSchema.statics.addNew = function(subscriber, subscriberGroup, callback) {
@@ -54,6 +54,16 @@ SubscriberSchema.statics.addNew = function(subscriber, subscriberGroup, callback
 	subscriber.subscriberGroup = subscriberGroup;
 	return this.create(subscriber, function(err, subscriber) { callback(err, subscriber) });
 }
+
+SubscriberSchema.pre('remove', function(next) {
+	var subscriber = this;
+	subscriber.model('SubscriberGroup').update(
+		{ _id: subscriber.subscriberGroup },
+		{ $pull: { subscribers: subscriber._id } },
+		{ multi: true },
+		next
+	);
+});
 
 // export
 module.exports = mongoose.model('Subscriber', SubscriberSchema);

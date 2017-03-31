@@ -43,6 +43,8 @@ SubscriberGroupSchema.statics.findBySlug = function(slug, callback) {
 	}, function(err, subscriberGroup) { callback(err, subscriberGroup) });
 };
 
+// findBySlugAndAddSubscriber
+// looks for subscriberGroup by singUpSlug and adds the passed subscriber
 SubscriberGroupSchema.statics.findBySlugAndAddSubscriber = function(slug, subscriber, callback) {
 	return this.findBySlug(slug, function(err, subscriberGroup) {
 		if (err) {
@@ -57,6 +59,25 @@ SubscriberGroupSchema.statics.findBySlugAndAddSubscriber = function(slug, subscr
 					callback(null, subscriberGroup, subscriber);
 				}
 			});
+		}
+	});
+};
+
+// findBySlug
+// creates a query by signUpSlug and returns a callback function with a potentially-null single document
+SubscriberGroupSchema.statics.findByIdAndRemoveWithSubscribers = function(id, callback) {
+	return this.findByIdAndRemove(id, function(err, subscriberGroup) {
+		if (err) {
+			callback(err);
+		} else {
+			subscriberGroup.subscribers.forEach(function(subscriber) {
+				Subscriber.findByIdAndRemove(subscriber, function(err) {
+					if (err) {
+						callback(err);
+					}
+				});
+			});
+			callback(null, subscriberGroup);
 		}
 	});
 };

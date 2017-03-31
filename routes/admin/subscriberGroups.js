@@ -64,7 +64,7 @@ router.put('/:id', function(req, res) {
 
 // DESTROY route
 router.delete('/:id', function(req, res) {
-	SubscriberGroup.findByIdAndRemove(req.params.id, function(err) {
+	SubscriberGroup.findByIdAndRemoveWithSubscribers(req.params.id, function(err) {
 		if (err) { req.flash('error', 'Server error deleting subscriber group: ' + err.message); }
 		res.redirect(routes.subscriberGroups);
 	});
@@ -117,13 +117,19 @@ router.put('/:id' + routes.subscribers + '/:subscriberId', function(req, res) {
 
 // Group subscriber DESTROY route
 router.delete('/:id' + routes.subscribers + '/:subscriberId', function(req, res) {
-	Subscriber.findByIdAndRemove(req.params.subscriberId, function(err) {
+	Subscriber.findById(req.params.subscriberId, function(err, subscriber) {
 		if (err) {
 			req.flash('error', 'Server error deleting subscriber: ' + err);
+		} else {
+			// using remove because hooks don't fire on findByIdAndRemove and we need them to update subscriberGroup...ugh
+			subscriber.remove(function(err, subscriber) {
+				if (err) {
+					req.flash('error', 'Server error deleting subscriber: ' + err);
+				}
+			});
 		}
 		res.redirect(routes.subscriberGroups + '/' + req.params.id + routes.subscribers);
 	});
 });
-
 
 module.exports = router;
