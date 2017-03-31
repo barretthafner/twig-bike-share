@@ -4,6 +4,7 @@ var router = express.Router();
 
 var stringify = require('csv-stringify');
 
+var Checkout = require('../../models/Checkout');
 var Subscriber = require('../../models/Subscriber');
 var routes = require('../../config').routes;
 
