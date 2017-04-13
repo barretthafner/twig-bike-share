@@ -49,7 +49,7 @@
 			<div class="form-check">
 				<label class="form-check-label">
 					<input class="form-check-input" type="checkbox" id="legal" name="legal">
-					I accept the <a href="<%= routes.legal %>">Terms and Conditions</a>.
+					I accept the <button type="button" class="btn btn-link p-0 border-0" data-toggle="modal" data-target="#legalModal">Terms and Conditions</button>.
 				</label>
 			</div>
 			<div class="form-group mt-4">
@@ -57,6 +57,26 @@
 			</div>
 		</form>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="legalModal" tabindex="-1" role="dialog" aria-labelledby="legalModalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= subscriberGroup.legalText %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <% include ../partials/scripts %>

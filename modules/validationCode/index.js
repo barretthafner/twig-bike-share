@@ -3,6 +3,8 @@
 // generates 'unique' validation codes with shortid library
 var shortid = require('shortid');
 
+shortid.characters('0123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ-_*&');
+
 var validationCode = {};
 
 // generate

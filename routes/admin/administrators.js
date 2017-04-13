@@ -87,17 +87,18 @@ router.put('/:id/password', function(req, res) {
 	Administrator.findById(req.params.id, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
+			res.redirect(routes.administrators);
 		} else {
-			administrator.setPassword(req.body.user.password, function(err) {
+			administrator.setPassword(req.body.administrator.password, function(err) {
 				if (err) {
 					req.flash('error', err.message);
 				} else {
-					administrator.save();
 					req.flash('success', 'Password for ' + administrator.username + ' changed!');
+					administrator.save();
 				}
+				res.redirect(routes.administrators);
 			});
 		}
-		res.redirect(routes.administrators);
 	});
 });
 
