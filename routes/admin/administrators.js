@@ -77,7 +77,7 @@ router.get('/:id/password', function(req, res) {
 		} else {
 			res.render('admin/administrators/password', {
 				administrator: administrator
-			})
+			});
 		}
 	});
 });

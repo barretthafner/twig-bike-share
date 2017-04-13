@@ -29,6 +29,9 @@ var SubscriberGroupSchema = new mongoose.Schema({
 	logoSrc: {
 		type: String
 	},
+	legalText: {
+		type: String
+	},
 	subscribers: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Subscriber'

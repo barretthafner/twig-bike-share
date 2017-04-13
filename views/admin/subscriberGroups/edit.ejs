@@ -24,7 +24,7 @@
 				<input class="form-control" id="firstName" name="subscriberGroup[groupName]" type="text" value="<%= subscriberGroup.groupName %>">
 			</div>
 			<div class="row form-group">
-				<label for="emailDomain">Email Regex</label>
+				<label for="emailDomain">Email Domain</label>
 				<input class="form-control" id="emailDomain" name="subscriberGroup[emailDomain]" type="text" value="<%= subscriberGroup.emailDomain %>">
 			</div>
 			<div class="row form-group">
@@ -34,6 +34,10 @@
 			<div class="row form-group">
 				<label for="repairEmail">Repair Request Email</label>
 				<input class="form-control" name="subscriberGroup[repairEmail]" id="repairEmail" type="text" value="<%= subscriberGroup.repairEmail %>">
+			</div>
+			<div class="row form-group">
+				<label for="legalText">Legal Text</label>
+				<textarea class="form-control" name="subscriberGroup[legalText]" id="legalText" rows="5"><%= subscriberGroup.legalText %></textarea>
 			</div>
 			<div class="row form-group">
 			  <label for="groupLogoInput">Group Logo</label>
@@ -53,7 +57,7 @@
 			</div>
 			<div class="row form-group justify-content-center">
 				<button type="submit" class="btn btn-lg btn-primary btn-block col-md-4">Submit</button>
-				<input type="hidden" name="_method" value="PUT" placeholder="<%= subscriberGroup.logoSrc %>">
+				<input type="hidden" name="_method" value="PUT">
 			</div>
 		</form>
 	</div>

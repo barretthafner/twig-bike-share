@@ -52,7 +52,8 @@ var subscriberGroupData =
 		'emailDomain': '@wta-tma.org',
 		'signUpSlug': 'wta',
 		'repairEmail': 'bikeshare@wta-tma.org',
-		'logoSrc': '/img/OBI_logo_web.png'
+		'logoSrc': '/img/OBI_logo_web.png',
+		'legalText': 'A bunch of legal mumbojumbo for you to ignore and just blindly agree to...'
 	}];
 
 var subscriberData =
