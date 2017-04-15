@@ -2,20 +2,29 @@
 <% include ../../partials/nav %>
 
 <div class="container">
-	<h1 class="row my-2 justify-content-center">Create a New Subscriber Group</h1>
+
 	<div class="row my-2 justify-content-center">
-		<form class="col-md-6" action="<%= routes.subscriberGroups %>" method="POST">
+		<h1>Create a New Subscriber Group</h1>
+	</div>
+
+	<div class="row my-2 justify-content-center">
+		<form
+			class="col-md-6"
+			action="<%= routes.subscriberGroups %>"
+			method="POST"
+			enctype="multipart/form-data">
+
 			<div class="row form-group">
 				<label for="groupName">Group Name</label>
-				<input class="form-control" name="subscriberGroup[groupName]" id="groupName" type="text" placeholder="Open Bike Group">
+				<input class="form-control" id="firstName" name="subscriberGroup[groupName]" type="text" placeholder="Open Bike Group">
 			</div>
 			<div class="row form-group">
 				<label for="emailDomain">Email Domain</label>
-				<input class="form-control" name="subscriberGroup[emailDomain]" id="emailDomain" type="text" placeholder="@openbikeinitiative.org">
+				<input class="form-control" id="emailDomain" name="subscriberGroup[emailDomain]" type="text" placeholder="@openbikeinitiative.org">
 			</div>
 			<div class="row form-group">
 				<label for="signUpSlug">Sign Up Page Slug</label>
-				<input class="form-control" name="subscriberGroup[signUpSlug]" id="signUpSlug" type="text" placeholder="open-bike-group">
+				<input class="form-control" id="signUpSlug" name="subscriberGroup[signUpSlug]" type="text" placeholder="open-bike-group">
 			</div>
 			<div class="row form-group">
 				<label for="repairEmail">Repair Request Email</label>
@@ -23,15 +32,49 @@
 			</div>
 			<div class="row form-group">
 				<label for="legalText">Legal Text</label>
-				<textarea class="form-control" name="subscriberGroup[legalText]" id="legalText" placeholder="The Open Bike Initiative assumes no resposibility for anything..." rows="5"></textarea>
+				<textarea class="form-control" name="subscriberGroup[legalText]" id="legalText" rows="5" placeholder="The Open Bike Initiative assumes no resposibility for anything..."></textarea>
 			</div>
+			<div class="row form-group">
+			  <label for="groupLogoInput">Group Logo</label>
+				<div class="input-group">
+	        <label class="input-group-addon">
+	          <span class="btn btn-primary">
+	            Browse&hellip; <input name="logo" type="file" style="display: none;">
+	          </span>
+	        </label>
+	        <input type="text" class="form-control" id="groupLogoInput" disabled>
+	      </div>
+      </div>
 			<div class="row form-group justify-content-center">
-				<button class="btn btn-lg btn-primary btn-block col-md-4" type="submit">Submit</button>
+				<button class="btn btn-lg btn-primary btn-block col-md-4">Submit</button>
 			</div>
 		</form>
 	</div>
-	<a class="row my-2 justify-content-center" href="<%= routes.subscriberGroups %>">Go Back</a>
+
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-lg btn-success" href="<%= routes.subscriberGroups %>">Go Back</a>
+	</div>
 </div>
 
 <% include ../../partials/scripts %>
+<script>
+$(function() {
+  $(document).on('change', ':file', function() {
+    var input = $(this),
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [label]);
+  });
+  $(document).ready( function() {
+      $(':file').on('fileselect', function(event, label) {
+          var input = $(this).parents('.form-group').find(':text'),
+              log = label;
+          if( input.length ) {
+              input.val(log);
+          } else {
+              if( log ) alert(log);
+          }
+      });
+  });
+});
+</script>
 <% include ../../partials/footer %>

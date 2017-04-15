@@ -1,10 +1,15 @@
 'use strict';
 var express = require('express'),
 	router = express.Router(),
+	multer = require('multer'),
+	path = require('path'),
+	fs = require('fs'),
 	middleware = require('../../middleware'),
 	SubscriberGroup = require('../../models/SubscriberGroup'),
 	Subscriber = require('../../models/Subscriber'),
 	routes = require('../../config').routes;
+
+var upload = multer({ dest: path.resolve(__dirname, '../../public/logos')});
 
 
 // INDEX route
@@ -27,10 +32,30 @@ router.get('/new', function(req, res) {
 });
 
 // CREATE route
-router.post('/', function(req, res) {
-	SubscriberGroup.create(req.body.subscriberGroup, function(err) {
-		if (err) { req.flash('error', 'Server error adding subscriber group: ' + err.message); }
-		res.redirect(routes.subscriberGroups);
+router.post('/', upload.single('logo'), function(req, res) {
+	SubscriberGroup.create(req.body.subscriberGroup, function(err, subscriberGroup) {
+		if (err) {
+			req.flash('error', 'Server error adding subscriber group: ' + err.message);
+			res.redirect('back');
+		} else {
+		 var file = req.file;
+		 if (file) {
+				// rename new logo and set subscriberGroup.logoSrc
+				var publicPath = 'logos/' + subscriberGroup.signUpSlug + '.' + file.originalname.split('.').pop();
+				fs.renameSync(file.path, path.resolve(__dirname, '../../public', publicPath));
+				subscriberGroup.logoSrc = '/' + publicPath;
+				subscriberGroup.save(function(err) {
+					if (err) {
+						req.flash('error', 'Server error adding subscriber group: ' + err.message);
+					} else {
+						req.flash('success', subscriberGroup.groupName + ' subscriber group added!');
+					}
+					res.redirect(routes.subscriberGroups);
+				});
+			} else {
+				res.redirect('back');
+			}
+		}
 	});
 });
 
@@ -55,11 +80,36 @@ router.get('/:id/edit', function(req, res) {
 });
 
 // UPDATE route
-router.put('/:id', function(req, res) {
-	SubscriberGroup.findByIdAndUpdate(req.params.id, req.body.subscriberGroup, function(err) {
-		if (err) { req.flash('error', 'Server error updating subscriber group: ' + err.message); }
-		res.redirect(routes.subscriberGroups);
-	})
+// Using post because of multer
+router.post('/:id', upload.single('logo'), function(req, res) {
+	SubscriberGroup.findByIdAndUpdate(req.params.id, req.body.subscriberGroup, function(err, subscriberGroup) {
+		if (err) {
+			req.flash('error', 'Server error updating subscriber group: ' + err.message);
+			res.redirect('back');
+		} else {
+			var file = req.file;
+			if (file) {
+				// remove old file
+				if (subscriberGroup.logoSrc) {
+					fs.unlinkSync(path.resolve(__dirname, '../../public' + subscriberGroup.logoSrc));
+				}
+				// rename new logo and set subscriberGroup.logoSrc
+				var publicPath = 'logos/' + subscriberGroup.signUpSlug + '.' + file.originalname.split('.').pop();
+				fs.renameSync(file.path, path.resolve(__dirname, '../../public', publicPath));
+				subscriberGroup.logoSrc = '/' + publicPath;
+				subscriberGroup.save(function(err) {
+					if (err) {
+						req.flash('error', 'Server error updating subscriber group: ' + err.message);
+					} else {
+						req.flash('success', subscriberGroup.groupName + ' subscriber group updated!');
+					}
+					res.redirect('back');
+				});
+			} else {
+				res.redirect('back');
+			}
+		}
+	});
 });
 
 // DESTROY route
@@ -69,7 +119,6 @@ router.delete('/:id', function(req, res) {
 		res.redirect(routes.subscriberGroups);
 	});
 });
-
 
 // Group subscriber INDEX route
 router.get('/:id' + routes.subscribers, function(req, res) {

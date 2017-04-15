@@ -16,13 +16,13 @@ var middleware = require('./middleware');
 
 var app = express();
 
-// Use Helmet
-app.use(helmet());
-
 // Redirect insecure traffic if protocol is https
 if (config.protocol === 'https://') {
 	app.use(middleware.redirectInsecure);
 }
+
+// Use Helmet
+app.use(helmet());
 
 // Serve '/public' folder
 app.use(express.static(__dirname + '/public'));
