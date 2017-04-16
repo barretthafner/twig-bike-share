@@ -33,6 +33,7 @@ config.routes = {
 	logout: '/a/logout',
 	data: '/a/data',
 	subscriberGroups: '/a/subscriber-groups',
+	locations: '/a/locations',
 	setup: '/setup',
 	subscribers: '/subscribers',
 	twilioApi: '/twilio',

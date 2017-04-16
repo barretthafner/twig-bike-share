@@ -1,7 +1,6 @@
 'use strict';
 var express = require('express'),
 	router = express.Router(),
-	middleware = require('../../middleware'),
 	Administrator = require('../../models/Administrator'),
 	routes = require('../../config').routes;
 

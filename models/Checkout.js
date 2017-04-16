@@ -14,6 +14,10 @@ var CheckoutSchema = new mongoose.Schema({
 		required: [true, 'Bike is required'],
 		ref: 'Bike'
 	},
+	location: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Location'
+	}
 	timestamp: {
 		type: Date,
 		default: Date.now
