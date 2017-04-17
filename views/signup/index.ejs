@@ -16,7 +16,7 @@
 			<div class="row">
 				<h3 class="col-12 text-center"><%= subscriberGroup.groupName %></h3>
 			</div>
-			<div class="row justify-content-center">
+			<div class="row justify-content-center my-4">
 				<div class="col-6">
 					<img src="<%= subscriberGroup.logoSrc %>" class="img-fluid" alt="<%= subscriberGroup.groupName + ' logo' %>" />
 				</div>
@@ -29,30 +29,30 @@
 			name="signup"
 			action="<%= routes.signUp %>/<%= subscriberGroup.signUpSlug %>"
 			method="POST">
-			<div class="form-group">
+			<div class="row form-group">
 				<label for="first-name" class="col-form-label">First Name</label>
 				<input class="form-control" type="text" id="first-name" name="subscriber[firstName]">
 			</div>
-			<div class="form-group">
+			<div class="row form-group">
 				<label for="last-name" class="col-form-label">Last Name</label>
 				<input class="form-control" type="text" id="last-name" name="subscriber[lastName]">
 			</div>
-			<div class="form-group">
+			<div class="row form-group">
 				<label for="email">Enter your email address</label>
 				<input type="email" class="form-control" id="email" name="subscriber[email]">
 				<small id="emailHelp" class="form-text text-muted">Email must end in: <strong><%= subscriberGroup.emailDomain %></strong></small>
 			</div>
-			<div class="form-group">
+			<div class="row form-group">
 				<label for="email_verify" class="col-form-label">Re-enter your email address</label>
 				<input type="email" class="form-control" id="email_verify" name="email_verify">
 			</div>
-			<div class="form-check">
+			<div class="row form-check">
 				<label class="form-check-label">
 					<input class="form-check-input" type="checkbox" id="legal" name="legal">
 					I accept the <button type="button" class="btn btn-link p-0 border-0" data-toggle="modal" data-target="#legalModal">Terms and Conditions</button>.
 				</label>
 			</div>
-			<div class="form-group mt-4">
+			<div class="row form-group mt-4">
 				<button type="submit" class="btn btn-primary btn-lg">Submit</button>
 			</div>
 		</form>

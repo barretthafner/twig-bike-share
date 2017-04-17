@@ -1,22 +1,37 @@
 <% include ../../partials/header %>
 <% include ../../partials/nav %>
 
+<ol class="breadcrumb">
+	<li class="breadcrumb-item"><a href="<%= routes.admin %>">Admin Panel</a></li>
+	<li class="breadcrumb-item"><a href="<%= routes.bikes %>">Manage Bikes</a></li>
+	<li class="breadcrumb-item active">New Bike</li>
+</ol>
+
 <div class="container">
 	<h1 class="row justify-content-center mt-2">Create a New Bike</h1>
+
 	<div class="row justify-content-center">
-		<form action="<%= routes.bikes %>" method="POST">
-			<div class="form-group">
-				<input class="form-control" name="bike[bikeId]" type="text" placeholder="2-digit ID">
+		<form
+			class="col-md-6"
+			action="<%= routes.bikes %>"
+			method="POST">
+			<div class="row form-group">
+				<label for="bike-id">Bike Id</label>
+				<input class="form-control" id="bike-id" name="bike[bikeId]" type="text" placeholder="2-digit ID">
 			</div>
-			<div class="form-group">
-				<input class="form-control" name="bike[code]" type="text" placeholder="4-digit code">
+			<div class="row form-group">
+				<label for="bike-code">Bike Code</label>
+				<input class="form-control" id="bike-code" name="bike[code]" type="text" placeholder="4-digit code">
 			</div>
-			<div class="form-group">
-				<button class="btn btn-lg btn-primary btn-block">Submit!</button>
+			<div class="row form-group justify-content-center">
+				<button class="col-md-4 btn btn-lg btn-primary btn-block">Submit</button>
 			</div>
 		</form>
 	</div>
-	<a class="row justify-content-center" href="<%= routes.bikes %>">Go Back</a>
+
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-lg btn-success" href="<%= routes.bikes %>">Go Back</a>
+	</div>
 </div>
 
 <% include ../../partials/scripts %>

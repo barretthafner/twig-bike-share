@@ -7,9 +7,12 @@ var LocationSchema = new mongoose.Schema({
 	code: {
 		type: String,
 		required: [true, 'Location Code is required'],
-		unique: [true, 'Location Code must be unique']
+		unique: [true, 'Location Code must be unique'],
+		uppercase: [true, 'Location Code must be uppercase'],
+		minlength: [2, 'Location Code must be exactly 2 letters'],
+		maxlength: [2, 'Location Code must be exactly 2 letters']
 	},
-	code: {
+	name: {
 		type: String,
 		required: [true, 'Location Name is required']
 	}

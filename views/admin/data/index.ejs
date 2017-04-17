@@ -1,6 +1,11 @@
 <% include ../../partials/header %>
 <% include ../../partials/nav %>
 
+<ol class="breadcrumb">
+	<li class="breadcrumb-item"><a href="<%= routes.admin %>">Admin Panel</a></li>
+	<li class="breadcrumb-item active">Data</li>
+</ol>
+
 <div class="container mt-5">
 	<div class="row justify-content-center mt-2">
 		<form class="form" action="<%= routes.data + routes.checkouts %>" method="GET">

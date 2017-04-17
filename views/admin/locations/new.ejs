@@ -1,0 +1,39 @@
+<% include ../../partials/header %>
+<% include ../../partials/nav %>
+
+<ol class="breadcrumb">
+	<li class="breadcrumb-item"><a href="<%= routes.admin %>">Admin Panel</a></li>
+	<li class="breadcrumb-item"><a href="<%= routes.locations %>">Manage Locations</a></li>
+	<li class="breadcrumb-item active">New Location</li>
+</ol>
+
+<div class="container">
+	<h1 class="row justify-content-center mt-2">Create a New Location</h1>
+
+	<div class="row justify-content-center">
+		<form
+			class="col-md-6"
+			action="<%= routes.locations %>"
+			method="POST">
+			<div class="row form-group">
+				<label for="location-name">Location Name</label>
+				<input class="form-control" id="location-name" name="location[name]" type="text" placeholder="Open Bike Office">
+			</div>
+			<div class="row form-group">
+				<label for="location-code">Location Code</label>
+				<input class="form-control" id="location-code" name="location[code]" type="text" placeholder="BO">
+				<small id="location-code-help" class="form-text text-muted">Must be a two-letters, uppercase</small>
+			</div>
+			<div class="row form-group justify-content-center">
+				<button class="col-md-4 btn btn-lg btn-primary btn-block">Submit</button>
+			</div>
+		</form>
+	</div>
+
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-lg btn-success" href="<%= routes.locations %>">Go Back</a>
+	</div>
+</div>
+
+<% include ../../partials/scripts %>
+<% include ../../partials/footer %>

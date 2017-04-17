@@ -55,7 +55,7 @@ router.get('/:id/edit', function(req, res) {
 
 // UPDATE route
 router.put('/:id', function(req, res) {
-	Bike.findByIdAndUpdate(req.params.id, req.body.bike, function(err) {
+	Bike.findByIdAndUpdate(req.params.id, req.body.bike, { runValidators: true }, function(err) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -76,6 +76,8 @@ router.delete('/:id', function(req, res) {
 	});
 });
 
+
+// Index repairs
 router.get('/:id/repairs', function(req, res) {
 	Bike.findById(req.params.id, function(err, bike) {
 		if (err) {
@@ -90,6 +92,7 @@ router.get('/:id/repairs', function(req, res) {
 	});
 });
 
+// Destroy all repairs for a bike
 router.post('/:id/repairs', function(req, res) {
 	Bike.findById(req.params.id, function(err, bike) {
 		if (err) {

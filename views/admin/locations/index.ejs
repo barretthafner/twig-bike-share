@@ -1,0 +1,38 @@
+<% include ../../partials/header %>
+<% include ../../partials/nav %>
+
+<ol class="breadcrumb">
+	<li class="breadcrumb-item"><a href="<%= routes.admin %>">Admin Panel</a></li>
+	<li class="breadcrumb-item active">Manage Locations</li>
+</ol>
+
+<div class="container">
+
+	<h1 class="row my-2">Locations</h1>
+
+	<div class="row">
+		<table class="table table-hover bike-list">
+			<tr>
+				<th class="text-center">Location Name</th>
+				<th class="text-center">Location Code</th>
+				<th class="text-center">Edit</th>
+			</tr>
+			<% locations.forEach(function(location){ %>
+				<tr>
+					<td class="text-center"><%= location.name %></td>
+					<td class="text-center"><%= location.code %></td>
+					<td class="text-center">
+						<a href="<%= routes.locations %>/<%= location.id %>/edit" class="btn btn-warning">Edit</a>
+					</td>
+				</tr>
+			<% }); %>
+		</table>
+	</div>
+
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-primary btn-large" href="<%= routes.locations %>/new">Add a new Location</a>
+	</div>
+</div>
+
+<% include ../../partials/scripts %>
+<% include ../../partials/footer %>

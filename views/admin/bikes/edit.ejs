@@ -1,12 +1,21 @@
 <% include ../../partials/header %>
 <% include ../../partials/nav %>
 
+<ol class="breadcrumb">
+	<li class="breadcrumb-item"><a href="<%= routes.admin %>">Admin Panel</a></li>
+	<li class="breadcrumb-item"><a href="<%= routes.bikes %>">Manage Bikes</a></li>
+	<li class="breadcrumb-item active">Edit Bike</li>
+</ol>
+
 <div class="container">
 
 	<h2 class="row justify-content-center mt-2">Edit Bike #<%= bike.bikeId %></h2>
 
 	<div class="row justify-content-center">
-		<form class="col-md-6" action="<%= routes.bikes %>/<%= bike.id%>" method="POST">
+		<form
+		class="col-md-6"
+		action="<%= routes.bikes %>/<%= bike.id%>"
+		method="POST">
 			<div class="form-group row">
 				<label for="bikeId">Bike Id</label>
 				<input class="form-control" id="bikeId" name="bike[bikeId]" type="text" value="<%= bike.bikeId %>">

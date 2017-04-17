@@ -20,6 +20,7 @@ router.use(routes.bikes, middleware.isLoggedIn, require('./admin/bikes'));
 router.use(routes.administrators, middleware.isLoggedIn, require('./admin/administrators'));
 router.use(routes.subscriberGroups, middleware.isLoggedIn, require('./admin/subscriberGroups'));
 router.use(routes.data, middleware.isLoggedIn, require('./admin/data'));
+router.use(routes.locations, middleware.isLoggedIn, require('./admin/locations'));
 
 
 router.get('*', function(req, res) {

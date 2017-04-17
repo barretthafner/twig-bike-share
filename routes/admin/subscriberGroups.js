@@ -82,7 +82,7 @@ router.get('/:id/edit', function(req, res) {
 // UPDATE route
 // Using post because of multer
 router.post('/:id', upload.single('logo'), function(req, res) {
-	SubscriberGroup.findByIdAndUpdate(req.params.id, req.body.subscriberGroup, function(err, subscriberGroup) {
+	SubscriberGroup.findByIdAndUpdate(req.params.id, req.body.subscriberGroup, { runValidators: true }, function(err, subscriberGroup) {
 		if (err) {
 			req.flash('error', 'Server error updating subscriber group: ' + err.message);
 			res.redirect('back');
@@ -156,7 +156,7 @@ router.put('/:id' + routes.subscribers + '/:subscriberId', function(req, res) {
 
 	subscriber.active = !!subscriber.active;
 
-	Subscriber.findByIdAndUpdate(req.params.subscriberId, subscriber, function(err) {
+	Subscriber.findByIdAndUpdate(req.params.subscriberId, subscriber, { runValidators: true }, function(err) {
 		if (err) {
 			req.flash('error', 'Server error updating subscriber: ' + err);
 		}

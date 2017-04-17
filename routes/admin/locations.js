@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
 			res.redirect(routes.admin);
 		} else {
 			res.render('admin/locations/index', {
-				locastions: locations
+				locations: locations
 			});
 		}
 	});
@@ -54,7 +54,7 @@ router.get('/:id/edit', function(req, res) {
 
 // UPDATE route
 router.put('/:id', function(req, res) {
-	Location.findByIdAndUpdate(req.params.id, req.body.location, function(err, location) {
+	Location.findByIdAndUpdate(req.params.id, req.body.location, { runValidators: true }, function(err, location) {
 		if (err) {
 			req.flash('error', 'Error editing location: ' + err.message);
 		} else {

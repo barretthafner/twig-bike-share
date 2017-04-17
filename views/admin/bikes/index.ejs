@@ -1,40 +1,45 @@
 <% include ../../partials/header %>
 <% include ../../partials/nav %>
 
+<ol class="breadcrumb">
+	<li class="breadcrumb-item"><a href="<%= routes.admin %>">Admin Panel</a></li>
+	<li class="breadcrumb-item active">Manage Bikes</li>
+</ol>
+
 <div class="container">
 
-  <h1 class="row my-2">Bikes</h1>
+	<h1 class="row my-2">Bikes</h1>
 
-  <div class="row">
-    <table class="table table-hover bike-list">
-      <tr>
-        <th class="text-center">Bike ID #</th>
-        <th class="text-center">Bike Lock Code</th>
-        <th class="text-center">Repair Requests</th>
-        <th class="text-center">Edit</th>
-      </tr>
-      <% bikes.forEach(function(bike){ %>
-        <tr>
-          <td class="text-center"><%= bike.bikeId %></td>
-          <td class="text-center"><%= bike.code %></td>
-          <td class="text-center">
-            <% if (bike.repairRequests.length > 0) { %>
-              <a class="btn btn-danger" href="<%= routes.bikes %>/<%= bike.id %>/repairs"><%= bike.repairRequests.length %></a>
-            <% } else { %>
-              <%= bike.repairRequests.length %>
-            <% } %>
-          </td>
-          <td class="text-center">
-              <a href="<%= routes.bikes %>/<%= bike.id %>/edit" class="btn btn-warning">Edit</a>
-          </td>
-        </tr>
-      <% }); %>
-    </table>
-  </div>
+	<div class="row">
+		<table class="table table-hover bike-list">
+			<tr>
+				<th class="text-center">Bike ID #</th>
+				<th class="text-center">Bike Lock Code</th>
+				<th class="text-center">Repair Requests</th>
+				<th class="text-center">Edit</th>
+			</tr>
+			<% bikes.forEach(function(bike){ %>
+				<tr>
+					<td class="text-center"><%= bike.bikeId %></td>
+					<td class="text-center"><%= bike.code %></td>
+					<td class="text-center">
+						<% if (bike.repairRequests.length > 0) { %>
+							<a class="btn btn-danger" href="<%= routes.bikes %>/<%= bike.id %>/repairs"><%= bike.repairRequests.length %></a>
+						<% } else { %>
+							<%= bike.repairRequests.length %>
+						<% } %>
+					</td>
+					<td class="text-center">
+							<a href="<%= routes.bikes %>/<%= bike.id %>/edit" class="btn btn-warning">Edit</a>
+					</td>
+				</tr>
+			<% }); %>
+		</table>
+	</div>
 
-  <div class="row justify-content-center my-2">
-    <a class="btn btn-primary btn-large" href="<%= routes.bikes %>/new">Add a new Bike</a>
-  </div>
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-primary btn-large" href="<%= routes.bikes %>/new">Add a new Bike</a>
+	</div>
 </div>
 
 <% include ../../partials/scripts %>

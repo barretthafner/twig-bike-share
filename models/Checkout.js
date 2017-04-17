@@ -17,7 +17,7 @@ var CheckoutSchema = new mongoose.Schema({
 	location: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Location'
-	}
+	},
 	timestamp: {
 		type: Date,
 		default: Date.now

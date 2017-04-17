@@ -57,7 +57,7 @@ router.get('/:id/edit', function(req, res) {
 
 // UPDATE route
 router.put('/:id', function(req, res) {
-	Administrator.findByIdAndUpdate(req.params.id, req.body.administrator, function(err, administrator) {
+	Administrator.findByIdAndUpdate(req.params.id, req.body.administrator, { runValidators: true }, function(err, administrator) {
 		if (err) {
 			req.flash('error', err.message);
 		} else {
