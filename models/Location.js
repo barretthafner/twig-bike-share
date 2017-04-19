@@ -18,5 +18,13 @@ var LocationSchema = new mongoose.Schema({
 	}
 });
 
+LocationSchema.statics.findByLocationCode = function(code, callback) {
+	var upperCaseCode = code ? code.toUpperCase() : '';
+
+	return this.findOne({
+		'code': upperCaseCode
+	}, function(err, location) { callback(err, location); });
+};
+
 // export
 module.exports = mongoose.model('Location', LocationSchema);

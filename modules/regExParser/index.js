@@ -3,18 +3,28 @@
 // helper module for parsing different types of messagess
 var parser = {};
 
-// getBikeId
-// regEx for finding a bikeID
-parser.getBikeId = function(string) {
+// getBikeIdFromCheckout
+// regEx for finding a bikeID on checkout
+parser.getBikeIdFromCheckout = function(string) {
 
-	var matches = string.match(   /^\s*[0-9]+/   );
-	return matches ? matches[0] : null;
+	// var matches = string.match(   /^\s*[0-9]+/   );
+	var matches = string.match(   /^(\s*bike|)\s*([0-9]{1,3})\s*([a-z]{2})?/i   );
+	console.log(matches);
+	return matches ? matches[2] : null;
+};
+
+// getLocationFromCheckout
+// regEx for finding location on checkout
+parser.getLocationFromCheckout = function(string) {
+
+	// var matches = string.match(   /^\s*[0-9]+/   );
+	var matches = string.match(   /^(\s*bike|)\s*([0-9]{1,3})\s*([a-z]{2})?/i   );
+	return matches ? matches[3] : null;
 };
 
 // getValidationCode
 // regEx for finding a validation code
 parser.getValidationCode = function(string) {
-
 
 	var matches = string.match(   /\$[A-Za-z0-9_-]{9}/   );
 	return matches ? matches[0] : null;
@@ -24,7 +34,7 @@ parser.getValidationCode = function(string) {
 // regEx for getting repair requests
 parser.getBikeIdFromRepairRequest = function(string) {
 
-	var matches = string.match(   /repair\s*([0-9]+)\s*(.*)/i   );
+	var matches = string.match(   /repair\s*([0-9]{1,3})\s*(.*)/i   );
 	return matches ? matches[1] : null;
 };
 
@@ -32,10 +42,9 @@ parser.getBikeIdFromRepairRequest = function(string) {
 // regEx for getting repair requests
 parser.getMessageFromRepairRequest = function(string) {
 
-	var matches = string.match(   /repair\s*([0-9]+)\s*(.*)/i   );
+	var matches = string.match(   /repair\s*([0-9]{1,3})\s*(.*)/i   );
 	return matches ? matches[2] : null;
 };
-
 
 // export
 module.exports = parser;

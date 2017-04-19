@@ -27,7 +27,7 @@ var BikeSchema = new mongoose.Schema({
 BikeSchema.statics.findByBikeId = function(bikeId, callback) {
 	return this.findOne({
 		'bikeId': bikeId
-	}, function(err, bike) { callback(err, bike) });
+	}, function(err, bike) { callback(err, bike); });
 };
 
 

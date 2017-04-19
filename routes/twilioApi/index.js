@@ -12,9 +12,11 @@ var twilio = require('../../modules/twilio');
 var Subscriber = require('../../models/Subscriber');
 var Bike = require('../../models/Bike');
 var Checkout = require('../../models/Checkout');
+var Location = require('../../models/Location');
 
 var routes = require('../../config').routes;
 var siteTitle = require('../../config').siteTitle;
+var supportSite = require('../../config').supportSite;
 
 
 // incoming voice route
@@ -35,20 +37,21 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 		var message = twilio.getMessageData(req);
 
 		// compare body regEx parsers
-		var bikeId = regEx.getBikeId(message.body);
-		var validationCode = regEx.getValidationCode(message.body);
 		var bikeToRepair = regEx.getBikeIdFromRepairRequest(message.body);
 		var repairMessage = regEx.getMessageFromRepairRequest(message.body);
+		var bikeToCheckout = regEx.getBikeIdFromCheckout(message.body);
+		var bikeCheckoutLocation = regEx.getLocationFromCheckout(message.body);
+		var validationCode = regEx.getValidationCode(message.body);
 
 		// look up subscriber by phone number
 		Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
 
 			// if the query returns a valid subscriber and the account is active, look for bike id
 			if (subscriber && subscriber.active) {
+				// REPAIR REQUEST --------------------------------------------------------------------------
 				if (bikeToRepair) {
 					Bike.findByBikeId(bikeToRepair, function(err, bike) {
 						if (bike) {
-							// REPAIR REQUEST --------------------------------------------------------------------------
 							bike.addRepairRequest(subscriber, repairMessage);
 							var composedMessage = 'Thank you. A service request has been submitted for bike number ' + bike.bikeId + '.';
 							if (repairMessage) {
@@ -59,30 +62,37 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 							twilio.sendSms(subscriber.phoneNumber, 'Sorry, we couldn\'t find a bike with ID: ' + bikeToRepair + ' to request service.');
 						}
 					});
-				} else if (bikeId) {
-					Bike.findByBikeId(bikeId, function(err, bike) {
+				// BIKE CHECKOUT --------------------------------------------------------------------------
+				} else if (bikeToCheckout) {
+					Bike.findByBikeId(bikeToCheckout, function(err, bike) {
 						if (bike) {
-							// BIKE CHECKOUT --------------------------------------------------------------------------
-							twilio.sendSms(subscriber.phoneNumber, 'The code for bike number ' + bike.bikeId + ' is: ' + bike.code);
-							Checkout.addNew(subscriber, bike, function(err, checkout) {
-								if (err) {
-									console.error('Creating a new checkout failed!');
+							console.log(bikeCheckoutLocation);
+							Location.findByLocationCode(bikeCheckoutLocation, function(err, location) {
+								if (location) {
+									twilio.sendSms(subscriber.phoneNumber, 'The code for bike number ' + bike.bikeId + ' is: ' + bike.code + '\nYou checked it out from: ' + location.name);
 								} else {
-									console.log('User ' + checkout.subscriber.email + ' just checked out bike #' + checkout.bike.bikeId + ' at ' + checkout.timestamp);
+									twilio.sendSms(subscriber.phoneNumber, 'The code for bike number ' + bike.bikeId + ' is: ' + bike.code);
 								}
-							})
+								Checkout.addNew(subscriber, bike, location, function(err, checkout) {
+									if (err) {
+										console.error('Creating a new checkout failed!');
+									} else {
+										console.log('User ' + checkout.subscriber.email + ' just checked out bike #' + checkout.bike.bikeId + ' at ' + checkout.timestamp + ' from ' + (checkout.location ? checkout.location.name : 'an unknown location'));
+									}
+								});
+							});
 						} else {
-							twilio.sendSms(subscriber.phoneNumber, 'Sorry, we couldn\'t find a bike with ID: ' + bikeId);
+							twilio.sendSms(subscriber.phoneNumber, 'Sorry, we couldn\'t find a bike with ID: ' + bikeToCheckout);
 						}
 					});
 				} else {
-					twilio.sendSms(subscriber.phoneNumber, 'Sorry, we could not understand your request.')
+					twilio.sendSms(subscriber.phoneNumber, 'Sorry, we could not understand your request. Please refer to ' + supportSite + ' for usage instructions.')
 				}
 			} else if (subscriber && !subscriber.active) {
 				twilio.sendSms(subscriber.phoneNumber, 'Sorry, your number has been deactivated.');
+			// VALIDATION CODE --------------------------------------------------------------------------
 			} else if (validationCode) {
 				Subscriber.findByValidationCode(validationCode, function(err, subscriber) {
-					// VALIDATION CODE --------------------------------------------------------------------------
 					if (subscriber) {
 						subscriber.phoneNumber = message.from;
 						subscriber.active = true;

@@ -24,10 +24,11 @@ var CheckoutSchema = new mongoose.Schema({
 	}
 });
 
-CheckoutSchema.statics.addNew = function(subscriber, bike, callback) {
+CheckoutSchema.statics.addNew = function(subscriber, bike, location, callback) {
 	var newCheckout = {
 		subscriber: subscriber,
-		bike: bike
+		bike: bike,
+		location: location
 	};
 	return this.create(newCheckout, function(err, checkout) { callback(err, checkout) });
 }

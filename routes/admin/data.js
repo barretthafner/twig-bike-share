@@ -18,6 +18,7 @@ router.get(routes.checkouts, function(req, res) {
 	Checkout.find({})
 		.populate('bike', 'bikeId')
 		.populate('subscriber', 'email')
+		.populate('location', 'code')
 		.exec(function(err, checkouts) {
 			if (err) {
 				req.flash('error', err.message);
@@ -26,8 +27,9 @@ router.get(routes.checkouts, function(req, res) {
 				var data = checkouts.map(function(checkout) {
 					return {
 						Timestamp: (new Date(checkout.timestamp)).toLocaleString(),
-						BikeId: checkout.bike.bikeId,
-						SubscriberEmail: checkout.subscriber.email
+						BikeId: checkout.bike ? checkout.bike.bikeId : 'Unknown',
+						SubscriberId: checkout.subscriber ? checkout.subscriber.id : 'Unknown',
+						LocationCode: checkout.location ? checkout.location.code : 'Unknown'
 					}
 				});
 				stringify(data, { header: true }, function(err, output) {
