@@ -9,8 +9,8 @@ var BikeSchema = new mongoose.Schema({
 	bikeId: {
 		type: Number,
 		required: [true, 'Bike ID required'],
-		min: [10, 'Bike ID must be between 10 and 99'],
-		max: [99, 'Bike ID must be between 10 and 99'],
+		min: [1, 'Bike ID must be between 1 and 999'],
+		max: [999, 'Bike ID must be between 1 and 999'],
 		unique: [true, 'Bike ID must be unique']
 	},
 	code: {
@@ -18,8 +18,19 @@ var BikeSchema = new mongoose.Schema({
 		required: [true, 'Bike code is required'],
 		match: [/^\d{4}$/, 'Code must be a 4-digit number.']
 	},
+	active: {
+		type: Boolean,
+		required: [true, 'Active field is required']
+	},
 	repairRequests: []
 });
+
+// addNew
+// creates new bike and sets active to true
+BikeSchema.statics.addNew = function(bike, callback) {
+	bike.active = true;
+	return this.create(bike, function(err, bike) { callback(err, bike) });
+}
 
 // findByBikeID
 // creates a query by bikeId, and returns a callback function with a potentially-null single document
@@ -41,6 +52,8 @@ BikeSchema.methods.addRepairRequest = function(subscriber, message) {
 		subscriber: subscriber.email,
 		message: message
 	});
+
+	this.active = false;
 
 	this.save(function(err, bike) {
 		if (err) {

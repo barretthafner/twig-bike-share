@@ -28,7 +28,7 @@ router.get('/new', function(req, res) {
 
 // CREATE route
 router.post('/', function(req, res) {
-	Bike.create(req.body.bike, function(err, bike) {
+	Bike.addNew(req.body.bike, function(err, bike) {
 		if (err) {
 			req.flash('error', err.message);
 			console.log(err);
@@ -44,7 +44,9 @@ router.post('/', function(req, res) {
 router.get('/:id/edit', function(req, res) {
 	Bike.findById(req.params.id, function(err, bike) {
 		if (err) {
+			req.flash('error', err.message);
 			console.log(err);
+			res.redirect(routes.bikes);
 		} else {
 			res.render('admin/bikes/edit', {
 				bike: bike
@@ -57,7 +59,9 @@ router.get('/:id/edit', function(req, res) {
 router.put('/:id', function(req, res) {
 	Bike.findByIdAndUpdate(req.params.id, req.body.bike, { runValidators: true }, function(err) {
 		if (err) {
+			req.flash('error', err.message);
 			console.log(err);
+			res.redirect(routes.bikes);
 		} else {
 			res.redirect(routes.bikes);
 		}
@@ -68,10 +72,31 @@ router.put('/:id', function(req, res) {
 router.delete('/:id', function(req, res) {
 	Bike.findByIdAndRemove(req.params.id, function(err) {
 		if (err) {
+			req.flash('error', err.message);
 			console.log(err);
 			res.redirect(routes.bikes);
 		} else {
 			res.redirect(routes.bikes);
+		}
+	});
+});
+
+// Toggle active route
+router.get('/:id/active', function(req, res) {
+	Bike.findById(req.params.id, function(err, bike) {
+		if (err) {
+			req.flash('error', err.message);
+			console.log(err);
+			res.redirect(routes.bikes);
+		} else {
+			bike.active = !bike.active;
+			bike.save(function(err) {
+				if (err) {
+					req.flash('error', err.message);
+					console.log(err);
+				}
+				res.redirect(routes.bikes);
+			});
 		}
 	});
 });

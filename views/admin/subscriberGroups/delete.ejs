@@ -1,0 +1,36 @@
+<% include ../../partials/header %>
+<% include ../../partials/nav %>
+
+<ol class="breadcrumb">
+	<li class="breadcrumb-item"><a href="<%= routes.admin %>">Admin Panel</a></li>
+	<li class="breadcrumb-item"><a href="<%= routes.subscriberGroups %>">Manage Subscriber Groups</a></li>
+	<li class="breadcrumb-item active">Edit Subscriber Group</li>
+</ol>
+
+
+<div class="container">
+
+	<div class="row my-2 justify-content-center">
+		<h1>Delete Subscriber Group:</h1>
+	</div>
+
+	<div class="row my-2 justify-content-center">
+		<h1><em><%= subscriberGroup.groupName %></em></h1>
+	</div>
+
+	<form
+		class="row justify-content-center"
+		action="<%= routes.subscriberGroups %>/<%= subscriberGroup._id %>"
+		method="POST"
+		onsubmit="return confirm('Do you really want to delete <%= subscriberGroup.groupName %> group?');">
+		<button class="btn btn-lg btn-danger">Delete Subscriber Group</button>
+		<input type="hidden" name="_method" value="DELETE">
+	</form>
+
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-lg btn-success" href="<%= routes.subscriberGroups %>">Go Back</a>
+	</div>
+</div>
+
+<% include ../../partials/scripts %>
+<% include ../../partials/footer %>

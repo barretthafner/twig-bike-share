@@ -62,20 +62,15 @@
 				<img class="img-fluid" src="<%= subscriberGroup.logoSrc %>" />
 				</div>
 			</div>
+			<div class="row form-group">
+				<label for="hidden">Hidden</label>
+				<input class="form-control" id="hidden" name="subscriberGroup[hidden]" type="checkbox" value="true" <%= subscriberGroup.hidden ? "checked" : "" %> >
+			</div>
 			<div class="row form-group justify-content-center">
 				<button class="btn btn-lg btn-primary btn-block col-md-4">Submit</button>
 			</div>
 		</form>
 	</div>
-
-	<form
-		class="row justify-content-center"
-		action="<%= routes.subscriberGroups %>/<%= subscriberGroup._id %>"
-		method="POST"
-		onsubmit="return confirm('Do you really want to delete <%= subscriberGroup.groupName %> group?');">
-		<button class="btn btn-lg btn-danger">Delete Subscriber Group</button>
-		<input type="hidden" name="_method" value="DELETE">
-	</form>
 
 	<div class="row justify-content-center my-2">
 		<a class="btn btn-lg btn-success" href="<%= routes.subscriberGroups %>">Go Back</a>

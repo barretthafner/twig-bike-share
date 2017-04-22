@@ -35,8 +35,19 @@ var SubscriberGroupSchema = new mongoose.Schema({
 	subscribers: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Subscriber'
-	}]
+	}],
+	hidden: {
+		type: Boolean,
+		required: [true, 'Hidden field is required']
+	}
 });
+
+// addNew
+// add new subscriber and make visible
+SubscriberGroupSchema.statics.addNew = function(subscriberGroup, callback) {
+	subscriberGroup.hidden = false;
+	return this.create(subscriberGroup, function(err, subscriberGroup) { callback(err, subscriberGroup) });
+}
 
 // findBySlug
 // creates a query by signUpSlug and returns a callback function with a potentially-null single document

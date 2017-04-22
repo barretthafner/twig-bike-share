@@ -8,6 +8,10 @@
 
 <div class="container">
 
+	<div class="row justify-content-center my-2">
+		<a class="btn btn-primary btn-large" href="<%= routes.bikes %>/new">Add a new Bike</a>
+	</div>
+
 	<h1 class="row my-2">Bikes</h1>
 
 	<div class="row">
@@ -15,6 +19,7 @@
 			<tr>
 				<th class="text-center">Bike ID #</th>
 				<th class="text-center">Bike Lock Code</th>
+				<th class="text-center">Active</th>
 				<th class="text-center">Repair Requests</th>
 				<th class="text-center">Edit</th>
 			</tr>
@@ -22,6 +27,13 @@
 				<tr>
 					<td class="text-center"><%= bike.bikeId %></td>
 					<td class="text-center"><%= bike.code %></td>
+					<td class="text-center">
+						<% if (bike.active) { %>
+							<a class="btn btn-primary btn-sm" href="<%= routes.bikes %>/<%= bike.id %>/active">Active</a>
+						<% } else { %>
+							<a class="btn btn-secondary btn-sm" href="<%= routes.bikes %>/<%= bike.id %>/active">Inactive</a>
+						<% } %>
+					</td>
 					<td class="text-center">
 						<% if (bike.repairRequests.length > 0) { %>
 							<a class="btn btn-danger" href="<%= routes.bikes %>/<%= bike.id %>/repairs"><%= bike.repairRequests.length %></a>
@@ -35,10 +47,6 @@
 				</tr>
 			<% }); %>
 		</table>
-	</div>
-
-	<div class="row justify-content-center my-2">
-		<a class="btn btn-primary btn-large" href="<%= routes.bikes %>/new">Add a new Bike</a>
 	</div>
 </div>
 

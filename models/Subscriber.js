@@ -48,6 +48,8 @@ SubscriberSchema.statics.findByValidationCode = function(validationCode, callbac
 	}).populate('subscriberGroup').exec(function(err, subscriber) { callback(err, subscriber) });
 };
 
+// addNew
+// add new subscriber and make inactive and generate validation code
 SubscriberSchema.statics.addNew = function(subscriber, subscriberGroup, callback) {
 	subscriber.active = false;
 	subscriber.validationCode = validationCode.generate();

@@ -16,34 +16,44 @@ var administratorData = [{
 var bikeData =
 	[{
 		'bikeId': 10,
-		'code': '1455'
+		'code': '1455',
+		'active': true
 	}, {
 		'bikeId': 11,
-		'code': '3056'
+		'code': '3056',
+		'active': true
 	}, {
 		'bikeId': 12,
-		'code': '8897'
+		'code': '8897',
+		'active': true
 	}, {
 		'bikeId': 13,
-		'code': '3256'
+		'code': '3256',
+		'active': true
 	}, {
 		'bikeId': 14,
-		'code': '7235'
+		'code': '7235',
+		'active': true
 	}, {
 		'bikeId': 15,
-		'code': '8991'
+		'code': '8991',
+		'active': true
 	}, {
 		'bikeId': 16,
-		'code': '7657'
+		'code': '7657',
+		'active': true
 	}, {
 		'bikeId': 17,
-		'code': '4899'
+		'code': '4899',
+		'active': true
 	}, {
 		'bikeId': 18,
-		'code': '2008'
+		'code': '2008',
+		'active': true
 	}, {
 		'bikeId': 19,
-		'code': '1212'
+		'code': '1212',
+		'active': false
 	}];
 
 var subscriberGroupData =
@@ -53,7 +63,8 @@ var subscriberGroupData =
 		'signUpSlug': 'wta',
 		'repairEmail': 'bikeshare@wta-tma.org',
 		'logoSrc': '/img/OBI_logo_web.png',
-		'legalText': 'A bunch of legal mumbojumbo for you to ignore and just blindly agree to...'
+		'legalText': 'A bunch of legal mumbojumbo for you to ignore and just blindly agree to...',
+		'hidden': false
 	}];
 
 var subscriberData =

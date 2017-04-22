@@ -8,8 +8,7 @@ var parser = {};
 parser.getBikeIdFromCheckout = function(string) {
 
 	// var matches = string.match(   /^\s*[0-9]+/   );
-	var matches = string.match(   /^(\s*bike|)\s*([0-9]{1,3})\s*([a-z]{2})?/i   );
-	console.log(matches);
+	var matches = string.match(   /^(\s*bike|)\s*([0-9]{1,3})\s*([a-z]{2,3})?/i   );
 	return matches ? matches[2] : null;
 };
 
@@ -18,7 +17,7 @@ parser.getBikeIdFromCheckout = function(string) {
 parser.getLocationFromCheckout = function(string) {
 
 	// var matches = string.match(   /^\s*[0-9]+/   );
-	var matches = string.match(   /^(\s*bike|)\s*([0-9]{1,3})\s*([a-z]{2})?/i   );
+	var matches = string.match(   /^(\s*bike|)\s*([0-9]{1,3})\s*([a-z]{2,3})?/i   );
 	return matches ? matches[3] : null;
 };
 
@@ -26,7 +25,7 @@ parser.getLocationFromCheckout = function(string) {
 // regEx for finding a validation code
 parser.getValidationCode = function(string) {
 
-	var matches = string.match(   /\$[A-Za-z0-9_-]{9}/   );
+	var matches = string.match(   /\$[A-Za-z0-9_&\\-\\*]{9}/   );
 	return matches ? matches[0] : null;
 };
 

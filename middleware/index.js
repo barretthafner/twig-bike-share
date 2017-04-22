@@ -28,7 +28,6 @@ middlewareObj.checkDbEmpty = function(req, res, next) {
 	if (global.dbEmpty) {
 		var re = new RegExp(routes.setup);
 		if (req.url.match(re)) {
-			console.log('bam!');
 			next()
 		} else {
 			var Administrator = require('../models/Administrator');

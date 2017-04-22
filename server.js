@@ -10,6 +10,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var flash = require('connect-flash');
 var helmet = require('helmet');
+var bluebird = require('bluebird');
 
 var config = require('./config');
 var middleware = require('./middleware');
@@ -31,7 +32,7 @@ app.use(express.static(__dirname + '/public'));
 mongoose.connect(config.dbUrl);
 
 // Use native promises
-mongoose.Promise = global.Promise;
+mongoose.Promise = bluebird;
 
 // View Engine
 app.set('view engine', 'ejs');
@@ -96,9 +97,9 @@ if (process.argv.indexOf('--seedDb') > -1) {
 	var seed = require('./seeds');
 	seed({
 		administrators: false,
-		bikes: false,
+		bikes: true,
 		subscriberGroups: false,
-		twilio: true
+		twilio: false
 	});
 	global.dbEmpty = false;
 }

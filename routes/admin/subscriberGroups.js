@@ -33,10 +33,11 @@ router.get('/new', function(req, res) {
 
 // CREATE route
 router.post('/', upload.single('logo'), function(req, res) {
-	SubscriberGroup.create(req.body.subscriberGroup, function(err, subscriberGroup) {
+	SubscriberGroup.addNew(req.body.subscriberGroup, function(err, subscriberGroup) {
 		if (err) {
 			req.flash('error', 'Server error adding subscriber group: ' + err.message);
-			res.redirect('back');
+			console.log(err);
+			res.redirect(routes.subscriberGroups);
 		} else {
 		 var file = req.file;
 		 if (file) {
@@ -53,7 +54,7 @@ router.post('/', upload.single('logo'), function(req, res) {
 					res.redirect(routes.subscriberGroups);
 				});
 			} else {
-				res.redirect('back');
+				res.redirect(routes.subscriberGroups);
 			}
 		}
 	});
@@ -82,7 +83,11 @@ router.get('/:id/edit', function(req, res) {
 // UPDATE route
 // Using post because of multer
 router.post('/:id', upload.single('logo'), function(req, res) {
-	SubscriberGroup.findByIdAndUpdate(req.params.id, req.body.subscriberGroup, { runValidators: true }, function(err, subscriberGroup) {
+	var subscriberGroup = req.body.subscriberGroup;
+
+	subscriberGroup.hidden = !!subscriberGroup.hidden;
+
+	SubscriberGroup.findByIdAndUpdate(req.params.id, subscriberGroup, { runValidators: true }, function(err, subscriberGroup) {
 		if (err) {
 			req.flash('error', 'Server error updating subscriber group: ' + err.message);
 			res.redirect('back');
@@ -108,6 +113,20 @@ router.post('/:id', upload.single('logo'), function(req, res) {
 			} else {
 				res.redirect('back');
 			}
+		}
+	});
+});
+
+// Render DELETE form
+router.get('/:id/delete', function(req, res) {
+	SubscriberGroup.findById(req.params.id, function(err, subscriberGroup) {
+		if (err) {
+			req.flash('error', 'Server error finding subscriber group: ' + err.message);
+			res.redirect(routes.subscriberGroups);
+		} else {
+			res.render('admin/subscriberGroups/delete', {
+				subscriberGroup: subscriberGroup
+			});
 		}
 	});
 });
