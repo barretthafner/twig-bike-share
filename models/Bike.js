@@ -73,6 +73,7 @@ BikeSchema.methods.addRepairRequest = function(subscriber, message) {
 // removes all repair requests from a bike
 BikeSchema.methods.clearRepairRequests = function(callback) {
 	this.repairRequests = [];
+	this.active = true;
 	this.save(function(err) { callback(err) });
 }
 
