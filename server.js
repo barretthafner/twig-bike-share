@@ -97,9 +97,9 @@ if (process.argv.indexOf('--seedDb') > -1) {
 	var seed = require('./seeds');
 	seed({
 		administrators: false,
-		bikes: true,
+		bikes: false,
 		subscriberGroups: false,
-		twilio: false
+		twilio: true
 	});
 	global.dbEmpty = false;
 }
