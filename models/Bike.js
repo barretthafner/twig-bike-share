@@ -2,6 +2,7 @@
 // Bike model
 // Has a two-digit bike ID and a 4 digit unlock code for a tumbler U-lock bike lock
 var mongoose = require('mongoose');
+var supportTimeZone = require('../config').supportTimeZone;
 
 var mailer = require('../modules/mailgun');
 
