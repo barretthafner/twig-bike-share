@@ -64,15 +64,23 @@ SubscriberGroupSchema.statics.findBySlugAndAddSubscriber = function(slug, subscr
 		if (err) {
 			callback(err);
 		} else {
-			Subscriber.addNew(subscriber, subscriberGroup, function(err, subscriber) {
-				if (err) {
-					callback(err);
-				} else {
-					subscriberGroup.subscribers.push(subscriber);
-					subscriberGroup.save();
-					callback(null, subscriberGroup, subscriber);
-				}
-			});
+			var re = new RegExp(subscriberGroup.emailDomain + '$');
+		  var match = re.test(subscriber.email);
+		  console.log(match);
+
+		  if (match) {
+				Subscriber.addNew(subscriber, subscriberGroup, function(err, subscriber) {
+					if (err) {
+						callback(err);
+					} else {
+						subscriberGroup.subscribers.push(subscriber);
+						subscriberGroup.save();
+						callback(null, subscriberGroup, subscriber);
+					}
+				});
+			} else {
+				callback({ message: 'Email does not match domain: ' + subscriberGroup.emailDomain });
+			}
 		}
 	});
 };
