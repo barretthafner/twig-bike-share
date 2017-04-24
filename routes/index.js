@@ -2,13 +2,26 @@
 var express = require('express');
 var router = express.Router();
 
+var SubscriberGroup = require('../models/SubscriberGroup');
+
 var middleware = require('../middleware');
 
 var routes = require('../config').routes;
 
 // Root ('/') route
 router.get(routes.root, function(req, res) {
-	res.render('index');
+	SubscriberGroup.getPublicGroups(function(err, subscriberGroups) {
+		if (err) {
+			req.flash('error', err.message);
+			res.render('index', {
+				subscriberGroups: null
+			});
+		} else {
+			res.render('index', {
+				subscriberGroups: subscriberGroups
+			});
+		}
+	})
 });
 
 // Connect routes

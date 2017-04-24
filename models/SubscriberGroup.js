@@ -104,5 +104,27 @@ SubscriberGroupSchema.statics.findByIdAndRemoveWithSubscribers = function(id, ca
 	});
 };
 
+// getPublicGroups
+// Returns array of visible group data for index route
+SubscriberGroupSchema.statics.getPublicGroups = function(callback) {
+	this.find({}, function(err, subscriberGroups) {
+		if (err) {
+			callback(err);
+		} else {
+			var publicGroups = subscriberGroups.reduce(function(publicGroups, group) {
+				if (!group.hidden) {
+					publicGroups.push({
+						groupName: group.groupName,
+						signUpSlug: group.signUpSlug,
+						logoSrc: group.logoSrc
+					});
+				}
+				return publicGroups;
+			}, []);
+			callback(null, publicGroups);
+		}
+	});
+}
+
 // export
 module.exports = mongoose.model('SubscriberGroup', SubscriberGroupSchema);
