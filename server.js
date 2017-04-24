@@ -78,6 +78,7 @@ app.locals.siteTitle = config.siteTitle;
 app.locals.domain = config.appDomain;
 app.locals.protocol = config.protocol;
 app.locals.supportEmail = config.supportEmail;
+app.locals.supportTimeZone = config.supportTimeZone;
 app.use(middleware.addGlobals);
 
 // set global variable to render setup if db is empty

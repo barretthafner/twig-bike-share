@@ -57,10 +57,11 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 				if (bikeToRepair) {
 					Bike.findByBikeId(bikeToRepair, function(err, bike) {
 						if (bike) {
-							bike.addRepairRequest(subscriber, repairMessage);
-							response += 'Thank you. A service request has been submitted for bike number ' + bike.bikeId + '.';
 							if (repairMessage) {
-								response += '\nRepair message: ' + repairMessage;
+								bike.addRepairRequest(subscriber, repairMessage);
+								response += 'Thank you. A service request has been submitted for bike number ' + bike.bikeId + '.';
+							} else {
+								response += 'A message with bike location and the service needs is required to submit a repair request. Please send your request again with a message. Example:\n\'repair 12 KP flat tire\'';
 							}
 						} else {
 							response += 'Sorry, we couldn\'t find a bike with ID: ' + bikeToRepair + ' to request service.';

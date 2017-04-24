@@ -26,7 +26,7 @@ router.get(routes.checkouts, function(req, res) {
 			} else {
 				var data = checkouts.map(function(checkout) {
 					return {
-						Timestamp: (new Date(checkout.timestamp)).toLocaleString(),
+						Timestamp: (new Date(checkout.timestamp)).toLocaleString('en-US', { timeZone: supportTimeZone }),
 						BikeId: checkout.bike ? checkout.bike.bikeId : 'Unknown',
 						SubscriberId: checkout.subscriber ? checkout.subscriber.id : 'Unknown',
 						LocationCode: checkout.location ? checkout.location.code : 'Unknown'

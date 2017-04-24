@@ -23,6 +23,7 @@ config.mailgunFromEmail = 'Bikeshare <bikeshare@wta-tma.org>';
 config.siteTitle = 'WTA Bike Share';
 config.supportSite = 'http://www.wta-tma.org/westside-bike-share-pilot-project/';
 config.supportEmail = 'bikeshare@wta-tma.org';
+config.supportTimeZone = 'America/Los_Angeles'
 config.protocol = 'https://';
 
 config.routes = {

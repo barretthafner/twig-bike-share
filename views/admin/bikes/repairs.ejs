@@ -22,7 +22,7 @@
       <% bike.repairRequests.forEach(function(request, index){ %>
         <tr>
           <td class="text-center"><%= index + 1 %></td>
-          <td class="text-center"><%= (new Date(request.timestamp)).toLocaleString() %></td>
+          <td class="text-center"><%= (new Date(request.timestamp)).toLocaleString('en-US', { timeZone: supportTimeZone }) %></td>
           <td class="text-center"><%= request.subscriber %></td>
           <td class="text-center"><%= request.message %></td>
         </tr>
