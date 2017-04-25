@@ -20,7 +20,7 @@ config.twilioSendingNumber = process.env.TWILIO_NUMBER;
 config.mailgunDomain = 'wta-tma.org';
 config.mailgunFromEmail = 'Bikeshare <bikeshare@wta-tma.org>';
 
-config.siteTitle = 'WTA Bike Share';
+config.siteTitle = 'Westside Bike Share';
 config.supportSite = 'http://www.wta-tma.org/westside-bike-share-pilot-project/';
 config.supportEmail = 'bikeshare@wta-tma.org';
 config.supportTimeZone = 'America/Los_Angeles'

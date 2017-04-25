@@ -48,28 +48,30 @@ router.post('/:group_slug', function(req, res) {
 
 			res.render('signup/thank-you', {
 				subscriberGroup: subscriberGroup,
-				subscriber: subscriber
+				subscriber: subscriber,
+				supportSite: supportSite
 			});
 
 		}
 	});
 });
 
-// router.get('/:group_slug/thankyoutest', function(req, res) {
-// 	SubscriberGroup.findBySlug(req.params.group_slug, function(err, subscriberGroup) {
-// 		if (err) {
-// 			req.flash('error', 'Server error finding your sign up page: ' + err.message);
-// 			res.redirect(routes.root);
-// 		} else {
-// 			res.render('signup/thank-you', {
-// 				subscriberGroup: subscriberGroup,
-// 				subscriber: {
-// 					firstName: 'Barrett',
-// 					email: 'barrett@hafnerindustries.com'
-// 				}
-// 			});
-// 		}
-// 	});
-// });
+router.get('/:group_slug/thankyoutest', function(req, res) {
+	SubscriberGroup.findBySlug(req.params.group_slug, function(err, subscriberGroup) {
+		if (err) {
+			req.flash('error', 'Server error finding your sign up page: ' + err.message);
+			res.redirect(routes.root);
+		} else {
+			res.render('signup/thank-you', {
+				subscriberGroup: subscriberGroup,
+				subscriber: {
+					firstName: 'Barrett',
+					email: 'barrett@hafnerindustries.com'
+				},
+				supportSite: supportSite
+			});
+		}
+	});
+});
 
 module.exports = router;
