@@ -23,6 +23,10 @@ var SubscriberSchema = new mongoose.Schema({
 	subscriberGroup: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'SubscriberGroup'
+	},
+	signedUpDate: {
+		type: Date,
+		default: Date.now
 	}
 });
 
