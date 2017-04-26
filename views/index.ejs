@@ -7,7 +7,7 @@
 	<div class="row justify-content-center mb-3 mb-md-5">
 		<h1 class="col-10 text-center">Welcome to the <%= siteTitle %></h1>
 	</div>
-	<div class="row justify-content-center">
+	<div class="row justify-content-center mb-5">
 		<h2 class="col-10 text-center">Please select your user group below:</h2>
 	</div>
 	<div class="row justify-content-center">
@@ -15,7 +15,7 @@
 			<% subscriberGroups.forEach(function(group) { %>
 				<div class="col-sm-6">
 					<div class="card">
-						<img class="card-img-top img-fluid p-2" src="<%= group.logoSrc %>" alt="<%= group.groupName %> logo">
+						<img class="card-img-top img-fluid p-4" src="<%= group.logoSrc %>" alt="<%= group.groupName %> logo">
 						<div class="card-block">
 							<h4 class="card-title"><%= group.groupName %></h4>
 							<a href="/signup/<%= group.signUpSlug%>" class="btn btn-primary">Go to signup page</a>
@@ -27,5 +27,6 @@
 	</div>
 </div>
 
+<% include ./partials/help %>
 <% include ./partials/scripts %>
 <% include ./partials/footer %>
