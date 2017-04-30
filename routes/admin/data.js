@@ -17,33 +17,29 @@ router.get('/', function(req, res) {
 
 // Download bike checkouts route
 router.get(routes.checkouts, function(req, res) {
-	Checkout.find({})
-		.populate('bike', 'bikeId')
-		.populate('subscriber', 'email')
-		.populate('location', 'code')
-		.exec(function(err, checkouts) {
-			if (err) {
-				req.flash('error', err.message);
-				res.redirect(routes.data);
-			} else {
-				var data = checkouts.map(function(checkout) {
-					return {
-						Timestamp: (new Date(checkout.timestamp)).toLocaleString('en-US', { timeZone: supportTimeZone }),
-						BikeId: checkout.bike ? checkout.bike.bikeId : 'Unknown',
-						SubscriberId: checkout.subscriber ? checkout.subscriber.id : 'Unknown',
-						LocationCode: checkout.location ? checkout.location.code : 'Unknown'
-					}
-				});
-				stringify(data, { header: true }, function(err, output) {
-					if (err) {
-						req.flash('error', err.message);
-						res.redirect(routes.data);
-					} else {
-						res.attachment('checkouts_' + Date.now() + '.csv');
-						res.status(200).send(output);
-					}
-				});
-			}
+	Checkout.find({}, function(err, checkouts) {
+		if (err) {
+			req.flash('error', err.message);
+			res.redirect(routes.data);
+		} else {
+			var data = checkouts.map(function(checkout) {
+				return {
+					Timestamp: (new Date(checkout.timestamp)).toLocaleString('en-US', { timeZone: supportTimeZone }),
+					BikeId: checkout.bike ? checkout.bike : 'Unknown',
+					SubscriberId: checkout.subscriber ? checkout.subscriber : 'Unknown',
+					LocationCode: checkout.location ? checkout.location : 'Unknown'
+				}
+			});
+			stringify(data, { header: true }, function(err, output) {
+				if (err) {
+					req.flash('error', err.message);
+					res.redirect(routes.data);
+				} else {
+					res.attachment('checkouts_' + Date.now() + '.csv');
+					res.status(200).send(output);
+				}
+			});
+		}
 	});
 });
 
@@ -58,8 +54,10 @@ router.get(routes.subscriberEmailData, function(req, res) {
 			} else {
 				var data = subscribers.map(function(subscriber) {
 					return {
+						SubscriberId: subscriber.id,
+						SubscriberEmail: subscriber.email,
 						GroupName: subscriber.subscriberGroup.groupName,
-						SubscriberEmail: subscriber.email
+						SignedUpDate: (new Date(subscriber.signedUpDate)).toLocaleString('en-US', { timeZone: supportTimeZone })
 					}
 				});
 				stringify(data, { header: true }, function(err, output) {

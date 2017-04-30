@@ -5,17 +5,16 @@ var mongoose = require('mongoose');
 
 var CheckoutSchema = new mongoose.Schema({
 	subscriber: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: String,
 		required: [true, 'Subscriber is required'],
-		ref: 'Subscriber'
 	},
 	bike: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: String,
 		required: [true, 'Bike is required'],
 		ref: 'Bike'
 	},
 	location: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: String,
 		ref: 'Location'
 	},
 	timestamp: {
@@ -26,9 +25,9 @@ var CheckoutSchema = new mongoose.Schema({
 
 CheckoutSchema.statics.addNew = function(subscriber, bike, location, callback) {
 	var newCheckout = {
-		subscriber: subscriber,
-		bike: bike,
-		location: location
+		subscriber: subscriber.id,
+		bike: bike.bikeId,
+		location: location ? location.code : null
 	};
 	return this.create(newCheckout, function(err, checkout) { callback(err, checkout) });
 }

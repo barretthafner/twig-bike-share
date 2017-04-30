@@ -8,6 +8,7 @@ var router = express.Router();
 var middleware = require('../../middleware');
 var regEx = require('../../modules/regExParser');
 var twilio = require('../../modules/twilio');
+var presurvey = require('../../modules/presurvey');
 
 var Subscriber = require('../../models/Subscriber');
 var Bike = require('../../models/Bike');
@@ -113,6 +114,7 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 						subscriber.validationCode = '';
 						subscriber.save();
 						response += 'Welcome to the ' + siteTitle + ' ' + subscriber.firstName + '. Your number is now active.';
+						// presurvey.send(subscriber.email);
 					} else {
 						response += 'Sorry you are not authorized to use this application.';
 					}
