@@ -46,7 +46,7 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 		var validationCode = regEx.getValidationCode(message.body);
 
 		var response = '';
-		var sendResponse = responseFactory(message.from, message.body);
+		var sendResponse = responseFactory(message.from, message.body, res);
 
 		// look up subscriber by phone number
 		var promise = Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
@@ -123,17 +123,17 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 				sendResponse(response);
 			}
 		});
-
-		res.status(200).send();
 	} else {
 		// if not from twilio reject request
 		res.status(403).send('Authorization Required!');
 	}
 });
 
-function responseFactory(from, body) {
+function responseFactory(from, body, res) {
 	return function(response) {
-		twilio.sendSms(from, response);
+		// twilio.sendSms(from, response);
+		res.writeHead(200, {'Content-Type': 'text/xml'});
+		res.end(twilio.twimlResponse(response));
 		Message.create({
 			from: from,
 			body: body,

@@ -45,6 +45,13 @@ messenger.sendSms = function(to, message) {
 	});
 };
 
+// twimlResponse
+// creates a twiml formated response
+messenger.twimlResponse = function(response) {
+	var twiml = new twilio.TwimlResponse();
+	return twiml.message(response).toString();
+}
+
 // rejectCall
 // takes the res object from express and rejects a call through the twilio client
 messenger.rejectCall = function(res) {
