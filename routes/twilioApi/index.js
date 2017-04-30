@@ -131,9 +131,9 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 
 function responseFactory(from, body, res) {
 	return function(response) {
-		// twilio.sendSms(from, response);
 		res.writeHead(200, {'Content-Type': 'text/xml'});
 		res.end(twilio.twimlResponse(response));
+		console.log('Message sent:', response);
 		Message.create({
 			from: from,
 			body: body,
