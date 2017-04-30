@@ -114,7 +114,7 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 						subscriber.validationCode = '';
 						subscriber.save();
 						response += 'Welcome to the ' + siteTitle + ' ' + subscriber.firstName + '. Your number is now active.';
-						// presurvey.send(subscriber.email);
+						presurvey.send(subscriber.email);
 					} else {
 						response += 'Sorry you are not authorized to use this application.';
 					}
