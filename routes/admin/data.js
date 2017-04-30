@@ -57,6 +57,7 @@ router.get(routes.subscriberEmailData, function(req, res) {
 						SubscriberId: subscriber.id,
 						SubscriberEmail: subscriber.email,
 						GroupName: subscriber.subscriberGroup.groupName,
+						Active: subscriber.active,
 						SignedUpDate: (new Date(subscriber.signedUpDate)).toLocaleString('en-US', { timeZone: supportTimeZone })
 					}
 				});
