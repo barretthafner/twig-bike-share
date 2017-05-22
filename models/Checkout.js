@@ -2,6 +2,7 @@
 // Checkout model
 // Stores bike checkout
 var mongoose = require('mongoose');
+var moment = require('moment');
 
 var CheckoutSchema = new mongoose.Schema({
 	subscriber: {
@@ -31,6 +32,16 @@ CheckoutSchema.statics.addNew = function(subscriber, bike, location, callback) {
 	};
 	return this.create(newCheckout, function(err, checkout) { callback(err, checkout) });
 }
+
+CheckoutSchema.statics.listWithin30DaysOf = function(date, callback) {
+
+	return this.find({
+		'timestamp': {
+			$lt: moment(date).endOf('day').toDate(),
+			$gt: moment(date).subtract(30, 'days').startOf('day').toDate()
+		}
+	}, callback);
+};
 
 // export
 module.exports = mongoose.model('Checkout', CheckoutSchema);

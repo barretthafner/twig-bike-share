@@ -8,11 +8,27 @@ var Checkout = require('../../models/Checkout');
 var Subscriber = require('../../models/Subscriber');
 var routes = require('../../config').routes;
 var supportTimeZone = require('../../config').supportTimeZone;
+var moment = require('moment');
 
 
 // Data index route
 router.get('/', function(req, res) {
-	res.render('admin/data/index');
+	var now = moment();
+
+	Checkout.listWithin30DaysOf(now, function(err, checkouts) {
+		if (err) console.log('Error finding checkouts: ' + err);
+		console.log(checkouts);
+
+		var checkoutCount = Array.apply(null, Array(30)).map(Number.prototype.valueOf,0);
+		checkouts.forEach(function(checkout) {
+			console.log(moment.duration(now.toDate() - checkout.timestamp).asDays());
+		});
+
+		res.render('admin/data/index', {
+			checkouts: checkouts || []
+		});
+	});
+
 });
 
 // Download bike checkouts route
