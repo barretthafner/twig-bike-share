@@ -14,7 +14,7 @@ var upload = multer({ dest: path.resolve(__dirname, '../../public/logos')});
 
 // INDEX route
 router.get('/', function(req, res) {
-	SubscriberGroup.find({}, function(err, subscriberGroups) {
+	SubscriberGroup.find({}).populate('subscribers').exec(function(err, subscriberGroups) {
 		if (err) {
 			req.flash('error', 'Server error finding subscriber groups: ' + err.message);
 			res.redirect(routes.admin);
