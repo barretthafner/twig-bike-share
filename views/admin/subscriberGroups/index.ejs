@@ -19,6 +19,7 @@
 			<tr>
 				<th>Group</th>
 				<th>Sign Up Page URL</th>
+				<th># or Subscribers</th>
 				<th>Manage Subscribers</th>
 				<th>Edit Settings</th>
 			</tr>
@@ -27,6 +28,7 @@
 					<td><%= subscriberGroup.groupName %></td>
 					<% var signUpUrl = protocol + domain + routes.signUp + '/' + subscriberGroup.signUpSlug; %>
 					<td><a href="<%= signUpUrl %>"><%= signUpUrl %></a></td>
+					<td><%= subscriberGroup.subscribers.length %></td>
 					<td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/subscribers" class="btn btn-xs btn-info">Subscribers</a></td>
 					<td><a href="<%= routes.subscriberGroups %>/<%= subscriberGroup.id %>/edit" class="btn btn-xs btn-warning">Settings</a></td>
 				</tr>
