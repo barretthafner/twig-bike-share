@@ -40,7 +40,28 @@ CheckoutSchema.statics.listWithin30DaysOf = function(date, callback) {
 			$lt: moment(date).endOf('day').toDate(),
 			$gt: moment(date).subtract(30, 'days').startOf('day').toDate()
 		}
-	}, callback);
+	}, function(err, checkouts) {
+		if (err) callback(err);
+		else {
+
+			// create an array of 30 objects with labels for each day
+			var checkoutCounter = Array.apply(null, new Array(30)).map(function(x, index) {
+				return {
+					label: moment(date).startOf('day').subtract(index, 'days').format('MMM D'),
+					count: 0
+				}
+			});
+
+			// for each checkout found increment the count for that day
+			checkouts.forEach(function(checkout) {
+				var checkoutDay = moment(checkout.timestamp).startOf('day');
+				var daysAgo = moment.duration(moment(date).startOf('day').diff(checkoutDay)).asDays();
+				checkoutCounter[daysAgo].count++;
+			});
+
+			callback(null, checkoutCounter.reverse());
+		}
+	});
 };
 
 // export

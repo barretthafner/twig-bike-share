@@ -15,20 +15,15 @@ var moment = require('moment');
 router.get('/', function(req, res) {
 	var now = moment();
 
-	Checkout.listWithin30DaysOf(now, function(err, checkouts) {
+	Checkout.listWithin30DaysOf(now, function(err, checkoutList) {
 		if (err) console.log('Error finding checkouts: ' + err);
-		console.log(checkouts);
 
-		var checkoutCount = Array.apply(null, Array(30)).map(Number.prototype.valueOf,0);
-		checkouts.forEach(function(checkout) {
-			console.log(moment.duration(now.toDate() - checkout.timestamp).asDays());
-		});
+		console.log(checkoutList);
 
 		res.render('admin/data/index', {
-			checkouts: checkouts || []
+			checkoutList: checkoutList
 		});
 	});
-
 });
 
 // Download bike checkouts route
