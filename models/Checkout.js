@@ -45,7 +45,7 @@ CheckoutSchema.statics.listWithin30DaysOf = function(date, callback) {
 		else {
 
 			// create an array of 30 objects with labels for each day
-			var checkoutCounter = Array.apply(null, new Array(30)).map(function(x, index) {
+			var checkoutCounter = Array.apply(null, new Array(31)).map(function(x, index) {
 				return {
 					label: moment(date).startOf('day').subtract(index, 'days').format('MMM D'),
 					count: 0
@@ -56,7 +56,7 @@ CheckoutSchema.statics.listWithin30DaysOf = function(date, callback) {
 			checkouts.forEach(function(checkout) {
 				var checkoutDay = moment(checkout.timestamp).startOf('day');
 				var daysAgo = moment.duration(moment(date).startOf('day').diff(checkoutDay)).asDays();
-				checkoutCounter[daysAgo].count++;
+				if (daysAgo <= 30) checkoutCounter[daysAgo].count++;
 			});
 
 			callback(null, checkoutCounter.reverse());
