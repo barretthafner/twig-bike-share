@@ -18,7 +18,7 @@ router.get('/', function(req, res) {
 	Checkout.listWithin30DaysOf(now, function(err, checkoutList) {
 		if (err) console.log('Error finding checkouts: ' + err);
 
-		console.log(checkoutList);
+		// console.log(checkoutList);
 
 		res.render('admin/data/index', {
 			checkoutList: checkoutList

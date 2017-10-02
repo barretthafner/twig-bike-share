@@ -1,6 +1,6 @@
 'use strict';
 // Include packages -------------------------------------------------------------------
-require('newrelic');
+// require('newrelic');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
