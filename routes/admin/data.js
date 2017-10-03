@@ -88,7 +88,7 @@ router.get(routes.subscriberEmailData, function(req, res) {
 
 // Download messages route
 router.get(routes.messages, function(req, res) {
-	Checkout.find({}, function(err, messages) {
+	Message.find({}, function(err, messages) {
 		if (err) {
 			req.flash('error', err.message);
 			res.redirect(routes.data);
