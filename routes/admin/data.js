@@ -93,14 +93,15 @@ router.get(routes.messages, function(req, res) {
 			req.flash('error', err.message);
 			res.redirect(routes.data);
 		} else {
-			var data = messages.map(function(message) {
-				return Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
-					return {
+			var data = [];
+			messages.forEach(function(message) {
+				Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
+					data.push({
 						Timestamp: (new Date(message.timestamp)).toLocaleString('en-US', { timeZone: supportTimeZone }),
 						From: subscriber.id,
 						Body: message.body,
 						Response: message.response
-					}
+					});
 				})
 			});
 
