@@ -94,23 +94,25 @@ router.get(routes.messages, function(req, res) {
 			req.flash('error', err.message);
 			res.redirect(routes.data);
 		} else {
-			var data = messages.map(function(message) {
+			var data = []
+
+			var promises = messages.map(function(message) {
 				return Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
 					if (err) {
 						req.flash('error', err.message);
 						res.redirect(routes.data);
 					} else {
-						return {
+						data.push({
 							Timestamp: (new Date(message.timestamp)).toLocaleString('en-US', { timeZone: supportTimeZone }),
-							From: subscriber.id,
+							From: subscriber ? subscriber.id : 'Unknown',
 							Body: message.body,
 							Response: message.response
-						};
+						});
 					}
 				});
 			});
 
-			Promise.all(data).then(function(data) {
+			Promise.all(promises).then(function() {
 				stringify(data, { header: true }, function(err, output) {
 					if (err) {
 						req.flash('error', err.message);
