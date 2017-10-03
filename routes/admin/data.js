@@ -6,6 +6,7 @@ var stringify = require('csv-stringify');
 
 var Checkout = require('../../models/Checkout');
 var Subscriber = require('../../models/Subscriber');
+var Message = require('../../models/Message');
 var routes = require('../../config').routes;
 var supportTimeZone = require('../../config').supportTimeZone;
 var moment = require('moment');
@@ -82,6 +83,34 @@ router.get(routes.subscriberEmailData, function(req, res) {
 					}
 				});
 			}
+	});
+});
+
+// Download messages route
+router.get(routes.messages, function(req, res) {
+	Checkout.find({}, function(err, messages) {
+		if (err) {
+			req.flash('error', err.message);
+			res.redirect(routes.data);
+		} else {
+			var data = messages.map(function(message) {
+				return {
+					Timestamp: (new Date(message.timestamp)).toLocaleString('en-US', { timeZone: supportTimeZone }),
+					From: message.from ? message.from : 'Unknown',
+					Body: message.body ? message.body : 'Unknown',
+					Response: message.response ? message.response : 'Unknown'
+				}
+			});
+			stringify(data, { header: true }, function(err, output) {
+				if (err) {
+					req.flash('error', err.message);
+					res.redirect(routes.data);
+				} else {
+					res.attachment('messages_' + Date.now() + '.csv');
+					res.status(200).send(output);
+				}
+			});
+		}
 	});
 });
 

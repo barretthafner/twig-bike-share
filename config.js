@@ -44,7 +44,8 @@ config.routes = {
 	legal: '/legal',
 	newValidation: '/newValidation',
 	checkouts: '/checkouts',
-	subscriberEmailData: '/subscribers'
+	subscriberEmailData: '/subscribers',
+	messages: '/messages'
 };
 
 // Export module -------------------------------------------------------------------
