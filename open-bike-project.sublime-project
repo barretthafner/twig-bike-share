@@ -4,7 +4,7 @@
 		{
 			"path": ".",
 			"folder_exclude_patterns": [ "node_modules", "docs" ],
-			"file_exclude_patterns": [ "npm-debug.log", "package.lock" ]
+			"file_exclude_patterns": [ "npm-debug.log", "package-lock.json" ]
 		}
 	],
 	"settings": {
