@@ -50,7 +50,7 @@ _To Do_ - If you are interested in working with this code directly, please PM me
 
 ## Authors
 
-* **Barrett Hafner** - [PurpleBooth](https://github.com/barretthafner)
+* [**Barrett Hafner**](https://github.com/barretthafner)
 
 ## License
 
