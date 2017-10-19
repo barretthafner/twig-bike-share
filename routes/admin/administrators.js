@@ -50,7 +50,7 @@ router.get('/:id/edit', function(req, res) {
 		} else {
 			res.render('admin/administrators/edit', {
 				administrator: administrator
-			})
+			});
 		}
 	});
 });

@@ -3,8 +3,6 @@
 // Stores groups of subscribers
 var mongoose = require('mongoose');
 
-var config = require('../config');
-
 var Subscriber = require('./Subscriber');
 
 var SubscriberGroupSchema = new mongoose.Schema({
@@ -20,7 +18,7 @@ var SubscriberGroupSchema = new mongoose.Schema({
 		type: String,
 		unique: [true, 'Sign Up Slug must be unique'],
 		required: [true, 'Sign Up Slug required'],
-		match: [/^[a-z\-]+$/, 'Sign Up Slug must be composed of lowercase letters and hyphens.']
+		match: [/^[a-z-]+$/, 'Sign Up Slug must be composed of lowercase letters and hyphens.']
 	},
 	repairEmail: {
 		type: String,
@@ -46,15 +44,15 @@ var SubscriberGroupSchema = new mongoose.Schema({
 // add new subscriber and make visible
 SubscriberGroupSchema.statics.addNew = function(subscriberGroup, callback) {
 	subscriberGroup.hidden = false;
-	return this.create(subscriberGroup, function(err, subscriberGroup) { callback(err, subscriberGroup) });
-}
+	return this.create(subscriberGroup, function(err, subscriberGroup) { callback(err, subscriberGroup); });
+};
 
 // findBySlug
 // creates a query by signUpSlug and returns a callback function with a potentially-null single document
 SubscriberGroupSchema.statics.findBySlug = function(slug, callback) {
 	return this.findOne({
 		'signUpSlug': slug
-	}, function(err, subscriberGroup) { callback(err, subscriberGroup) });
+	}, function(err, subscriberGroup) { callback(err, subscriberGroup); });
 };
 
 // findBySlugAndAddSubscriber
@@ -65,10 +63,10 @@ SubscriberGroupSchema.statics.findBySlugAndAddSubscriber = function(slug, subscr
 			callback(err);
 		} else {
 			var re = new RegExp(subscriberGroup.emailDomain + '$');
-		  var match = re.test(subscriber.email);
-		  console.log(match);
+			var match = re.test(subscriber.email);
+			console.log(match);
 
-		  if (match) {
+			if (match) {
 				Subscriber.addNew(subscriber, subscriberGroup, function(err, subscriber) {
 					if (err) {
 						callback(err);
@@ -124,7 +122,7 @@ SubscriberGroupSchema.statics.getPublicGroups = function(callback) {
 			callback(null, publicGroups);
 		}
 	});
-}
+};
 
 // export
 module.exports = mongoose.model('SubscriberGroup', SubscriberGroupSchema);

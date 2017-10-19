@@ -30,8 +30,8 @@ var BikeSchema = new mongoose.Schema({
 // creates new bike and sets active to true
 BikeSchema.statics.addNew = function(bike, callback) {
 	bike.active = true;
-	return this.create(bike, function(err, bike) { callback(err, bike) });
-}
+	return this.create(bike, function(err, bike) { callback(err, bike); });
+};
 
 // findByBikeID
 // creates a query by bikeId, and returns a callback function with a potentially-null single document
@@ -58,7 +58,7 @@ BikeSchema.methods.addRepairRequest = function(subscriber, message) {
 
 	this.save(function(err, bike) {
 		if (err) {
-			console.error(err)
+			console.error(err);
 		} else {
 			console.log('Repair request sent to ' + subscriber.subscriberGroup.repairEmail);
 			mailer.sendOne({
@@ -68,15 +68,15 @@ BikeSchema.methods.addRepairRequest = function(subscriber, message) {
 			});
 		}
 	});
-}
+};
 
 // clearRepairRequests
 // removes all repair requests from a bike
 BikeSchema.methods.clearRepairRequests = function(callback) {
 	this.repairRequests = [];
 	this.active = true;
-	this.save(function(err) { callback(err) });
-}
+	this.save(function(err) { callback(err); });
+};
 
 //export
 module.exports = mongoose.model('Bike', BikeSchema);

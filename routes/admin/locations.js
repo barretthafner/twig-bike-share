@@ -47,7 +47,7 @@ router.get('/:id/edit', function(req, res) {
 		} else {
 			res.render('admin/locations/edit', {
 				location: location
-			})
+			});
 		}
 	});
 });

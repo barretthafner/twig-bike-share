@@ -9,7 +9,7 @@
  */
 
 export default function(req, res, next) {
-  if (req.headers['x-forwarded-proto'] != 'https')
-    return res.redirect(301, 'https://' + req.hostname + req.originalUrl);
-  else return next();
-};
+	if (req.headers['x-forwarded-proto'] != 'https')
+		return res.redirect(301, 'https://' + req.hostname + req.originalUrl);
+	else return next();
+}

@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var SubscriberGroup = require('../models/SubscriberGroup');
-var Subscriber = require('../models/Subscriber');
 var routes = require('../config').routes;
 var twilioSendingNumber = require('../config').twilioSendingNumber;
 var siteTitle = require('../config').siteTitle;

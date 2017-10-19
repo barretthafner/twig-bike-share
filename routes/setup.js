@@ -2,8 +2,7 @@
 var express = require('express'),
 	router = express.Router(),
 	routes = require('../config').routes,
-	seed = require('../seeds'),
-	twilio = require('../modules/twilio');
+	seed = require('../seeds');
 
 var Administrator = require('../models/Administrator');
 

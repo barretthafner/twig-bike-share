@@ -21,7 +21,7 @@ router.get(routes.root, function(req, res) {
 				subscriberGroups: subscriberGroups
 			});
 		}
-	})
+	});
 });
 
 // Connect routes

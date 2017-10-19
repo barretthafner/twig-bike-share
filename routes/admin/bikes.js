@@ -8,17 +8,17 @@ var express = require('express'),
 // INDEX route
 router.get('/', function(req, res) {
 	Bike.find({})
-	.sort({ bikeId: 'ascending' })
-	.exec(function(err, bikes) {
-		if (err) {
-			req.flash('error', err.message);
-			res.redirect(routes.admin);
-		} else {
-			res.render('admin/bikes/index', {
-				bikes: bikes
-			});
-		}
-	});
+		.sort({ bikeId: 'ascending' })
+		.exec(function(err, bikes) {
+			if (err) {
+				req.flash('error', err.message);
+				res.redirect(routes.admin);
+			} else {
+				res.render('admin/bikes/index', {
+					bikes: bikes
+				});
+			}
+		});
 });
 
 // NEW route

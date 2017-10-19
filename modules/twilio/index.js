@@ -50,7 +50,7 @@ messenger.sendSms = function(to, message) {
 messenger.twimlResponse = function(response) {
 	var twiml = new twilio.TwimlResponse();
 	return twiml.message(response).toString();
-}
+};
 
 // rejectCall
 // takes the res object from express and rejects a call through the twilio client
@@ -77,9 +77,9 @@ messenger.setEndpoints = function() {
 	client.incomingPhoneNumbers.list(function(err, data) {
 		var sid;
 		data.incomingPhoneNumbers.forEach(function(number) {
-				if(number.phoneNumber === sendingNumber) {
-					sid = number.sid;
-				}
+			if(number.phoneNumber === sendingNumber) {
+				sid = number.sid;
+			}
 		});
 
 		client.incomingPhoneNumbers(sid).update({
@@ -87,7 +87,7 @@ messenger.setEndpoints = function() {
 			voiceMethod: 'POST',
 			smsUrl: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingMessage,
 			smsMethod: 'POST'
-		}, function(err, number) {
+		}, function(err) {
 			if (err) {
 				console.error(err);
 			} else {
@@ -95,7 +95,7 @@ messenger.setEndpoints = function() {
 			}
 		});
 	});
-}
+};
 
 // export
 module.exports = messenger;

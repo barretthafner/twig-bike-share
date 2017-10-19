@@ -41,7 +41,7 @@ router.get(routes.checkouts, function(req, res) {
 					BikeId: checkout.bike ? checkout.bike : 'Unknown',
 					SubscriberId: checkout.subscriber ? checkout.subscriber : 'Unknown',
 					LocationCode: checkout.location ? checkout.location : 'Unknown'
-				}
+				};
 			});
 			stringify(data, { header: true }, function(err, output) {
 				if (err) {
@@ -72,7 +72,7 @@ router.get(routes.subscriberEmailData, function(req, res) {
 						GroupName: subscriber.subscriberGroup.groupName,
 						Active: subscriber.active,
 						SignedUpDate: (new Date(subscriber.signedUpDate)).toLocaleString('en-US', { timeZone: supportTimeZone })
-					}
+					};
 				});
 				stringify(data, { header: true }, function(err, output) {
 					if (err) {
@@ -84,7 +84,7 @@ router.get(routes.subscriberEmailData, function(req, res) {
 					}
 				});
 			}
-	});
+		});
 });
 
 // Download messages route
@@ -94,7 +94,7 @@ router.get(routes.messages, function(req, res) {
 			req.flash('error', err.message);
 			res.redirect(routes.data);
 		} else {
-			var data = []
+			var data = [];
 
 			var promises = messages.map(function(message) {
 				return Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {

@@ -4,7 +4,6 @@ var express = require('express'),
 	multer = require('multer'),
 	path = require('path'),
 	fs = require('fs'),
-	middleware = require('../../middleware'),
 	SubscriberGroup = require('../../models/SubscriberGroup'),
 	Subscriber = require('../../models/Subscriber'),
 	routes = require('../../config').routes;
@@ -39,8 +38,8 @@ router.post('/', upload.single('logo'), function(req, res) {
 			console.log(err);
 			res.redirect(routes.subscriberGroups);
 		} else {
-		 var file = req.file;
-		 if (file) {
+			var file = req.file;
+			if (file) {
 				// rename new logo and set subscriberGroup.logoSrc
 				var publicPath = 'logos/' + subscriberGroup.signUpSlug + '.' + file.originalname.split('.').pop();
 				fs.renameSync(file.path, path.resolve(__dirname, '../../public', publicPath));
@@ -149,7 +148,7 @@ router.get('/:id' + routes.subscribers, function(req, res) {
 			res.render('admin/subscriberGroups/subscribers/index', {
 				groupId: subscriberGroup.id,
 				subscribers: subscriberGroup.subscribers
-			})
+			});
 		}
 	});
 });
@@ -180,7 +179,7 @@ router.put('/:id' + routes.subscribers + '/:subscriberId', function(req, res) {
 			req.flash('error', 'Server error updating subscriber: ' + err);
 		}
 		res.redirect(routes.subscriberGroups + '/' + req.params.id + routes.subscribers);
-	})
+	});
 });
 
 // Group subscriber DESTROY route
@@ -190,7 +189,7 @@ router.delete('/:id' + routes.subscribers + '/:subscriberId', function(req, res)
 			req.flash('error', 'Server error deleting subscriber: ' + err);
 		} else {
 			// using remove because hooks don't fire on findByIdAndRemove and we need them to update subscriberGroup...ugh
-			subscriber.remove(function(err, subscriber) {
+			subscriber.remove(function(err) {
 				if (err) {
 					req.flash('error', 'Server error deleting subscriber: ' + err);
 				}

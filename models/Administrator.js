@@ -18,4 +18,4 @@ var AdministratorSchema = new mongoose.Schema({
 AdministratorSchema.plugin(passportLocalMongoose);
 
 // export
-module.exports = mongoose.model('Administrator', AdministratorSchema)
+module.exports = mongoose.model('Administrator', AdministratorSchema);

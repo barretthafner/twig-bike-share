@@ -11,7 +11,7 @@ var validationCode = {};
 // returns a new validation code
 validationCode.generate = function() {
 	return '$' + shortid.generate();
-}
+};
 
 // export
 module.exports = validationCode;

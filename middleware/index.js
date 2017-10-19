@@ -21,14 +21,14 @@ middlewareObj.addGlobals = function(req, res, next) {
 	res.locals.success = req.flash('success');
 	res.locals.error = req.flash('error');
 	next();
-}
+};
 
 // Check if we need to render the setup page
 middlewareObj.checkDbEmpty = function(req, res, next) {
 	if (global.dbEmpty) {
 		var re = new RegExp(routes.setup);
 		if (req.url.match(re)) {
-			next()
+			next();
 		} else {
 			var Administrator = require('../models/Administrator');
 			Administrator.count({}, function(err, count) {
@@ -43,14 +43,14 @@ middlewareObj.checkDbEmpty = function(req, res, next) {
 	} else {
 		next();
 	}
-}
+};
 
 // Redirect traffic that did not arrive on https
 middlewareObj.redirectInsecure = function(req, res, next) {
-  if (req.headers['x-forwarded-proto'] != 'https') {
-    res.redirect(301, 'https://' + req.hostname + req.originalUrl);
-  }
-  else { next(); }
+	if (req.headers['x-forwarded-proto'] != 'https') {
+		res.redirect(301, 'https://' + req.hostname + req.originalUrl);
+	}
+	else { next(); }
 };
 
 // Export -------------------------------------------------------------------

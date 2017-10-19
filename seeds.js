@@ -1,10 +1,8 @@
 'use strict';
-var mongoose = require('mongoose');
 var Administrator = require('./models/Administrator');
 var Bike = require('./models/Bike');
 var Subscriber = require('./models/Subscriber');
 var SubscriberGroup = require('./models/SubscriberGroup');
-var validationCode = require('./modules/validationCode');
 var twilio = require('./modules/twilio');
 
 var administratorData = [{
@@ -145,7 +143,7 @@ function seed(config) {
 										console.log(subscriber);
 										console.log('added subscriber: ' + subscriber.email + ' to subscriber group: ' + subscriberGroup.groupName);
 									}
-								})
+								});
 							});
 						}
 					});
@@ -158,6 +156,6 @@ function seed(config) {
 		// set twilio endpoints
 		twilio.setEndpoints();
 	}
-};
+}
 
 module.exports = seed;

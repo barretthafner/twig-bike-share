@@ -22,12 +22,12 @@ router.post('/', passport.authenticate('local', {
 	successFlash: 'Welcome!',
 	failureRedirect: routes.admin,
 	failureFlash: true
-}), function(req, res) {});
+}), function() {});
 
 // logout route
 router.get('/logout', function(req, res) {
 	req.logout();
-	req.flash('success', 'You are logged out!')
+	req.flash('success', 'You are logged out!');
 	res.redirect(routes.admin);
 });
 

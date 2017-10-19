@@ -17,4 +17,4 @@ export default function(req, res, next) {
 	} else {
 		return next();
 	}
-};
+}

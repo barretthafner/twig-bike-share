@@ -41,7 +41,7 @@ SubscriberSchema.methods.emailString = function() {
 SubscriberSchema.statics.findByPhoneNumber = function(phoneNumber, callback) {
 	return this.findOne({
 		'phoneNumber': phoneNumber
-	}).populate('subscriberGroup').exec(function(err, subscriber) { callback(err, subscriber) });
+	}).populate('subscriberGroup').exec(function(err, subscriber) { callback(err, subscriber); });
 };
 
 // findByValidationCode
@@ -49,7 +49,7 @@ SubscriberSchema.statics.findByPhoneNumber = function(phoneNumber, callback) {
 SubscriberSchema.statics.findByValidationCode = function(validationCode, callback) {
 	return this.findOne({
 		'validationCode': validationCode
-	}).populate('subscriberGroup').exec(function(err, subscriber) { callback(err, subscriber) });
+	}).populate('subscriberGroup').exec(function(err, subscriber) { callback(err, subscriber); });
 };
 
 // addNew
@@ -58,8 +58,8 @@ SubscriberSchema.statics.addNew = function(subscriber, subscriberGroup, callback
 	subscriber.active = false;
 	subscriber.validationCode = validationCode.generate();
 	subscriber.subscriberGroup = subscriberGroup;
-	return this.create(subscriber, function(err, subscriber) { callback(err, subscriber) });
-}
+	return this.create(subscriber, function(err, subscriber) { callback(err, subscriber); });
+};
 
 SubscriberSchema.pre('remove', function(next) {
 	var subscriber = this;

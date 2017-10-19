@@ -5,7 +5,6 @@
 
 var express = require('express');
 var router = express.Router();
-var middleware = require('../../middleware');
 var regEx = require('../../modules/regExParser');
 var twilio = require('../../modules/twilio');
 var presurvey = require('../../modules/presurvey');
@@ -50,7 +49,7 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 		var sendResponse = responseFactory(message.from, message.body, res);
 
 		// look up subscriber by phone number
-		var promise = Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
+		Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
 
 			// if the query returns a valid subscriber and the account is active, look for bike id
 			if (subscriber && subscriber.active) {
@@ -141,7 +140,7 @@ function responseFactory(from, body, res) {
 			body: body,
 			response: response
 		});
-	}
+	};
 }
 
 module.exports = router;

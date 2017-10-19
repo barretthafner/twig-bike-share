@@ -25,7 +25,7 @@ parser.getLocationFromCheckout = function(string) {
 // regEx for finding a validation code
 parser.getValidationCode = function(string) {
 
-	var matches = string.match(   /\$[A-Za-z0-9_&\-\*]{9}/   );
+	var matches = string.match(   /\$[A-Za-z0-9_&\-*]{9}/   );
 	return matches ? matches[0] : null;
 };
 

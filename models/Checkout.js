@@ -30,8 +30,8 @@ CheckoutSchema.statics.addNew = function(subscriber, bike, location, callback) {
 		bike: bike.bikeId,
 		location: location ? location.code : null
 	};
-	return this.create(newCheckout, function(err, checkout) { callback(err, checkout) });
-}
+	return this.create(newCheckout, function(err, checkout) { callback(err, checkout); });
+};
 
 CheckoutSchema.statics.listWithin30DaysOf = function(date, callback) {
 
@@ -49,7 +49,7 @@ CheckoutSchema.statics.listWithin30DaysOf = function(date, callback) {
 				return {
 					label: moment(date).startOf('day').subtract(index, 'days').format('MMM D'),
 					count: 0
-				}
+				};
 			});
 
 			// for each checkout found increment the count for that day
