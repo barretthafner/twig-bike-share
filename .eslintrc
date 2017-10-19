@@ -1,0 +1,39 @@
+{
+  "parser": "babel-eslint",
+  "extends": "eslint:recommended",
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 6
+  },
+  "globals": {
+    "global": true,
+    "isProduction": true
+  },
+  "rules": {
+    "no-console": "off",
+    "no-unused-vars": "warn",
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "linebreak-style": [
+      "warn",
+      "unix"
+    ],
+    "semi": [
+      "warn",
+      "always"
+    ],
+    "indent": [
+      "warn",
+      "tab",
+      {
+        "SwitchCase": 1
+      }
+    ],
+  }
+}

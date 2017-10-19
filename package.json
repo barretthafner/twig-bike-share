@@ -12,6 +12,7 @@
   "author": "Barrett Hafner <barrett@hafnerindustries.com>",
   "license": "MIT",
   "dependencies": {
+    "babel-eslint": "^8.0.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "connect-flash": "^0.1.1",
