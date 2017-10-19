@@ -3,12 +3,13 @@
 	[
 		{
 			"path": ".",
-			"folder_exclude_patterns": [ "node_modules" ],
-			"file_exclude_patterns": [ "npm-debug.log" ]
+			"folder_exclude_patterns": [ "node_modules", "docs" ],
+			"file_exclude_patterns": [ "npm-debug.log", "package.lock" ]
 		}
 	],
 	"settings": {
-		"translate_tabs_to_spaces": false,
+		"tab_size": 2,
+		"translate_tabs_to_spaces": true,
 		"trim_trailing_white_space_on_save": true,
 		"ensure_newline_at_eof_on_save": true
 	}
