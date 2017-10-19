@@ -1,6 +1,6 @@
 {
   "name": "open-bike-project",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A open source bike sharing platform",
   "main": "server.js",
   "scripts": {
