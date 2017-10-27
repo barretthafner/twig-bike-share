@@ -1,6 +1,6 @@
 {
-  "name": "open-bike-project",
-  "version": "1.0.1",
+  "name": "twig-bike-share",
+  "version": "1.0.2",
   "description": "A open source bike sharing platform",
   "main": "server.js",
   "scripts": {
