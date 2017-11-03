@@ -20,7 +20,7 @@ config.twilioSendingNumber = process.env.TWILIO_NUMBER;
 config.siteTitle = process.env.SITE_TITLE || 'Twig Bike Share';
 config.supportSite = process.env.SUPPORT_SITE || '/';
 config.supportEmail = process.env.SUPPORT_EMAIL || '';
-config.supportTimeZone = process.env.SUPPORT_TIME_ZONE || 'America/Los_Angeles';
+config.supportTimeZone = process.env.TIME_ZONE || 'America/Los_Angeles';
 config.protocol = process.env.SECURE ? 'https://' : 'http://';
 
 // Config app routes
