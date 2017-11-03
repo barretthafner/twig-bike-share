@@ -6,9 +6,9 @@ var SubscriberGroup = require('./models/SubscriberGroup');
 var twilio = require('./modules/twilio');
 
 var administratorData = [{
-	name: 'WTA Admin',
-	username: 'bikeshare@wta-tma.org',
-	password: 'bikes'
+	name: 'Twig Admin',
+	username: 'bikeshare@twigbikeshare.com',
+	password: 'ilovesharingbikes'
 }];
 
 var bikeData =
@@ -56,10 +56,10 @@ var bikeData =
 
 var subscriberGroupData =
 	[{
-		'groupName': 'WTA Bikeshare',
-		'emailDomain': '@wta-tma.org',
-		'signUpSlug': 'wta',
-		'repairEmail': 'bikeshare@wta-tma.org',
+		'groupName': 'Twig Bikeshare',
+		'emailDomain': '@twigbikeshare.com',
+		'signUpSlug': 'twig',
+		'repairEmail': 'bikeshare@twigbikeshare.com',
 		'logoSrc': '/img/OBI_logo_web.png',
 		'legalText': 'A bunch of legal mumbojumbo for you to ignore and just blindly agree to...',
 		'hidden': false
@@ -70,7 +70,7 @@ var subscriberData =
 		{
 			'firstName': 'Test',
 			'lastName': 'User',
-			'email': 'bikeshare@wta-tma.org'
+			'email': 'bikeshare@twigbikeshare.com'
 		}
 	];
 
