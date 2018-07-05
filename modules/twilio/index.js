@@ -82,7 +82,7 @@ messenger.setEndpoints = function() {
 			}
 		});
 
-		client.incomingPhoneNumbers(sid).update({
+		client.incomingPhoneNumbers.get(sid).update({
 			voiceUrl: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingVoice,
 			voiceMethod: 'POST',
 			smsUrl: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingMessage,
