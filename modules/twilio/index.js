@@ -47,8 +47,8 @@ messenger.sendSms = function(to, message) {
 
 // twimlResponse
 // creates a twiml formated response
-messenger.twimlResponse = function(response) {
-	var twiml = new twilio.TwimlResponse();
+messenger.smsResponse = function(response) {
+	var twiml = new twilio.twiml.MessagingResponse();
 	return twiml.message(response).toString();
 };
 
