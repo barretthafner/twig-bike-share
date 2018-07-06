@@ -7,7 +7,6 @@ var express = require('express');
 var router = express.Router();
 var regEx = require('../../modules/regExParser');
 var twilio = require('../../modules/twilio');
-var presurvey = require('../../modules/presurvey');
 
 var Subscriber = require('../../models/Subscriber');
 var Bike = require('../../models/Bike');
@@ -46,7 +45,7 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 		var validationCode = regEx.getValidationCode(message.body);
 
 		var response = '';
-		var sendResponse = responseFactory(message.from, message.body, res);
+		var sendResponse = smsResponseFactory(message.from, message.body, res);
 
 		// look up subscriber by phone number
 		Subscriber.findByPhoneNumber(message.from, function(err, subscriber) {
@@ -113,7 +112,6 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 						subscriber.validationCode = '';
 						subscriber.save();
 						response += 'Welcome to the ' + siteTitle + ' ' + subscriber.firstName + '. Your number is now active.';
-						presurvey.send(subscriber.email);
 					} else {
 						response += 'Sorry you are not authorized to use this application.';
 					}
@@ -130,10 +128,10 @@ router.post(routes.twilioApiIncomingMessage, function(req, res) {
 	}
 });
 
-function responseFactory(from, body, res) {
+function smsResponseFactory(from, body, res) {
 	return function(response) {
 		res.writeHead(200, {'Content-Type': 'text/xml'});
-		res.end(twilio.twimlResponse(response));
+		res.end(twilio.smsResponse(response));
 		console.log('Message sent:', response);
 		Message.create({
 			from: from,

@@ -1,6 +1,5 @@
 # Twig Bike Share
 
-### Version 1.0.2
 A bike sharing platform developed by the [Open Bike Initiative](http://openbikeinitiative.org/), designed to alleviate last mile issues for employers.
 
 This project is a online platform for managing a small to medium size bike share program. It creates a webserver that allows users to signup via email, then use SMS messaging to find out codes to unlock 4 digit tumbler U-locks (such as [this](http://www.onguardlock.com/store/combo-dt-8012c)).
@@ -34,11 +33,13 @@ For the technology side, you will have variable costs from using the twilio serv
 
 ### Setup
 
-Once you are ready to start the setup process check out the Setup Guide(TODO...sorry).
+Once you are ready to start the setup process check out the [Setup Guide](https://github.com/barretthafner/twig-bike-share/blob/master/setup-guide/Twig-Setup-Guide-v1.0.2.pdf).
 
 ## Development
 
 _To Do_ - If you are interested in working with this code directly, please PM me on github.
+
+* Add test suite
 
 ## Built With
 

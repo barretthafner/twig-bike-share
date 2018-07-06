@@ -47,8 +47,8 @@ messenger.sendSms = function(to, message) {
 
 // twimlResponse
 // creates a twiml formated response
-messenger.twimlResponse = function(response) {
-	var twiml = new twilio.TwimlResponse();
+messenger.smsResponse = function(response) {
+	var twiml = new twilio.twiml.MessagingResponse();
 	return twiml.message(response).toString();
 };
 
@@ -82,7 +82,7 @@ messenger.setEndpoints = function() {
 			}
 		});
 
-		client.incomingPhoneNumbers(sid).update({
+		client.incomingPhoneNumbers.get(sid).update({
 			voiceUrl: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingVoice,
 			voiceMethod: 'POST',
 			smsUrl: config.protocol + config.appDomain + routes.twilioApi + routes.twilioApiIncomingMessage,
